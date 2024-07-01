@@ -1,0 +1,333 @@
+
+header {
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 70px;
+    transition: transform 0.3s linear;
+
+    border-bottom: 1px solid #adadad;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+header.hideHeader {
+
+    transform: translateY(-100%);
+}
+
+header .wrapper {
+    max-width: 1200px;
+    padding: 0;
+    margin: 0;
+}
+
+header .logo {
+    font-weight: 600;
+    font-size: 20px;
+    position: relative;
+    width: 200px;
+    height: 20px;
+    float: left;
+
+}
+
+@media (max-width: 900px) {
+    .wrapper {
+        width: 100%;
+    }
+
+}
+
+header .logo img {
+    position: absolute;
+    margin-top: -25px;
+}
+
+header ul.nav {
+    float: right;
+    list-style: none;
+}
+
+
+header ul.nav li {
+    display: inline;
+    margin-left: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 1.1rem;
+
+    &:hover {
+        opacity: 0.5;
+
+    }
+}
+
+header .open-menu-button {
+    float: right;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    margin-right: 15px;
+    font-weight: 600;
+}
+
+header .cart-frequency-icon {
+    transform: scale(1.3);
+    color: #ca5252;
+
+}
+
+header .count-of-orders {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #e21d1d;
+}
+
+header .change-theme-button {
+    transform: scale(1.5);
+}
+
+header .close-menu-button {
+    transform: scale(2.5);
+    position: absolute;
+    right: 70px;
+    top: 50px;
+    opacity: 0;
+    visibility: hidden;
+    color: #333;
+    z-index: 1;
+}
+
+header ul.nav.visible .close-menu-button {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+
+header .shop-cart-button {
+    user-select: none;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover,
+    &.active {
+        color: #dc3d3d;
+    }
+}
+
+
+
+header .shop-cart {
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s;
+    top: 30px;
+    right: 10px;
+    width: 450px;
+
+    background-color: #fff;
+    box-shadow: 4px 4px 14px 0px rgb(96, 97, 98);
+    z-index: 2;
+    padding: 20px;
+    padding-bottom: 0;
+}
+
+header .shop-cart {
+
+    max-height: 700px;
+    overflow-y: scroll;
+
+}
+
+@media (max-width: 800px) {
+    header .shop-cart {
+        width: 95%;
+        top: 0;
+        right: 0;
+        padding: 15px;
+
+        height: 300px;
+
+    }
+
+    header .shop-cart::before {
+        pointer-events: none;
+        content: "";
+        position: fixed;
+        top: 330px;
+        left: 0;
+        width: 100%;
+        height: 40px;
+        transform: translate(0, -100%);
+        background: linear-gradient(180deg, rgba(245, 246, 246, 0) 5%, #acacac 100%);
+    }
+}
+
+header .shop-cart.visible {
+    visibility: visible;
+    opacity: 1;
+
+}
+
+header .shop-cart .shop-cart-title {
+    text-align: center;
+    padding: 5px 0 10px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #333;
+
+
+}
+
+header .shop-cart .shop-cart-title .cart-icon {
+    font-size: 1.2rem;
+    margin-left: 5px;
+}
+
+
+header .shop-cart .empty {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+header .shop-cart .item {
+    width: 100%;
+    margin-bottom: 20px;
+    float: left;
+}
+
+header .shop-cart .item img {
+    height: 100px;
+    float: left;
+    margin-right: 20px;
+}
+
+header .shop-cart .item h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+
+}
+
+header .shop-cart .item p {
+    color: #5fa36a;
+    font-weight: 600;
+}
+
+header .shop-cart .close-cart-button {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+
+    &:hover {
+        transform: scale(1.2);
+
+    }
+}
+
+
+
+
+header .shop-cart .item .delete-icon {
+    color: #ca5252;
+    float: right;
+    position: relative;
+    top: -25px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+        color: #e21d1d;
+        transform: scale(1.2);
+    }
+}
+
+
+header .shop-cart .summ {
+    float: left;
+    width: 50%;
+    font-weight: 600;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+
+}
+
+header .shop-cart .make-order-button {
+    float: right;
+    width: 30%;
+    cursor: pointer;
+    padding: 5px 5px;
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+    border: 0;
+    border-radius: 5px;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #000;
+    transition: 0.5s;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+
+@media (max-width: 800px) {
+    header ul.nav {
+        position: fixed;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: #ffffff;
+        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(-100%, 0);
+        transition: 0.3s;
+    }
+
+    header ul.nav.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(0, 0);
+
+
+
+    }
+
+    header ul.nav li {
+        font-size: 1.5rem;
+
+        margin: 30px 0;
+    }
+
+    header .open-menu-button {
+
+        opacity: 1;
+        visibility: visible;
+    }
+
+    header .shop-cart-button {
+        font-size: 1.3rem;
+
+    }
+
+}

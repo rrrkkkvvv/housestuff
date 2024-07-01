@@ -1,0 +1,59 @@
+
+.pag-wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.page-item {
+    display: inline;
+    max-height: 20px;
+    max-width: 20px;
+    overflow: hidden;
+    padding: 13px;
+    border-radius: 5px;
+    background-color: #333;
+    margin-left: 5px;
+
+    transition: opacity 0.3s;
+    cursor: pointer;
+
+    .page-link {
+        text-decoration: none;
+    }
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+.page-item.current {
+    transition: 0;
+    border: 3px solid #bcbcbc;
+}
+
+.pag-btn {
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+    outline: none;
+    width: 40px;
+    height: 45px;
+    border: 0;
+    padding-top: 3px;
+    transition: 0.3s;
+    font-size: 1.5rem;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+@media(max-width:500px) {
+    .pag-wrapper {
+        justify-content: space-between;
+    }
+}
+
