@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './routes/App.tsx';
-import './styles/index.css';
+ import './index.css';
 import ThemesContextProvider from './contexts/theme-context.tsx';
 import PopUpContextProvider from './contexts/popUp-context.tsx';
 import OrdersContextProvider from './contexts/orders-context.tsx';
@@ -11,8 +10,9 @@ import {
   createBrowserRouter,
   RouterProvider
 } from 'react-router-dom';
-import AdminPanel from './routes/AdminPanel.tsx';
-import ErrorPage from './routes/ErrorPage.tsx';
+ import ErrorPage from './features/ErrorPage';
+import App from './App.tsx';
+import AdminPanel from './features/AdminPanel';
  const basename = "/houseStuff-ts-port-/";
 
 const router = createBrowserRouter([

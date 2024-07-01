@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { ThemeContext } from '../../contexts/theme-context'
-import { ICategoriesProps } from './ICategories';
-import '../../styles/app_styles/categories.css'
+import { ICategoriesProps } from '../../types/ICategories';
+import './Categories.css'
 export default function Categories({ chooseCategory }: ICategoriesProps) {
 
     let themeData = useContext(ThemeContext);

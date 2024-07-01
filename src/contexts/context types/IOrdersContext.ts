@@ -1,15 +1,8 @@
-export interface IOrder {
-    id: number;
-    price: string;
-    img: string;
-    title: string;
-    description: string;
-    fullDesc: string;
-    category: string;
-}
+import { IProduct } from "../../types/IProduct";
+
 
 export interface IOrdersContextValue {
-    orders: IOrder[],
-    addToOrder: (item: IOrder) => void,
+    orders: IProduct[],
+    addToOrder: (item: IProduct) => void,
     deleteOrder: (itemId: number) => void,
 }

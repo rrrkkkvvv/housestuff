@@ -1,7 +1,8 @@
 import { useState, createContext, useContext, useEffect } from 'react'
 import { PopUpContext } from './popUp-context';
 import { ContextProps } from './context types/IContext';
-import { IOrder, IOrdersContextValue } from './context types/IOrdersContext';
+import {   IOrdersContextValue } from './context types/IOrdersContext';
+import { IProduct } from '../types/IProduct';
 export default function OrdersContextProvider({ children }: ContextProps) {
     useEffect(() => {
         const storedOrders = localStorage.getItem('orders')
@@ -21,9 +22,9 @@ export default function OrdersContextProvider({ children }: ContextProps) {
     const popUpContext = useContext(PopUpContext);
 
 
-    let [orders, setOrders] = useState<IOrder[]>([]);
+    let [orders, setOrders] = useState<IProduct[]>([]);
 
-    function addToOrder(item: IOrder): void {
+    function addToOrder(item: IProduct): void {
         if (popUpContext) {
             let itIsInCart = false;
             orders.forEach(el => {

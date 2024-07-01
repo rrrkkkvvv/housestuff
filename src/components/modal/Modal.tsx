@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
 import { AiOutlineClose } from "react-icons/ai"
 import { OrdersContext } from '../../contexts/orders-context';
-import { IModalProps } from './IModal';
+import { IModalProps } from '../../types/IModal';
 import { LoginContext } from '../../contexts/login-context';
-import '../../styles/app_styles/modal.css';
-import { ICategory } from '../forms/CreateProductForm';
+import './Modal.css';
+import { ICategory } from '../CreateProductForm/CreateProductForm';
 const Modal: React.FC<IModalProps> = (props) => {
     const ordersData = useContext(OrdersContext);
 

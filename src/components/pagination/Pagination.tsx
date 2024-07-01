@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { IPaginationProps } from './IPagination';
+import { IPaginationProps } from '../../types/IPagination';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { ThemeContext } from '../../contexts/theme-context';
-import '../../styles/app_styles/pagination.css'
+import './Pagination.css'
 export default function Pagination({ itemsPerPage, totalItems, paginateFn, currentPage, prevPage, nextPage }: IPaginationProps) {
 
     const themeData = useContext(ThemeContext);

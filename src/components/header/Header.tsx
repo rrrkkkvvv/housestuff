@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react'
-import Order from './Order';
+import Order from '../Order';
 
 import { FaShoppingCart, FaCartPlus, FaAdjust } from "react-icons/fa"
 import { AiOutlineClose } from "react-icons/ai"
@@ -7,11 +7,12 @@ import { AiOutlineClose } from "react-icons/ai"
 import { PopUpContext } from '../../contexts/popUp-context';
 import { ThemeContext } from '../../contexts/theme-context';
 import { OrdersContext } from '../../contexts/orders-context';
-import { IHeaderProps } from './IHeader';
-import { LoginContext } from '../../contexts/login-context';
+ import { LoginContext } from '../../contexts/login-context';
 import { Link } from 'react-router-dom';
 
-import '../../styles/app_styles/header.css'
+import './Header.css'
+import { IHeaderProps } from '../../types/IHeader';
+
 
 export default function Header({ onShowModal }: IHeaderProps) {
     const popUpContext = useContext(PopUpContext);
