@@ -1,5 +1,6 @@
  import { ReactNode } from 'react';
 import { IProduct } from './IProduct';
+import { ICategory } from './ICategory';
 
 export type IModalProps = {
     type: 'full-item'
@@ -22,5 +23,11 @@ export type IModalProps = {
     item: IProduct;
     onShowItem: () => void;
     updateProduct:(item: IProduct)=>void
+}|{
+    type: 'edit category'
+    show: boolean;
+    category: ICategory;
+    onShowCategory: () => void;
+    updateCategory:(category: ICategory)=>void
 }
 

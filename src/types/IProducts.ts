@@ -10,6 +10,5 @@ export type IProductsProps ={
     items: IProduct[];
     onShowItem: (product: IProduct) => void;
     onDelete:(id:number)=>void;
-    onUpdate:(product:IProduct)=>void;
 }
 

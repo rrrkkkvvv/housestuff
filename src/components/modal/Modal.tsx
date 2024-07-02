@@ -4,7 +4,7 @@ import { OrdersContext } from '../../contexts/orders-context';
 import { IModalProps } from '../../types/IModal';
 import { LoginContext } from '../../contexts/login-context';
 import './Modal.css';
-import { ICategory } from '../CreateProductForm/CreateProductForm';
+import { ICategory } from '../../types/ICategory';
 const Modal: React.FC<IModalProps> = (props) => {
     const ordersData = useContext(OrdersContext);
 
@@ -244,7 +244,77 @@ const Modal: React.FC<IModalProps> = (props) => {
             </div>
         </div>
         )
-    }
+    }else if(props.type === "edit category"){
+
+        const [title, setTitle] = useState('');
+        const [visibleTitle, setVisibleTitle] = useState('');
+        
+       const [error, setError] = useState('');
+       const [categories, setCategories] = useState<ICategory[]>([]);
+
+       useEffect(() => {
+       
+        setTitle(props.category.title);
+        setVisibleTitle(props.category.visible_title);
+           
+       }, [props.category]);
+     
+  
+   
+     
+       const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+         event.preventDefault();
+         console.log({
+            title:title,
+            visible_title: visibleTitle,
+            id: props.category.id,
+     
+          })
+         props.updateCategory({
+           title:title,
+           visible_title:visibleTitle,
+           id: props.category.id,
+    
+         })
+        };
+     
+
+       return(
+           <div className={`modal  ${props.show && 'visible'}`} onClick={() => props.onShowCategory()}>
+
+               <div className='modal-body' onClick={(e) => e.stopPropagation()}>
+               <span className='close-modal-x' onClick={() => props.onShowCategory()}><AiOutlineClose></AiOutlineClose></span>
+               <h1 className='modal-title'>Edit product</h1>
+                   <div className='modal-text-content'>
+
+                       <form className='create-product-form ' onSubmit={handleSubmit}>
+                       <div>
+                       <label><h3>Title of product:</h3></label>
+                       <input
+                           className='input'
+                           type="text"
+                           value={title}
+                           onChange={(e) => setTitle(e.target.value)}
+                       />
+                       </div>
+                       <div>
+                       <label><h3>Visible title of product:</h3></label>
+                       <input
+                           className='input'
+                           type="text"
+                           value={visibleTitle}
+                           onChange={(e) => setVisibleTitle(e.target.value)}
+                       />
+                       </div>
+                       <br />
+                       {error && <p style={{ color: 'red' }}>{error}</p>}
+                       <button className='search-button' type="submit">Edit</button>
+                   </form>
+               </div>
+           </div>
+       </div>
+       )
+   }
 
 }
 

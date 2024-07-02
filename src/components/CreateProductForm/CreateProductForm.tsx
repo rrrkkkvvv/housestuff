@@ -1,10 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ICategory } from '../../types/ICategory';
  
-export interface ICategory {
-  id: number;
-  title: string;
-  visible_title: string;
-}
+
 
 const CreateProductForm = () => {
   const [isVisible, setIsVisible] = useState(false);

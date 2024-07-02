@@ -66,8 +66,12 @@ header ul.nav li {
         opacity: 0.5;
 
     }
-}
 
+
+}
+header ul.nav li a{
+     text-decoration: none;
+}
 header .open-menu-button {
     float: right;
     opacity: 0;
