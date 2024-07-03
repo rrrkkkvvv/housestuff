@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { LoginContext } from '../../contexts/login-context';
 import { IProduct } from '../../types/IProduct';
 import CreateProductForm from '../../components/CreateProductForm';
@@ -9,6 +9,7 @@ import './AdminPanel.css'
 import { ThemeContext } from '../../contexts/theme-context';
 import AdminCategories from '../../components/AdminCategories';
 import { ICategory } from '../../types/ICategory';
+import fetchProducts from '../../hooks/fetchProducts';
 
 const AdminPanel = () => {
   const loginData = useContext(LoginContext);
@@ -21,8 +22,8 @@ if(isLoggedIn){
   
   let [items, setItems] = useState<IProduct[]>([]);
 
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [itemsPerPage] = useState<number>(3);
+  // const [currentPage, setCurrentPage] = useState<number>(1);
+  // const [itemsPerPage] = useState<number>(3);
   let [showCurrentItem, setShowCurrentItem] = useState(false);
   let [currentEditItem, setCurrentEditItem] = useState<IProduct>(Object);
 
@@ -35,24 +36,16 @@ if(isLoggedIn){
       return <div>failed...</div>;
   }
    const { currentTheme} = themeData;
+   
+   
+    const memoizedFetchProducts = useCallback(async () => {
+      const fetchedProducts = await fetchProducts();
+      setItems(fetchedProducts);
+    }, []);
 
     useEffect(()=>{
-      fetch('http://localhost/projects/housestuffbackend/servicies/product_service.php')
-      .then((response) => response.json())
-      .then((data) => {
-        if(data.records.length >=1){
-
-          setItems(data.records);
-        }else{
-          setItems([]);
-
-        }
-      })
-      .catch((error) => {
-        console.error('Error here!:', error);
-        setItems([]);
-      })
-    },[])
+      memoizedFetchProducts()
+    },[memoizedFetchProducts])
 
 
 

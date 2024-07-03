@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 
 import { ThemeContext } from '../../contexts/theme-context'
 import { ICategoriesProps } from '../../types/ICategories';
 import './Categories.css'
+import fetchCategories from '../../hooks/fetchCategories';
 export default function Categories({ chooseCategory }: ICategoriesProps) {
 
     let themeData = useContext(ThemeContext);
@@ -16,28 +17,24 @@ export default function Categories({ chooseCategory }: ICategoriesProps) {
             visible_title: "All"
         },
 ])
-    useEffect(()=>{
-        fetch('http://localhost/projects/housestuffbackend/servicies/categories_service.php')
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data)
-            setCategories([{
-                id: 0,
-                title:"all",
-                visible_title:"All",
-              }, ...data.records])
-        })
-        .catch((error) => {
-          console.error('Error here!:', error);
-          setCategories([{
+
+    const memoizedFetchCategories = useCallback(async () => {
+        const fetchedCategories = await fetchCategories();
+        setCategories([{
             id: 0,
             title:"all",
             visible_title:"All",
-          }])
-        //   setCurrentItems([]);
-        //   setItems([]);
-        })
-    },[])
+          }, ...fetchedCategories]
+        );
+        
+     }, []);
+
+    useEffect(()=>{
+        memoizedFetchCategories()
+    },[memoizedFetchCategories])
+
+
+
 
 
     return (

@@ -1,10 +1,11 @@
-import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useCallback, useContext, useEffect, useState } from 'react'
 import { AiOutlineClose } from "react-icons/ai"
 import { OrdersContext } from '../../contexts/orders-context';
 import { IModalProps } from '../../types/IModal';
 import { LoginContext } from '../../contexts/login-context';
 import './Modal.css';
 import { ICategory } from '../../types/ICategory';
+import fetchCategories from '../../hooks/fetchCategories';
 const Modal: React.FC<IModalProps> = (props) => {
     const ordersData = useContext(OrdersContext);
 
@@ -125,31 +126,28 @@ const Modal: React.FC<IModalProps> = (props) => {
         const [img, setImg] = useState('');
         const [description, setDescription] = useState('');
         const [fullDesc, setFullDesc] = useState('');
-        const [error, setError] = useState('');
         const [categories, setCategories] = useState<ICategory[]>([]);
 
-        useEffect(() => {
-          fetch('http://localhost/projects/housestuffbackend/servicies/categories_service.php')
-            .then((response) => response.json())
-            .then((data) => {
-              setCategories(data.records);
-              setTitle(props.item.title);
-              setCategory(data.records[0].title);
-              setDescription(props.item.description);
-              setFullDesc(props.item.fullDesc);
-              setImg(props.item.img);
-              setCategory(props.item.category);
-              setPrice(parseFloat(props.item.price) );
-     
-            })
-            .catch((error) => {
-              console.error('Error here!:', error);
-              setCategories([]);
-            });
-
-            
+          
+        const memoizedFetchCategories = useCallback(async () => {
+            const fetchedCategories = await fetchCategories();
+            setCategories(fetchedCategories);
+            if(fetchedCategories[0].title){
+            setCategory(fetchedCategories[0].title);
+            }
+            setTitle(props.item.title);
+            setDescription(props.item.description);
+            setFullDesc(props.item.fullDesc);
+            setImg(props.item.img);
+            setCategory(props.item.category);
+            setPrice(parseFloat(props.item.price) );
         }, [props.item]);
-      
+
+        useEffect(()=>{
+            memoizedFetchCategories()
+        },[memoizedFetchCategories, ])
+
+       
         const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
             setCategory(event.target.value);
           };
@@ -237,8 +235,7 @@ const Modal: React.FC<IModalProps> = (props) => {
                         />
                         </div>
                         <br />
-                        {error && <p style={{ color: 'red' }}>{error}</p>}
-                        <button className='search-button' type="submit">Edit</button>
+                       <button className='search-button' type="submit">Edit</button>
                     </form>
                 </div>
             </div>
@@ -249,9 +246,7 @@ const Modal: React.FC<IModalProps> = (props) => {
         const [title, setTitle] = useState('');
         const [visibleTitle, setVisibleTitle] = useState('');
         
-       const [error, setError] = useState('');
-       const [categories, setCategories] = useState<ICategory[]>([]);
-
+ 
        useEffect(() => {
        
         setTitle(props.category.title);
@@ -307,8 +302,7 @@ const Modal: React.FC<IModalProps> = (props) => {
                        />
                        </div>
                        <br />
-                       {error && <p style={{ color: 'red' }}>{error}</p>}
-                       <button className='search-button' type="submit">Edit</button>
+                        <button className='search-button' type="submit">Edit</button>
                    </form>
                </div>
            </div>

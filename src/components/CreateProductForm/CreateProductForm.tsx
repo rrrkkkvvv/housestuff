@@ -1,5 +1,6 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react';
 import { ICategory } from '../../types/ICategory';
+import fetchCategories from '../../hooks/fetchCategories';
  
 
 
@@ -14,19 +15,23 @@ const CreateProductForm = () => {
   const [error, setError] = useState('');
   const [categories, setCategories] = useState<ICategory[]>([]);
 
-  useEffect(() => {
-    fetch('http://localhost/projects/housestuffbackend/servicies/categories_service.php')
-      .then((response) => response.json())
-      .then((data) => {
-        setCategories(data.records);
-        setCategory(data.records[0].title);
-      })
-      .catch((error) => {
-        console.error('Error here!:', error);
-        setCategories([]);
-      });
-  }, []);
 
+  
+  const memoizedFetchCategories = useCallback(async () => {
+    const fetchedCategories = await fetchCategories();
+    setCategories(fetchedCategories);
+    if(fetchedCategories[0].title){
+      setCategory(fetchedCategories[0].title);
+    }
+ }, []);
+
+  useEffect(()=>{
+      memoizedFetchCategories()
+  },[memoizedFetchCategories])
+
+
+
+ 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setCategory(event.target.value);
   };
