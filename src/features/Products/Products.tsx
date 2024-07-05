@@ -1,7 +1,7 @@
 import { IProductsProps } from '../../types/IProducts'
 import AdminProduct from './components/AdminProductItem/AdminProduct'
 import Product from './components/ProductItem/ProductItem'
-
+import "./Products.css"
 export default function Products(props: IProductsProps) {
 
     if(props.type === "user"){

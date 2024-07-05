@@ -2,7 +2,7 @@ import { useState, createContext, useContext, useEffect } from 'react'
 import { PopUpContext } from './popUp-context';
 import { ContextProps } from './context types/IContext';
 import {   IOrdersContextValue } from './context types/IOrdersContext';
-import { IProduct } from '../types/IProduct';
+import { IProduct } from '../types/IProducts';
 export default function OrdersContextProvider({ children }: ContextProps) {
     useEffect(() => {
         const storedOrders = localStorage.getItem('orders')
@@ -39,7 +39,7 @@ export default function OrdersContextProvider({ children }: ContextProps) {
 
                 popUpContext.showPopUpFn({ type: "", text: "Product was added in cart" });
             } else {
-                popUpContext.showPopUpFn({ type: "red", text: "Product in cart!!" });
+                popUpContext.showPopUpFn({ type: "red", text: "Product is already in cart!!" });
             }
         }
 

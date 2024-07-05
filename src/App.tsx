@@ -5,8 +5,8 @@ import { useState, useEffect, useContext } from 'react';
 
  import { PopUpContext } from './contexts/popUp-context';
 import { ThemeContext } from './contexts/theme-context';
-import { IProduct } from './types/IProduct';
-import debounce from './hooks/debounse';
+import { IProduct } from './types/IProducts';
+import debounce from './hooks/useDebounce';
 import OrdersContextProvider from './contexts/orders-context';
 import Header from './components/Header';
 import Search from './components/Search';

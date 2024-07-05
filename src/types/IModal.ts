@@ -1,6 +1,6 @@
  import { ReactNode } from 'react';
-import { IProduct } from './IProduct';
-import { ICategory } from './ICategory';
+import { IProduct } from './IProducts';
+import { ICategory } from './ICategories';
 
 export type IModalProps = {
     type: 'full-item'

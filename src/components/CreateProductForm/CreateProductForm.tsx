@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react';
-import { ICategory } from '../../types/ICategory';
-import fetchCategories from '../../hooks/fetchCategories';
+import { ICategory } from '../../types/ICategories';
+import fetchCategories from '../../api/fetchCategories';
  
 
 

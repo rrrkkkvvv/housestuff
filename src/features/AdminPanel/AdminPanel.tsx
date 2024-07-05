@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { LoginContext } from '../../contexts/login-context';
-import { IProduct } from '../../types/IProduct';
+import { IProduct } from '../../types/IProducts';
 import CreateProductForm from '../../components/CreateProductForm';
 import Products from '../Products';
 import CreateCategoryForm from '../../components/CreateCategoryForm';
@@ -8,8 +8,8 @@ import Modal from '../../components/Modal/Modal';
 import './AdminPanel.css'
 import { ThemeContext } from '../../contexts/theme-context';
 import AdminCategories from '../../components/AdminCategories';
-import { ICategory } from '../../types/ICategory';
-import fetchProducts from '../../hooks/fetchProducts';
+import { ICategory } from '../../types/ICategories';
+import fetchProducts from '../../api/fetchProducts';
 
 const AdminPanel = () => {
   const loginData = useContext(LoginContext);

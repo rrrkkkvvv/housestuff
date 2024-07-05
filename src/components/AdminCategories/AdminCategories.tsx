@@ -2,9 +2,9 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 
 import { ThemeContext } from '../../contexts/theme-context'
 import './AdminCategories.css'
-import { ICategory } from '../../types/ICategory';
-import { IAdminCategoriesProps } from '../../types/IAdminCategory';
-import fetchCategories from '../../hooks/fetchCategories';
+import { ICategory } from '../../types/ICategories';
+import { IAdminCategoriesProps } from '../../types/ICategories';
+import fetchCategories from '../../api/fetchCategories';
 export default function AdminCategories({onDelete,onShowCategory}:IAdminCategoriesProps) {
 
     let themeData = useContext(ThemeContext);

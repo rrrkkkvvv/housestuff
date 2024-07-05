@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { ThemeContext } from '../../../../contexts/theme-context';
-import { IAdminProductProps } from '../../../../types/IProduct';
+import { IAdminProductProps } from '../../../../types/IProducts';
  
 export default function AdminProduct({ onShowItem, item, onDelete }: IAdminProductProps) {
 

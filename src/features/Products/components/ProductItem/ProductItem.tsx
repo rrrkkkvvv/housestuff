@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css';
-  import { IProductProps } from '../../../../types/IProduct';
+  import { IProductProps } from '../../../../types/IProducts';
 import { ThemeContext } from '../../../../contexts/theme-context';
 import { OrdersContext } from '../../../../contexts/orders-context';
 export default function Product({ onShowItem, item }: IProductProps) {

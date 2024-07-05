@@ -4,8 +4,8 @@ import { OrdersContext } from '../../contexts/orders-context';
 import { IModalProps } from '../../types/IModal';
 import { LoginContext } from '../../contexts/login-context';
 import './Modal.css';
-import { ICategory } from '../../types/ICategory';
-import fetchCategories from '../../hooks/fetchCategories';
+import { ICategory } from '../../types/ICategories';
+import fetchCategories from '../../api/fetchCategories';
 const Modal: React.FC<IModalProps> = (props) => {
     const ordersData = useContext(OrdersContext);
 
