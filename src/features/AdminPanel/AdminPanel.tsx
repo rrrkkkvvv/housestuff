@@ -39,7 +39,7 @@ if(isLoggedIn){
    
    
     const memoizedFetchProducts = useCallback(async () => {
-      const fetchedProducts = await fetchProducts();
+      const fetchedProducts = await fetchProducts(1, 6);
       setItems(fetchedProducts);
     }, []);
 

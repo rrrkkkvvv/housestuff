@@ -1,5 +1,5 @@
  
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
  
 //To deploy a gh pages use: npm run predeploy    npm run deploy
 
@@ -15,9 +15,13 @@ import Products from './features/Products';
 import Pagination from './components/Pagination';
 import Modal from './components/Modal';
 import Footer from './components/Footer';
-export default function App() {
-  console.log("Rendering App");
+import fetchProducts from './api/fetchProducts';
 
+
+const itemsPerPage = 6;
+
+export default function App() {
+ 
 
 
   const popUpContext = useContext(PopUpContext);
@@ -32,27 +36,26 @@ export default function App() {
 
   
 
-  let [items, setItems] = useState<IProduct[]>([]);
-  let [currentItems, setCurrentItems] = useState<IProduct[]>([]);
+  const [items, setItems] = useState<IProduct[]>([]);
+  const [currentItems, setCurrentItems] = useState<IProduct[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [itemsPerPage] = useState<number>(3);
+  const [totalItemsQuantity, setTotalItemsQuantity] = useState<number>(1);
+  
+
+  const memoizedFetchProducts = useCallback(async () => {
+    const fetchedProducts = await fetchProducts(currentPage, 6);
+    setCurrentItems(fetchedProducts.records);
+    setItems(fetchedProducts.records);  
+    setTotalItemsQuantity(fetchedProducts.pagination.total  )
+    console.log(currentPage)
+  }, [currentPage]);
+
+  useEffect(()=>{
+    memoizedFetchProducts()
+  },[memoizedFetchProducts,currentPage])
+
   useEffect(() => {
-    fetch('http://localhost/projects/housestuffbackend/servicies/product_service.php')
-      .then((response) => response.json())
-      .then((data) => {
-        if(data.records.length >=1){
-          setCurrentItems(data.records);
-          setItems(data.records);
-        }else{
-          setCurrentItems([]);
-          setItems([]);
-        }
-      })
-      .catch((error) => {
-        console.error('Error here!:', error);
-        setCurrentItems([]);
-        setItems([]);
-      })
+    
 
     
     let lastScroll = 0;
@@ -88,9 +91,6 @@ export default function App() {
   }, [])
 
   //------------PAGINATION ---start
-  const lastItemIndex = currentPage * itemsPerPage;
-  const firstItemIndex = lastItemIndex - itemsPerPage;
-  const currentPageItems = currentItems.slice(firstItemIndex, lastItemIndex);
 
 
   const paginate = (pageNumber: number, e: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
@@ -101,7 +101,7 @@ export default function App() {
 
   const nextPage = (): void => {
 
-    if (currentPage < Math.ceil(currentItems.length / itemsPerPage)) {
+    if (currentPage < totalItemsQuantity) {
       setCurrentPage((prev) => prev += 1);
 
     } else {
@@ -132,11 +132,11 @@ export default function App() {
 
         let newCurrItems = items.filter(el => checkAllLetters(el.title.toLowerCase(), splitValue));
 
-        setCurrentItems(currentItems = newCurrItems);
+        setCurrentItems( newCurrItems);
 
 
     } else {
-      setCurrentItems(currentItems = items);
+      setCurrentItems( items);
 
     }
 
@@ -170,7 +170,7 @@ export default function App() {
         <div className='presentation'></div>
         <Search searchFilter={searchFn} />
         <Categories chooseCategory={chooseCategory} />
-        <Products type='user' onShowItem={onShowItem} items={currentPageItems} />
+        <Products type='user' onShowItem={onShowItem} items={items} />
         <div className={`notification ${popUpContext.showPopUp ? 'visible' : ''} ${popUpContext.popUpBgRed ? 'red' : 'green'}`}>
           <p>{popUpContext.popUpText}</p>
         </div>
@@ -180,7 +180,7 @@ export default function App() {
           currentPage={currentPage}
           paginateFn={paginate}
           itemsPerPage={itemsPerPage}
-          totalItems={currentItems.length}
+          totalItems={totalItemsQuantity}
         />
         <Modal
           type={"full-item"}
@@ -225,10 +225,10 @@ export default function App() {
   function chooseCategory(category: string) {
     setCurrentPage(1);
     if (category === "all") {
-      return setCurrentItems(currentItems = items);
+      return setCurrentItems(  items);
     }
 
-    setCurrentItems(currentItems = items.filter(el => el.category === category));
+    setCurrentItems(  items.filter(el => el.category === category));
   }
   function checkAllLetters(name: string, charArray: string[]) {
 

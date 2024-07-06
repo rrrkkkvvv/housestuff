@@ -15,6 +15,8 @@ export default function Pagination({ itemsPerPage, totalItems, paginateFn, curre
     const pageNumbers = [];
 
     for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
+        console.log(itemsPerPage)
+
         pageNumbers.push(i);
     }
     if (pageNumbers.length > 1) {

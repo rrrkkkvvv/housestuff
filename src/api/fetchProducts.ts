@@ -1,10 +1,10 @@
  
-const fetchProducts = async()=>{
+const fetchProducts = async(page:number, limit:number)=>{
     try{
-      let response = await fetch("http://localhost/projects/housestuffbackend/servicies/product_service.php");
+      let response = await fetch(`http://localhost/projects/housestuffbackend/servicies/product_service.php?page=${page}&limit=${limit}`);
       const data = await response.json();
       if(data.records.length >=1 ){
-        return data.records;
+        return data;
       }else{
         return [];
       }
