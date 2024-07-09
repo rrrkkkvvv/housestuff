@@ -7,8 +7,7 @@ import { useState, useEffect, useContext, useCallback } from 'react';
 import { ThemeContext } from './contexts/theme-context';
 import { IProduct } from './types/IProducts';
 import debounce from './hooks/useDebounce';
-import OrdersContextProvider from './contexts/orders-context';
-import Header from './components/Header';
+ import Header from './components/Header';
 import Search from './components/Search';
 import Categories from './components/Categories';
 import Products from './features/Products';
@@ -47,8 +46,7 @@ export default function App() {
     setCurrentItems(fetchedProducts.records);
     setItems(fetchedProducts.records);  
     setTotalItemsQuantity(fetchedProducts.pagination.total  )
-    console.log(currentPage)
-  }, [currentPage]);
+   }, [currentPage]);
 
   useEffect(()=>{
     memoizedFetchProducts()
@@ -165,7 +163,6 @@ export default function App() {
 
     <div className='wrapper' style={{ background: themeData.currentTheme.background, color: themeData.currentTheme.color }}>
 
-      <OrdersContextProvider>
         <Header onShowModal={onShowModal} />
         <div className='presentation'></div>
         <Search searchFilter={searchFn} />
@@ -215,8 +212,7 @@ export default function App() {
           onShowModal={onShowModal}
           />
         <Footer />
-      </OrdersContextProvider>
-
+ 
     </div>
 
 

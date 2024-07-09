@@ -1,10 +1,10 @@
-import { useContext } from 'react'
 import { FaTrash } from 'react-icons/fa'
-import { OrdersContext } from '../../contexts/orders-context';
 import { IOrderProps } from '../../types/IOrder';
+import { useDispatch } from 'react-redux';
+import { decrement } from '../../store/slices/ordersSlice';
 
 export default function Order({ item }: IOrderProps) {
-    const ordersData = useContext(OrdersContext);
+    const dispatch = useDispatch();
 
     return (
 
@@ -12,7 +12,7 @@ export default function Order({ item }: IOrderProps) {
             <img src={"./imgs-public/" + item.img} alt="" />
             <h2>{item.title}</h2>
             <p>{item.price}$</p>
-            <FaTrash className='delete-icon' onClick={() => { ordersData?.deleteOrder(item.id) }} />
+            <FaTrash className='delete-icon' onClick={() => { dispatch(decrement(item.id)) }} />
         </div>
 
     )

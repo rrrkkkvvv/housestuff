@@ -5,11 +5,11 @@ import CreateProductForm from '../../components/CreateProductForm';
 import Products from '../Products';
 import CreateCategoryForm from '../../components/CreateCategoryForm';
 import Modal from '../../components/Modal/Modal';
-import './AdminPanel.css'
 import { ThemeContext } from '../../contexts/theme-context';
 import AdminCategories from '../../components/AdminCategories';
 import { ICategory } from '../../types/ICategories';
 import fetchProducts from '../../api/fetchProducts';
+import './AdminPanel.css'
 
 const AdminPanel = () => {
   const loginData = useContext(LoginContext);
@@ -22,8 +22,7 @@ if(isLoggedIn){
   
   let [items, setItems] = useState<IProduct[]>([]);
 
-  // const [currentPage, setCurrentPage] = useState<number>(1);
-  // const [itemsPerPage] = useState<number>(3);
+  
   let [showCurrentItem, setShowCurrentItem] = useState(false);
   let [currentEditItem, setCurrentEditItem] = useState<IProduct>(Object);
 
@@ -40,7 +39,7 @@ if(isLoggedIn){
    
     const memoizedFetchProducts = useCallback(async () => {
       const fetchedProducts = await fetchProducts(1, 6);
-      setItems(fetchedProducts);
+      setItems(fetchedProducts.records);
     }, []);
 
     useEffect(()=>{

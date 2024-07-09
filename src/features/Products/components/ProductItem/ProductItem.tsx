@@ -1,14 +1,15 @@
 import { useContext } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css';
-  import { IProductProps } from '../../../../types/IProducts';
+import { IProductProps } from '../../../../types/IProducts';
 import { ThemeContext } from '../../../../contexts/theme-context';
-import { OrdersContext } from '../../../../contexts/orders-context';
+import { useDispatch } from 'react-redux';
+import { increment } from '../../../../store/slices/ordersSlice';
 export default function Product({ onShowItem, item }: IProductProps) {
+    const dispatch = useDispatch();
 
-    const ordersData = useContext(OrdersContext);
     const themeData = useContext(ThemeContext);
-    if (!ordersData || !themeData) {
+    if ( !themeData) {
         return <div>failed...</div>;
     }
     let product = item;
@@ -30,7 +31,7 @@ export default function Product({ onShowItem, item }: IProductProps) {
 
             <p style={{ background: themeData.currentTheme.background, color: themeData.currentTheme.color }}>{product.description}</p>
             <b >{product.price}$</b>
-            <div className='add-to-cart' onClick={() => { ordersData.addToOrder(product) }}>+</div>
+            <div className='add-to-cart' onClick={() => {dispatch(increment(product))}}>+</div>
         </div>
     )
 }

@@ -6,25 +6,28 @@ import { AiOutlineClose } from "react-icons/ai"
 
 import { PopUpContext } from '../../contexts/popUp-context';
 import { ThemeContext } from '../../contexts/theme-context';
-import { OrdersContext } from '../../contexts/orders-context';
- import { LoginContext } from '../../contexts/login-context';
+import { LoginContext } from '../../contexts/login-context';
 import { Link } from 'react-router-dom';
 
 import './Header.css'
 import { IHeaderProps } from '../../types/IHeader';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { IProduct } from '../../types/IProducts';
 
 
 export default function Header({ onShowModal }: IHeaderProps) {
     const popUpContext = useContext(PopUpContext);
-    const ordersData = useContext(OrdersContext);
+ 
+    const orders:IProduct[] = useSelector((state:RootState)=> state.orders.orders);
+
     const themeData = useContext(ThemeContext);
     const loginData = useContext(LoginContext);
 
-    if (!popUpContext || !ordersData || !themeData || !loginData) {
+    if (!popUpContext || !themeData || !loginData) {
         return <div>failed...</div>;
     }
 
-    const { orders } = ordersData;
     const {  isLoggedIn } = loginData;
     const { showPopUpFn, } = popUpContext;
     const { currentTheme, } = themeData;
@@ -94,7 +97,7 @@ export default function Header({ onShowModal }: IHeaderProps) {
                     <li onClick={() => { onShowModal("about"), setShowMenu(false) }}>About us</li>
                     <li onClick={() => { onShowModal("contacts"), setShowMenu(false) }}>Contacts</li>
 
-                    <li className={`shop-cart-button  ${cartOpen && ' active'}`} onClick={() => { setCartOpen(!cartOpen), setShowMenu(showMenu = false) }}>Open Cart {ordersData.orders.length ? <span > <FaCartPlus className='cart-frequency-icon' /> <sup className='count-of-orders'>{ordersData.orders.length}</sup></span> : <FaShoppingCart />}
+                    <li className={`shop-cart-button  ${cartOpen && ' active'}`} onClick={() => { setCartOpen(!cartOpen), setShowMenu(showMenu = false) }}>Open Cart {orders.length ? <span > <FaCartPlus className='cart-frequency-icon' /> <sup className='count-of-orders'>{ orders.length}</sup></span> : <FaShoppingCart />}
                     </li>
                     <li onClick={themeData.toggleTheme} >{
                         <FaAdjust className='change-theme-button' />
@@ -107,7 +110,7 @@ export default function Header({ onShowModal }: IHeaderProps) {
                 <div className={`shop-cart ${cartOpen && 'visible'}`} style={{ background: themeData.currentTheme.background, color: themeData.currentTheme.color }} >
                     <div className="close-cart-button" onClick={() => setCartOpen(!cartOpen)} >X</div>
 
-                    {ordersData.orders.length > 0 ? showOrders() : showNothing()}
+                    {orders.length > 0 ? showOrders() : showNothing()}
                     <button className='make-order-button' onClick={() => showPopUpFn({ type: "red", text: "This isnt a real shop!!" })}>Make an order</button>
                 </div>
 

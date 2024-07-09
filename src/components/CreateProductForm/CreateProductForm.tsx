@@ -20,7 +20,7 @@ const CreateProductForm = () => {
   const memoizedFetchCategories = useCallback(async () => {
     const fetchedCategories = await fetchCategories();
     setCategories(fetchedCategories);
-    if(fetchedCategories[0].title){
+    if(fetchedCategories && fetchedCategories[0].title){
       setCategory(fetchedCategories[0].title);
     }
  }, []);

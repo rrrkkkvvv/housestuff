@@ -2,10 +2,6 @@ import { useState, createContext} from 'react'
 import { ContextProps } from './context types/IContext';
 import {  ILoginContextValue } from './context types/ILoginContext';
 export default function LoginContextProvider({ children }: ContextProps) {
-    
-
-
-
 
     let [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
     const handleLogin = () => {
@@ -15,7 +11,6 @@ export default function LoginContextProvider({ children }: ContextProps) {
     const value: ILoginContextValue = {
         isLoggedIn,
         handleLogin,
-
     }
 
 
