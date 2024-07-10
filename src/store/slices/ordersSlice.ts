@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { IProduct } from '../../types/IProducts';
-import { useContext } from 'react';
-import { PopUpContext } from '../../contexts/popUp-context';
+import { useDispatch } from 'react-redux';
+import { showPopUpFn} from './popupSlice';
 
 export interface OrdersState {
     orders: IProduct[];
@@ -27,37 +27,49 @@ const initialState:OrdersState = {
     orders: loadOrdersFromLS(),
 }
  
+export const increment = createAsyncThunk(
+    'orders/increment',
+    async (product: IProduct, { dispatch, getState }) => {
+        const state = getState() as { orders: OrdersState };
+        const orders = state.orders.orders;
+        let itIsInCart = false;
+        orders.forEach(el => {
+            if (el.id === product.id) {
+                itIsInCart = true;
+            }
+        });
+
+        if (!itIsInCart) {
+            const updatedOrders = [...orders, product];
+            localStorage.setItem('orders', JSON.stringify(updatedOrders));
+            dispatch(showPopUpFn({ popUpBg: 'green', popUpText: 'Product was added in cart' }));
+            return updatedOrders;
+        } else {
+            dispatch(showPopUpFn({ popUpBg: 'red', popUpText: 'Product is already in cart!' }));
+            return orders;
+        }
+    }
+);
+
 const ordersSlice = createSlice({
     name: 'orders',
     initialState,
     reducers: {
-        increment:(state, action: PayloadAction<IProduct>)=>{
- 
-            let itIsInCart = false;
-            state.orders.forEach(el => {
-                if (el.id === action.payload.id) {
-                    itIsInCart = true;
-                }
-            });
 
-            if (!itIsInCart) {
-                state.orders =   [...state.orders, action.payload];
-                localStorage.setItem('orders', JSON.stringify(state.orders));
-                alert('Product was added in cart')
-
-            } else {
-                alert('Product is already in cart!')
-            }
-        
-        },
         decrement :(state, action: PayloadAction<number>)=>{
             state.orders =  state.orders.filter(el => el.id !== action.payload);
             localStorage.setItem('orders', JSON.stringify(state.orders));
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(increment.fulfilled, (state, action) => {
+            state.orders = action.payload;
+        });
     }
+
 });
 
 
-export const {increment, decrement} = ordersSlice.actions;
+export const {decrement} = ordersSlice.actions;
 const ordersReducer = ordersSlice.reducer
 export default ordersReducer;

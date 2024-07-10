@@ -1,6 +1,9 @@
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react';
 import { ICategory } from '../../types/ICategories';
 import fetchCategories from '../../api/fetchCategories';
+import { showPopUpFn } from '../../store/slices/popupSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
  
 
 
@@ -15,6 +18,7 @@ const CreateProductForm = () => {
   const [error, setError] = useState('');
   const [categories, setCategories] = useState<ICategory[]>([]);
 
+  const dispatch = useDispatch<AppDispatch>();
 
   
   const memoizedFetchCategories = useCallback(async () => {
@@ -73,9 +77,12 @@ const CreateProductForm = () => {
       });
       const data = await response.json();
       if (data.message === "Product was created") {
-        alert('Product was added successfully');
+         dispatch(showPopUpFn({popUpBg:"green", popUpText:"Product was added successfully"}))
+
       } else {
         setError(data.message);
+        dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${data.message}`}))
+
       }
     } catch (error) {
       setError('An error occurred. Please try again.');

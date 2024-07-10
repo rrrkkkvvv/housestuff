@@ -3,11 +3,10 @@ import { useState, useEffect, useContext, useCallback } from 'react';
  
 //To deploy a gh pages use: npm run predeploy    npm run deploy
 
- import { PopUpContext } from './contexts/popUp-context';
 import { ThemeContext } from './contexts/theme-context';
 import { IProduct } from './types/IProducts';
 import debounce from './hooks/useDebounce';
- import Header from './components/Header';
+import Header from './components/Header';
 import Search from './components/Search';
 import Categories from './components/Categories';
 import Products from './features/Products';
@@ -15,20 +14,22 @@ import Pagination from './components/Pagination';
 import Modal from './components/Modal';
 import Footer from './components/Footer';
 import fetchProducts from './api/fetchProducts';
-
+import { useSelector } from 'react-redux';
+import { RootState } from './store/store';
+ 
 
 const itemsPerPage = 6;
 
 export default function App() {
  
 
+  const {popUpBg,popUpText,showPopUp} = useSelector((state:RootState)=> state.popUp);
 
-  const popUpContext = useContext(PopUpContext);
-
+ 
   const themeData = useContext(ThemeContext);
 
 
-  if (!popUpContext || !themeData) {
+  if ( !themeData) {
     return <div>failed...</div>;
   }
 
@@ -168,8 +169,8 @@ export default function App() {
         <Search searchFilter={searchFn} />
         <Categories chooseCategory={chooseCategory} />
         <Products type='user' onShowItem={onShowItem} items={items} />
-        <div className={`notification ${popUpContext.showPopUp ? 'visible' : ''} ${popUpContext.popUpBgRed ? 'red' : 'green'}`}>
-          <p>{popUpContext.popUpText}</p>
+        <div className={`notification ${showPopUp ? 'visible' : ''} ${popUpBg}`}>
+          <p>{popUpText}</p>
         </div>
         <Pagination
           prevPage={prevPage}

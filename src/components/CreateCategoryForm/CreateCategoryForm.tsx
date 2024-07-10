@@ -1,4 +1,7 @@
 import {   FormEvent, useState  } from 'react';
+import { useDispatch } from 'react-redux';
+import { showPopUpFn } from '../../store/slices/popupSlice';
+import { AppDispatch } from '../../store/store';
 
  
 
@@ -7,7 +10,7 @@ const CreateCategoryForm = () => {
   const [visibleTitle, setVisibleTitle] = useState('');
   const [error, setError] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-
+  const dispatch = useDispatch<AppDispatch>();
   const handleVisibility = () => {
     setIsVisible(!isVisible);
   };
@@ -27,10 +30,11 @@ const CreateCategoryForm = () => {
       });
       const data = await response.json();
       if (data.message === "Category was created") {
-        alert('Category was added successfully');
-      } else {
+        dispatch(showPopUpFn({popUpBg:"green", popUpText:"Category was added successfully"}))
+       } else {
         setError(data.message);
         console.log(data.message);
+        dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${data.message}`}))
 
       }
     } catch (error) {

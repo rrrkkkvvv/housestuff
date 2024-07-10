@@ -5,8 +5,9 @@ import { IProductProps } from '../../../../types/IProducts';
 import { ThemeContext } from '../../../../contexts/theme-context';
 import { useDispatch } from 'react-redux';
 import { increment } from '../../../../store/slices/ordersSlice';
+import { AppDispatch } from '../../../../store/store';
 export default function Product({ onShowItem, item }: IProductProps) {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
     const themeData = useContext(ThemeContext);
     if ( !themeData) {

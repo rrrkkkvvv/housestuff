@@ -4,32 +4,33 @@ import Order from '../Order';
 import { FaShoppingCart, FaCartPlus, FaAdjust } from "react-icons/fa"
 import { AiOutlineClose } from "react-icons/ai"
 
-import { PopUpContext } from '../../contexts/popUp-context';
 import { ThemeContext } from '../../contexts/theme-context';
 import { LoginContext } from '../../contexts/login-context';
 import { Link } from 'react-router-dom';
 
 import './Header.css'
 import { IHeaderProps } from '../../types/IHeader';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { IProduct } from '../../types/IProducts';
+import { showPopUpFn } from '../../store/slices/popupSlice';
 
 
 export default function Header({ onShowModal }: IHeaderProps) {
-    const popUpContext = useContext(PopUpContext);
- 
+
+    const dispatch = useDispatch();
+    
     const orders:IProduct[] = useSelector((state:RootState)=> state.orders.orders);
 
     const themeData = useContext(ThemeContext);
     const loginData = useContext(LoginContext);
 
-    if (!popUpContext || !themeData || !loginData) {
+    if (  !themeData || !loginData) {
         return <div>failed...</div>;
     }
 
     const {  isLoggedIn } = loginData;
-    const { showPopUpFn, } = popUpContext;
+
     const { currentTheme, } = themeData;
 
 
@@ -111,7 +112,7 @@ export default function Header({ onShowModal }: IHeaderProps) {
                     <div className="close-cart-button" onClick={() => setCartOpen(!cartOpen)} >X</div>
 
                     {orders.length > 0 ? showOrders() : showNothing()}
-                    <button className='make-order-button' onClick={() => showPopUpFn({ type: "red", text: "This isnt a real shop!!" })}>Make an order</button>
+                    <button className='make-order-button' onClick={() => dispatch(showPopUpFn({popUpBg:"red", popUpText:"This is not a real shop!!"}))}>Make an order</button>
                 </div>
 
             </div>

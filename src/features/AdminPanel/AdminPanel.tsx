@@ -10,6 +10,9 @@ import AdminCategories from '../../components/AdminCategories';
 import { ICategory } from '../../types/ICategories';
 import fetchProducts from '../../api/fetchProducts';
 import './AdminPanel.css'
+import { useDispatch } from 'react-redux';
+import { showPopUpFn } from '../../store/slices/popupSlice';
+import { AppDispatch } from '../../store/store';
 
 const AdminPanel = () => {
   const loginData = useContext(LoginContext);
@@ -19,6 +22,7 @@ const AdminPanel = () => {
 const {  isLoggedIn } = loginData;
 
 if(isLoggedIn){
+  const dispatch = useDispatch<AppDispatch>();
   
   let [items, setItems] = useState<IProduct[]>([]);
 
@@ -72,8 +76,11 @@ if(isLoggedIn){
         .then((data) => {
             console.log(data)
             if (data.message === "Product was deleted") {
-                alert('Product was deleted succesefully')
+              dispatch(showPopUpFn({popUpBg:"green", popUpText:"Product was deleted succesefully"}))
+
             } else {
+              dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${data.message}`}))
+
               console.error(data.message);
             }
         })
@@ -110,8 +117,11 @@ if(isLoggedIn){
         .then((response) => response.json())
         .then((data) => {
             if (data.message === "Product was updated") {
-                alert('Product was updated succesefully')
+              dispatch(showPopUpFn({popUpBg:"green", popUpText:"Product was updated succesefully"}))
+
             } else {
+              dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${data.message}`}))
+
               console.error(data.message);
             }
         })
@@ -143,8 +153,11 @@ if(isLoggedIn){
         .then((data) => {
             console.log(data)
             if (data.message === "Category was deleted") {
-                alert('Category was deleted succesefully')
+                dispatch(showPopUpFn({popUpBg:"green", popUpText:"Category was deleted succesefully"}))
+
             } else {
+              dispatch(showPopUpFn({popUpBg:"red", popUpText: `Error: ${data.message}`}))
+
               console.error(data.message);
             }
         })
@@ -177,8 +190,11 @@ if(isLoggedIn){
         .then((response) => response.json())
         .then((data) => {
             if (data.message === "Category was updated") {
-                alert('Category was updated succesefully')
+                dispatch(showPopUpFn({popUpBg:"green", popUpText:"Category was updated succesefully"}))
+
             } else {
+              dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${data.message}`}))
+
               console.error(data.message);
             }
         })
