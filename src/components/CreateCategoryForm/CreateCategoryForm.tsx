@@ -1,6 +1,6 @@
 import {   FormEvent, useState  } from 'react';
 import { useDispatch } from 'react-redux';
-import { showPopUpFn } from '../../store/slices/popupSlice';
+import { showPopUpFn } from '../../store/slices/popUpSlice';
 import { AppDispatch } from '../../store/store';
 
  

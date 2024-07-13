@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
- import './index.css';
-import ThemesContextProvider from './contexts/theme-context.tsx';
- import LoginContextProvider from './contexts/login-context.tsx';
+import './index.css';
 
 import {
   createBrowserRouter,
@@ -33,12 +31,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-         <LoginContextProvider>
-               <ThemesContextProvider>
-                <Provider store={store}>
-                  <RouterProvider router={router} />
-                </Provider>
-              </ThemesContextProvider>
-          </LoginContextProvider>
-   </React.StrictMode>
+                   <Provider store={store}>
+                    <RouterProvider router={router} />
+                  </Provider>
+     </React.StrictMode>
 );

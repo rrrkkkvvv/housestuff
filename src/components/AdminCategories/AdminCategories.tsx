@@ -1,16 +1,16 @@
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-import { ThemeContext } from '../../contexts/theme-context'
-import './AdminCategories.css'
+ import './AdminCategories.css'
 import { ICategory } from '../../types/ICategories';
 import { IAdminCategoriesProps } from '../../types/ICategories';
 import fetchCategories from '../../api/fetchCategories';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 export default function AdminCategories({onDelete,onShowCategory}:IAdminCategoriesProps) {
 
-    let themeData = useContext(ThemeContext);
-    if (!themeData) {
-        return <div>failed...</div>;
-    }
+
+    const reversedCurrentTheme = useSelector((state:RootState)=> state.theme.reversedCurrentTheme)
+  
     let [categories, setCategories] = useState<ICategory[]>([])
 
     const memoizedFetchCategories = useCallback(async () => {
@@ -28,7 +28,7 @@ export default function AdminCategories({onDelete,onShowCategory}:IAdminCategori
 
 
     return (
-        <div className='admin-categories' style={{ borderColor: themeData.reversedCurrentTheme.background }}>
+        <div className='admin-categories' style={{ borderColor:reversedCurrentTheme.background }}>
             {categories.map(el => (
                 <div className="category" style={{ background: "#eee", color: "#000" }}  key={el.title}>
                     <p className='category-title'>{el.visible_title}</p>

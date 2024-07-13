@@ -1,25 +1,20 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { LoginContext } from '../../contexts/login-context';
+import { useCallback, useEffect, useState } from 'react';
 import { IProduct } from '../../types/IProducts';
 import CreateProductForm from '../../components/CreateProductForm';
 import Products from '../Products';
 import CreateCategoryForm from '../../components/CreateCategoryForm';
 import Modal from '../../components/Modal/Modal';
-import { ThemeContext } from '../../contexts/theme-context';
 import AdminCategories from '../../components/AdminCategories';
 import { ICategory } from '../../types/ICategories';
 import fetchProducts from '../../api/fetchProducts';
 import './AdminPanel.css'
-import { useDispatch } from 'react-redux';
-import { showPopUpFn } from '../../store/slices/popupSlice';
-import { AppDispatch } from '../../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
+import { showPopUpFn } from '../../store/slices/popUpSlice';
 
 const AdminPanel = () => {
-  const loginData = useContext(LoginContext);
-  if (!loginData) {
-    return <div>failed...</div>;
-}
-const {  isLoggedIn } = loginData;
+
+const  isLoggedIn = useSelector((state:RootState)=> state.login.isLoggedIn);
 
 if(isLoggedIn){
   const dispatch = useDispatch<AppDispatch>();
@@ -33,12 +28,9 @@ if(isLoggedIn){
   let [showCurrentCategory, setShowCurrentCategory] = useState(false);
   let [currentEditCategory, setCurrentEditCategory] = useState<ICategory>(Object);
 
-  const themeData = useContext(ThemeContext);
- 
-  if (!themeData ) {
-      return <div>failed...</div>;
-  }
-   const { currentTheme} = themeData;
+
+  const currentTheme = useSelector((state:RootState)=> state.theme.currentTheme)
+  
    
    
     const memoizedFetchProducts = useCallback(async () => {

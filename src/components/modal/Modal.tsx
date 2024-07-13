@@ -1,13 +1,13 @@
 import { ChangeEvent, FormEvent, useCallback, useContext, useEffect, useState } from 'react'
 import { AiOutlineClose } from "react-icons/ai"
 import { IModalProps } from '../../types/IModal';
-import { LoginContext } from '../../contexts/login-context';
 import './Modal.css';
 import { ICategory } from '../../types/ICategories';
 import fetchCategories from '../../api/fetchCategories';
 import { useDispatch } from 'react-redux';
 import { increment } from '../../store/slices/ordersSlice';
 import { AppDispatch } from '../../store/store';
+import { login } from '../../store/slices/loginSlice';
 const Modal: React.FC<IModalProps> = (props) => {
 
     const dispatch = useDispatch<AppDispatch>();
@@ -38,15 +38,7 @@ const Modal: React.FC<IModalProps> = (props) => {
         )
     }else if(props.type=="login"){
 
-        const loginData = useContext(LoginContext);
-
-        if (!loginData) {
-            return <div>failed...</div>;
-        }
-    
-        const { handleLogin } = loginData;
-
-        
+ 
         const [username, setUsername] = useState('');
         const [password, setPassword] = useState('');
         const [error, setError] = useState('');
@@ -68,7 +60,7 @@ const Modal: React.FC<IModalProps> = (props) => {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.message === "Login successful") {
-                        handleLogin();
+                        dispatch(login());
                         props.onShowModal("close");
                     } else {
                         setError(data.message);

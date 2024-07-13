@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react';
 import { ICategory } from '../../types/ICategories';
 import fetchCategories from '../../api/fetchCategories';
-import { showPopUpFn } from '../../store/slices/popupSlice';
+import { showPopUpFn } from '../../store/slices/popUpSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
  

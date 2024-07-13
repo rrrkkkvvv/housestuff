@@ -1,19 +1,18 @@
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-import { ThemeContext } from '../../contexts/theme-context'
-import { ICategoriesProps } from '../../types/ICategories';
+ import { ICategoriesProps } from '../../types/ICategories';
 import './Categories.css'
 import fetchCategories from '../../api/fetchCategories';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 const categoryHeight = 50;
 
 export default function Categories({ chooseCategory }: ICategoriesProps) {
     const [maxHeight, setMaxHeight] = useState(50);
     const [isExpanded, setIsExpanded] = useState(false);
 
-    let themeData = useContext(ThemeContext);
-    if (!themeData) {
-        return <div>failed...</div>;
-    }
+    const reversedCurrentTheme = useSelector((state:RootState)=> state.theme.reversedCurrentTheme)
+  
     let [categories, setCategories] = useState([
         {
             id: 0,
@@ -42,8 +41,8 @@ export default function Categories({ chooseCategory }: ICategoriesProps) {
 
 
     return (
-        <div className='categories'   style={{ borderColor: themeData.reversedCurrentTheme.background,  maxHeight: isExpanded ? `${maxHeight}px` : `${categoryHeight}px` } }>
-            <div className="category category-choose" style={{ background: themeData.reversedCurrentTheme.background, color: themeData.reversedCurrentTheme.color }} onClick={() => showCategories()}>Choose Category </div>
+        <div className='categories'   style={{ borderColor: reversedCurrentTheme.background,  maxHeight: isExpanded ? `${maxHeight}px` : `${categoryHeight}px` } }>
+            <div className="category category-choose" style={{ background: reversedCurrentTheme.background, color: reversedCurrentTheme.color }} onClick={() => showCategories()}>Choose Category </div>
             {categories.map(el => (
                 <div className="category" style={{ background: "#eee", color: "#000" }} onClick={() => chooseCategory(el.title)} key={el.title}>{el.visible_title}</div>
             ))}

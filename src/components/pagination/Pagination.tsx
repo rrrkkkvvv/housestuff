@@ -1,15 +1,13 @@
-import { useContext } from 'react';
 import { IPaginationProps } from '../../types/IPagination';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { ThemeContext } from '../../contexts/theme-context';
 import './Pagination.css'
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 export default function Pagination({ itemsPerPage, totalItems, paginateFn, currentPage, prevPage, nextPage }: IPaginationProps) {
 
-    const themeData = useContext(ThemeContext);
-
-    if (!themeData) {
-        return <div>failed...</div>;
-    }
+    
+    const reversedCurrentTheme = useSelector((state:RootState)=> state.theme.reversedCurrentTheme)
+    
 
 
     const pageNumbers = [];
@@ -20,13 +18,13 @@ export default function Pagination({ itemsPerPage, totalItems, paginateFn, curre
     if (pageNumbers.length > 1) {
         return (
             <div className='pag-wrapper' >
-                <button className="pag-btn" style={{ background: themeData.reversedCurrentTheme.background, color: themeData.reversedCurrentTheme.color }} onClick={prevPage}><FaAngleLeft /></button>
+                <button className="pag-btn" style={{ background: reversedCurrentTheme.background, color: reversedCurrentTheme.color }} onClick={prevPage}><FaAngleLeft /></button>
 
                 <div className='pagination'>
 
                     {
                         pageNumbers.map((number) => (
-                            <div className={`page-item ${number === currentPage ? 'current' : ''}`} style={{ background: themeData.reversedCurrentTheme.background, color: themeData.reversedCurrentTheme.color }} key={number} onClick={(e) => paginateFn(number, e)}>
+                            <div className={`page-item ${number === currentPage ? 'current' : ''}`} style={{ background: reversedCurrentTheme.background, color: reversedCurrentTheme.color }} key={number} onClick={(e) => paginateFn(number, e)}>
                                 <span className='page-link' >
                                     {number}
                                 </span >
@@ -36,7 +34,7 @@ export default function Pagination({ itemsPerPage, totalItems, paginateFn, curre
                     }
 
                 </div>
-                <button className="pag-btn" style={{ background: themeData.reversedCurrentTheme.background, color: themeData.reversedCurrentTheme.color }} onClick={nextPage}><FaAngleRight /></button>
+                <button className="pag-btn" style={{ background: reversedCurrentTheme.background, color: reversedCurrentTheme.color }} onClick={nextPage}><FaAngleRight /></button>
 
             </div>
         )

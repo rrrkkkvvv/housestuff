@@ -1,20 +1,19 @@
-import { useContext } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import { ThemeContext } from '../../../../contexts/theme-context';
 import { IAdminProductProps } from '../../../../types/IProducts';
+import { RootState } from '../../../../store/store';
+import { useSelector } from 'react-redux';
  
 export default function AdminProduct({ onShowItem, item, onDelete }: IAdminProductProps) {
 
-    const themeData = useContext(ThemeContext);
-    if (!themeData) {
-        return <div>failed...</div>;
-    }
+    
+    const currentTheme = useSelector((state:RootState)=> state.theme.currentTheme)
+    
     let product = item;
 
     return (
 
-        <div className="item" style={{ background: themeData.currentTheme.background, color: themeData.currentTheme.color }}>
+        <div className="item" style={{ background: currentTheme.background, color: currentTheme.color }}>
 
             <LazyLoadImage
                 src={"./imgs-public/" + product.img}
@@ -24,10 +23,10 @@ export default function AdminProduct({ onShowItem, item, onDelete }: IAdminProdu
                 alt={product.img}
             />
 
-            <h2 style={{ background: themeData.currentTheme.background, color: themeData.currentTheme.color }}>{product.title}</h2>
+            <h2 style={{ background: currentTheme.background, color: currentTheme.color }}>{product.title}</h2>
             <p className='full-item-link' onClick={() => onShowItem(product)}>Edit product</p>
 
-            <p style={{ background: themeData.currentTheme.background, color: themeData.currentTheme.color }}>{product.description}</p>
+            <p style={{ background: currentTheme.background, color: currentTheme.color }}>{product.description}</p>
             <b >{product.price}$</b>
             <div className='add-to-cart' onClick={() => { onDelete(product.id) }}>X</div>
         </div>

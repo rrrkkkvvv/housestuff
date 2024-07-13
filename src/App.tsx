@@ -1,9 +1,8 @@
  
-import { useState, useEffect, useContext, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
  
 //To deploy a gh pages use: npm run predeploy    npm run deploy
 
-import { ThemeContext } from './contexts/theme-context';
 import { IProduct } from './types/IProducts';
 import debounce from './hooks/useDebounce';
 import Header from './components/Header';
@@ -16,6 +15,7 @@ import Footer from './components/Footer';
 import fetchProducts from './api/fetchProducts';
 import { useSelector } from 'react-redux';
 import { RootState } from './store/store';
+import { themes } from './store/slices/themeSlice';
  
 
 const itemsPerPage = 6;
@@ -26,14 +26,17 @@ export default function App() {
   const {popUpBg,popUpText,showPopUp} = useSelector((state:RootState)=> state.popUp);
 
  
-  const themeData = useContext(ThemeContext);
 
+  const currentTheme = useSelector((state:RootState)=> state.theme.currentTheme)
 
-  if ( !themeData) {
-    return <div>failed...</div>;
+  useEffect(()=>{
+    if (currentTheme === themes.light) {
+      document.body.style.backgroundColor = "#fff";
+  } else {
+      document.body.style.backgroundColor = "#333";
+
   }
-
-
+  },[currentTheme])
   
 
   const [items, setItems] = useState<IProduct[]>([]);
@@ -162,7 +165,7 @@ export default function App() {
   return (
 
 
-    <div className='wrapper' style={{ background: themeData.currentTheme.background, color: themeData.currentTheme.color }}>
+    <div className='wrapper' style={{ background: currentTheme.background, color: currentTheme.color }}>
 
         <Header onShowModal={onShowModal} />
         <div className='presentation'></div>

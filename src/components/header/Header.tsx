@@ -1,38 +1,32 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Order from '../Order';
 
 import { FaShoppingCart, FaCartPlus, FaAdjust } from "react-icons/fa"
 import { AiOutlineClose } from "react-icons/ai"
 
-import { ThemeContext } from '../../contexts/theme-context';
-import { LoginContext } from '../../contexts/login-context';
 import { Link } from 'react-router-dom';
 
 import './Header.css'
 import { IHeaderProps } from '../../types/IHeader';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { AppDispatch, RootState } from '../../store/store';
 import { IProduct } from '../../types/IProducts';
-import { showPopUpFn } from '../../store/slices/popupSlice';
+import { showPopUpFn } from '../../store/slices/popUpSlice';
+import { toggleTheme } from '../../store/slices/themeSlice';
 
 
 export default function Header({ onShowModal }: IHeaderProps) {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     
     const orders:IProduct[] = useSelector((state:RootState)=> state.orders.orders);
 
-    const themeData = useContext(ThemeContext);
-    const loginData = useContext(LoginContext);
+    const currentTheme = useSelector((state:RootState)=> state.theme.currentTheme)
+    
 
-    if (  !themeData || !loginData) {
-        return <div>failed...</div>;
-    }
+    const  isLoggedIn = useSelector((state:RootState)=> state.login.isLoggedIn);
 
-    const {  isLoggedIn } = loginData;
-
-    const { currentTheme, } = themeData;
-
+ 
 
     let [showMenu, setShowMenu] = useState(false);
     let [cartOpen, setCartOpen] = useState(false);
@@ -80,16 +74,16 @@ export default function Header({ onShowModal }: IHeaderProps) {
     }
 
     return (
-        <header className='header' style={{ background: themeData.currentTheme.background, color: themeData.currentTheme.color }} >
+        <header className='header' style={{ background: currentTheme.background, color: currentTheme.color }} >
             <div className='wrapper'>
                 <div className='logo'>House Stuff<img src="./imgs-public/icons8-furniture-64.png" alt="" /></div>
 
-                <ul className={`nav ${showMenu && 'visible'}`} style={{ background: themeData.currentTheme.background, color: themeData.currentTheme.color }}>
+                <ul className={`nav ${showMenu && 'visible'}`} style={{ background: currentTheme.background, color: currentTheme.color }}>
 
 
                     { isLoggedIn &&
                            <li  onClick={() => { onShowModal("management"), setShowMenu(false) }}>
-                                <Link style={{ color: themeData.currentTheme.color }} to="/admin">Admin Panel</Link>
+                                <Link style={{ color: currentTheme.color }} to="/admin">Admin Panel</Link>
                             </li>
 
                     }
@@ -100,15 +94,15 @@ export default function Header({ onShowModal }: IHeaderProps) {
 
                     <li className={`shop-cart-button  ${cartOpen && ' active'}`} onClick={() => { setCartOpen(!cartOpen), setShowMenu(showMenu = false) }}>Open Cart {orders.length ? <span > <FaCartPlus className='cart-frequency-icon' /> <sup className='count-of-orders'>{ orders.length}</sup></span> : <FaShoppingCart />}
                     </li>
-                    <li onClick={themeData.toggleTheme} >{
+                    <li onClick={()=> dispatch(toggleTheme())} >{
                         <FaAdjust className='change-theme-button' />
                     }</li>
-                    <div className="close-menu-button" style={{ color: themeData.currentTheme.color }} onClick={() => setShowMenu(showMenu = false)}><AiOutlineClose></AiOutlineClose></div>
+                    <div className="close-menu-button" style={{ color: currentTheme.color }} onClick={() => setShowMenu(showMenu = false)}><AiOutlineClose></AiOutlineClose></div>
 
                 </ul>
                 <div className="open-menu-button" onClick={() => setShowMenu(!showMenu)}>Open menu</div>
 
-                <div className={`shop-cart ${cartOpen && 'visible'}`} style={{ background: themeData.currentTheme.background, color: themeData.currentTheme.color }} >
+                <div className={`shop-cart ${cartOpen && 'visible'}`} style={{ background: currentTheme.background, color: currentTheme.color }} >
                     <div className="close-cart-button" onClick={() => setCartOpen(!cartOpen)} >X</div>
 
                     {orders.length > 0 ? showOrders() : showNothing()}
