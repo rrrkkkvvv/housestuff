@@ -1,10 +1,10 @@
 import { FaTrash } from 'react-icons/fa'
 import { IOrderProps } from '../../types/IOrder';
-import { useDispatch } from 'react-redux';
 import { decrement } from '../../store/slices/ordersSlice';
+import { useAppDispatch } from '../../hooks/reduxHooks';
 
 export default function Order({ item }: IOrderProps) {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     return (
 

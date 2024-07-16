@@ -1,12 +1,11 @@
 import { IPaginationProps } from '../../types/IPagination';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import './Pagination.css'
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { useAppSelector } from '../../hooks/reduxHooks';
 export default function Pagination({ itemsPerPage, totalItems, paginateFn, currentPage, prevPage, nextPage }: IPaginationProps) {
 
     
-    const reversedCurrentTheme = useSelector((state:RootState)=> state.theme.reversedCurrentTheme)
+    const reversedCurrentTheme = useAppSelector((state)=> state.theme.reversedCurrentTheme)
     
 
 

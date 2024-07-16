@@ -1,14 +1,13 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { IProductProps } from '../../../../types/IProducts';
-import { useDispatch, useSelector } from 'react-redux';
 import { increment } from '../../../../store/slices/ordersSlice';
-import { AppDispatch, RootState } from '../../../../store/store';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 export default function Product({ onShowItem, item }: IProductProps) {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
 
 
-    const currentTheme = useSelector((state:RootState)=> state.theme.currentTheme)
+    const currentTheme = useAppSelector((state)=> state.theme.currentTheme)
     
     let product = item;
 

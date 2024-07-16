@@ -1,16 +1,15 @@
-import { ChangeEvent, FormEvent, useCallback, useContext, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 import { AiOutlineClose } from "react-icons/ai"
 import { IModalProps } from '../../types/IModal';
 import './Modal.css';
 import { ICategory } from '../../types/ICategories';
 import fetchCategories from '../../api/fetchCategories';
-import { useDispatch } from 'react-redux';
 import { increment } from '../../store/slices/ordersSlice';
-import { AppDispatch } from '../../store/store';
 import { login } from '../../store/slices/loginSlice';
+import { useAppDispatch } from '../../hooks/reduxHooks';
 const Modal: React.FC<IModalProps> = (props) => {
 
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
 
 
     if (props.type === "full-item") {

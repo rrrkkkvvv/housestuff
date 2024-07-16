@@ -2,8 +2,7 @@ import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 import { ICategory } from '../../types/ICategories';
 import fetchCategories from '../../api/fetchCategories';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store/store';
+import { useAppDispatch } from '../../hooks/reduxHooks';
  
 
 
@@ -18,7 +17,7 @@ const CreateProductForm = () => {
   const [error, setError] = useState('');
   const [categories, setCategories] = useState<ICategory[]>([]);
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   
   const memoizedFetchCategories = useCallback(async () => {

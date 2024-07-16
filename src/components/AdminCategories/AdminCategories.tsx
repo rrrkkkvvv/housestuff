@@ -4,12 +4,11 @@ import { useCallback, useEffect, useState } from 'react'
 import { ICategory } from '../../types/ICategories';
 import { IAdminCategoriesProps } from '../../types/ICategories';
 import fetchCategories from '../../api/fetchCategories';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { useAppSelector } from '../../hooks/reduxHooks';
 export default function AdminCategories({onDelete,onShowCategory}:IAdminCategoriesProps) {
 
 
-    const reversedCurrentTheme = useSelector((state:RootState)=> state.theme.reversedCurrentTheme)
+    const reversedCurrentTheme = useAppSelector((state)=> state.theme.reversedCurrentTheme)
   
     let [categories, setCategories] = useState<ICategory[]>([])
 

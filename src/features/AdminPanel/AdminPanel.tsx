@@ -8,16 +8,15 @@ import AdminCategories from '../../components/AdminCategories';
 import { ICategory } from '../../types/ICategories';
 import fetchProducts from '../../api/fetchProducts';
 import './AdminPanel.css'
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../store/store';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 
 const AdminPanel = () => {
 
-const  isLoggedIn = useSelector((state:RootState)=> state.login.isLoggedIn);
+const  isLoggedIn = useAppSelector((state)=> state.login.isLoggedIn);
 
 if(isLoggedIn){
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   
   let [items, setItems] = useState<IProduct[]>([]);
 
@@ -29,7 +28,7 @@ if(isLoggedIn){
   let [currentEditCategory, setCurrentEditCategory] = useState<ICategory>(Object);
 
 
-  const currentTheme = useSelector((state:RootState)=> state.theme.currentTheme)
+  const currentTheme = useAppSelector((state)=> state.theme.currentTheme)
   
    
    

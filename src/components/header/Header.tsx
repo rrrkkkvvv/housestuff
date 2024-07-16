@@ -8,23 +8,22 @@ import { Link } from 'react-router-dom';
 
 import './Header.css'
 import { IHeaderProps } from '../../types/IHeader';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../store/store';
 import { IProduct } from '../../types/IProducts';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
 import { toggleTheme } from '../../store/slices/themeSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 
 
 export default function Header({ onShowModal }: IHeaderProps) {
 
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     
-    const orders:IProduct[] = useSelector((state:RootState)=> state.orders.orders);
+    const orders:IProduct[] = useAppSelector((state)=> state.orders.orders);
 
-    const currentTheme = useSelector((state:RootState)=> state.theme.currentTheme)
+    const currentTheme = useAppSelector((state) => state.theme.currentTheme)
     
 
-    const  isLoggedIn = useSelector((state:RootState)=> state.login.isLoggedIn);
+    const  isLoggedIn = useAppSelector((state)=> state.login.isLoggedIn);
 
  
 

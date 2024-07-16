@@ -13,9 +13,8 @@ import Pagination from './components/Pagination';
 import Modal from './components/Modal';
 import Footer from './components/Footer';
 import fetchProducts from './api/fetchProducts';
-import { useSelector } from 'react-redux';
-import { RootState } from './store/store';
 import { themes } from './store/slices/themeSlice';
+import { useAppSelector } from './hooks/reduxHooks';
  
 
 const itemsPerPage = 6;
@@ -23,11 +22,11 @@ const itemsPerPage = 6;
 export default function App() {
  
 
-  const {popUpBg,popUpText,showPopUp} = useSelector((state:RootState)=> state.popUp);
+  const {popUpBg,popUpText,showPopUp} = useAppSelector((state)=> state.popUp);
 
  
 
-  const currentTheme = useSelector((state:RootState)=> state.theme.currentTheme)
+  const currentTheme = useAppSelector((state)=> state.theme.currentTheme)
 
   useEffect(()=>{
     if (currentTheme === themes.light) {

@@ -1,7 +1,6 @@
 import {   FormEvent, useState  } from 'react';
-import { useDispatch } from 'react-redux';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
-import { AppDispatch } from '../../store/store';
+import { useAppDispatch } from '../../hooks/reduxHooks';
 
  
 
@@ -10,7 +9,7 @@ const CreateCategoryForm = () => {
   const [visibleTitle, setVisibleTitle] = useState('');
   const [error, setError] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const handleVisibility = () => {
     setIsVisible(!isVisible);
   };
