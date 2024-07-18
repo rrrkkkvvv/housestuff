@@ -13,8 +13,10 @@ import Pagination from './components/Pagination';
 import Modal from './components/Modal';
 import Footer from './components/Footer';
 import fetchProducts from './api/fetchProducts';
-import { themes } from './store/slices/themeSlice';
+import { selectCurrentTheme, themes } from './store/slices/themeSlice';
 import { useAppSelector } from './hooks/reduxHooks';
+import { IColorTheme } from './contexts/context types/IThemesContext';
+import { selectPopUp } from './store/slices/popUpSlice';
  
 
 const itemsPerPage = 6;
@@ -22,11 +24,11 @@ const itemsPerPage = 6;
 export default function App() {
  
 
-  const {popUpBg,popUpText,showPopUp} = useAppSelector((state)=> state.popUp);
+  const {popUpBg,popUpText,showPopUp} = useAppSelector(selectPopUp);
 
  
 
-  const currentTheme = useAppSelector((state)=> state.theme.currentTheme)
+  const currentTheme: IColorTheme = useAppSelector(selectCurrentTheme)
 
   useEffect(()=>{
     if (currentTheme === themes.light) {

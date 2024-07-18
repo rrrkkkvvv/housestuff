@@ -5,10 +5,11 @@ import { ICategory } from '../../types/ICategories';
 import { IAdminCategoriesProps } from '../../types/ICategories';
 import fetchCategories from '../../api/fetchCategories';
 import { useAppSelector } from '../../hooks/reduxHooks';
+import { selectReversedCurrentTheme } from '../../store/slices/themeSlice';
 export default function AdminCategories({onDelete,onShowCategory}:IAdminCategoriesProps) {
 
 
-    const reversedCurrentTheme = useAppSelector((state)=> state.theme.reversedCurrentTheme)
+    const reversedCurrentTheme = useAppSelector(selectReversedCurrentTheme)
   
     let [categories, setCategories] = useState<ICategory[]>([])
 

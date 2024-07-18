@@ -10,6 +10,7 @@ import fetchProducts from '../../api/fetchProducts';
 import './AdminPanel.css'
 import { showPopUpFn } from '../../store/slices/popUpSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import { selectCurrentTheme } from '../../store/slices/themeSlice';
 
 const AdminPanel = () => {
 
@@ -28,7 +29,7 @@ if(isLoggedIn){
   let [currentEditCategory, setCurrentEditCategory] = useState<ICategory>(Object);
 
 
-  const currentTheme = useAppSelector((state)=> state.theme.currentTheme)
+  const currentTheme = useAppSelector(selectCurrentTheme)
   
    
    

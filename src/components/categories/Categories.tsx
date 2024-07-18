@@ -4,13 +4,14 @@ import { useCallback, useEffect, useState } from 'react'
 import './Categories.css'
 import fetchCategories from '../../api/fetchCategories';
 import { useAppSelector } from '../../hooks/reduxHooks';
+import { selectReversedCurrentTheme } from '../../store/slices/themeSlice';
 const categoryHeight = 50;
 
 export default function Categories({ chooseCategory }: ICategoriesProps) {
     const [maxHeight, setMaxHeight] = useState(50);
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const reversedCurrentTheme = useAppSelector((state)=> state.theme.reversedCurrentTheme)
+    const reversedCurrentTheme = useAppSelector(selectReversedCurrentTheme)
   
     let [categories, setCategories] = useState([
         {

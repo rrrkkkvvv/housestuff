@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk, createReducer, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { IProduct } from '../../types/IProducts';
 import { showPopUpFn } from './popUpSlice';
@@ -26,6 +26,15 @@ const initialState:OrdersState = {
     orders: loadOrdersFromLS(),
 }
  
+// export const incrementAction =  createAction<{product: IProduct}>("orders/increment");
+// export const newOrdersReducer = createReducer(
+//     initialState,
+//     (builder)=>{
+//         builder.addCase(incrementAction, (state, action)=>{
+//             // incrementation code
+//         })
+//     }
+// );
 export const increment = createAsyncThunk(
     'orders/increment',
     async (product: IProduct, { dispatch, getState }) => {
@@ -60,15 +69,21 @@ const ordersSlice = createSlice({
             localStorage.setItem('orders', JSON.stringify(state.orders));
         }
     },
+
     extraReducers: (builder) => {
         builder.addCase(increment.fulfilled, (state, action) => {
             state.orders = action.payload;
         });
+    },
+    selectors:{
+     selectOrders: (state)=>state.orders,
+
     }
 
 });
 
 
 export const {decrement} = ordersSlice.actions;
+export const {selectOrders} = ordersSlice.selectors
 const ordersReducer = ordersSlice.reducer
 export default ordersReducer;

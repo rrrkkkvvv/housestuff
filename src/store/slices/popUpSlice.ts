@@ -35,9 +35,14 @@ const popUpSlice = createSlice({
             state.showPopUp = false;
             state.popUpText = '';
         },
+        
     },
+    selectors:{
+        selectPopUp:(state)=> state
+    }
 });
 
 export const { showPopUp, hidePopUp } = popUpSlice.actions;
+export const { selectPopUp } = popUpSlice.selectors;
 const popUpReducer = popUpSlice.reducer;
 export default popUpReducer;

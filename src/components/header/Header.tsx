@@ -10,20 +10,22 @@ import './Header.css'
 import { IHeaderProps } from '../../types/IHeader';
 import { IProduct } from '../../types/IProducts';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
-import { toggleTheme } from '../../store/slices/themeSlice';
+import { selectCurrentTheme, toggleTheme } from '../../store/slices/themeSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import { selectOrders } from '../../store/slices/ordersSlice';
+import { selectIsLoggedIn } from '../../store/slices/loginSlice';
 
 
 export default function Header({ onShowModal }: IHeaderProps) {
 
     const dispatch = useAppDispatch();
     
-    const orders:IProduct[] = useAppSelector((state)=> state.orders.orders);
+    const orders:IProduct[] = useAppSelector(selectOrders);
 
-    const currentTheme = useAppSelector((state) => state.theme.currentTheme)
+    const currentTheme = useAppSelector(selectCurrentTheme)
     
 
-    const  isLoggedIn = useAppSelector((state)=> state.login.isLoggedIn);
+    const  isLoggedIn: boolean = useAppSelector(selectIsLoggedIn);
 
  
 

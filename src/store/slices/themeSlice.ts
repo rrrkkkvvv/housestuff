@@ -67,7 +67,7 @@ function deepEqual(obj1: any, obj2: any): boolean {
     return true;
 }
 
-interface IThemeSliceProps {
+export interface IThemeSliceProps {
     currentTheme: IColorTheme;
     reversedCurrentTheme: IColorTheme;
 }
@@ -94,8 +94,14 @@ const themeSlice = createSlice({
             localStorage.setItem('currentTheme', JSON.stringify(state.currentTheme));
         }
     },
+    selectors:{
+        selectCurrentTheme:(state)=>state.currentTheme,
+        selectReversedCurrentTheme:(state)=>state.reversedCurrentTheme,
+    }
 });
 
 export const { toggleTheme } = themeSlice.actions;
+export const { selectCurrentTheme,selectReversedCurrentTheme } = themeSlice.selectors;
+
 const themeReducer = themeSlice.reducer;
 export default themeReducer;

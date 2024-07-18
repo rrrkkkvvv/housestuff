@@ -3,11 +3,12 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { IProductProps } from '../../../../types/IProducts';
 import { increment } from '../../../../store/slices/ordersSlice';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
+import { selectCurrentTheme } from '../../../../store/slices/themeSlice';
 export default function Product({ onShowItem, item }: IProductProps) {
     const dispatch = useAppDispatch();
 
 
-    const currentTheme = useAppSelector((state)=> state.theme.currentTheme)
+    const currentTheme = useAppSelector(selectCurrentTheme)
     
     let product = item;
 

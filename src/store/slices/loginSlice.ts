@@ -13,7 +13,7 @@ const initialState: ILoginSliceProps = {
  
 
 const loginSlice = createSlice({
-    name: 'orders',
+    name: 'login',
     initialState,
     reducers: {
 
@@ -21,11 +21,15 @@ const loginSlice = createSlice({
             state.isLoggedIn = true;
         }
     },
+    selectors:{
+        selectIsLoggedIn: (state)=> state.isLoggedIn
+    }
   
 
 });
 
 
 export const {login} = loginSlice.actions;
+export const {selectIsLoggedIn} = loginSlice.selectors;
 const loginReducer = loginSlice.reducer
 export default loginReducer;

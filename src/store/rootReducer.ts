@@ -9,5 +9,5 @@ export const rootReducer = combineReducers({
     orders: ordersReducer,
     popUp: popUpReducer,
     login: loginReducer,
-    theme: themeReducer,
+    themes: themeReducer,
 });
