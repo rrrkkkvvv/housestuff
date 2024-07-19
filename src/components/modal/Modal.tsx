@@ -6,7 +6,7 @@ import { ICategory } from '../../types/ICategories';
 import fetchCategories from '../../api/fetchCategories';
 import { increment } from '../../store/slices/ordersSlice';
 import { login } from '../../store/slices/loginSlice';
-import { useAppDispatch } from '../../hooks/reduxHooks';
+import { useAppDispatch } from '../../store/store';
 const Modal: React.FC<IModalProps> = (props) => {
 
     const dispatch = useAppDispatch();

@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk, createReducer, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk,  createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { IProduct } from '../../types/IProducts';
 import { showPopUpFn } from './popUpSlice';

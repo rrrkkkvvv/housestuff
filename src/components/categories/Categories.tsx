@@ -3,8 +3,8 @@ import { useCallback, useEffect, useState } from 'react'
  import { ICategoriesProps } from '../../types/ICategories';
 import './Categories.css'
 import fetchCategories from '../../api/fetchCategories';
-import { useAppSelector } from '../../hooks/reduxHooks';
 import { selectReversedCurrentTheme } from '../../store/slices/themeSlice';
+import { useAppSelector } from '../../store/store';
 const categoryHeight = 50;
 
 export default function Categories({ chooseCategory }: ICategoriesProps) {

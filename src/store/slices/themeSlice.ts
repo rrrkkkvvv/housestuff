@@ -101,7 +101,7 @@ const themeSlice = createSlice({
 });
 
 export const { toggleTheme } = themeSlice.actions;
-export const { selectCurrentTheme,selectReversedCurrentTheme } = themeSlice.selectors;
+export const { selectCurrentTheme, selectReversedCurrentTheme } = themeSlice.selectors;
 
 const themeReducer = themeSlice.reducer;
 export default themeReducer;

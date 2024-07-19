@@ -4,8 +4,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { ICategory } from '../../types/ICategories';
 import { IAdminCategoriesProps } from '../../types/ICategories';
 import fetchCategories from '../../api/fetchCategories';
-import { useAppSelector } from '../../hooks/reduxHooks';
 import { selectReversedCurrentTheme } from '../../store/slices/themeSlice';
+import { useAppSelector } from '../../store/store';
 export default function AdminCategories({onDelete,onShowCategory}:IAdminCategoriesProps) {
 
 

@@ -1,8 +1,8 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { IAdminProductProps } from '../../../../types/IProducts';
-import { useAppSelector } from '../../../../hooks/reduxHooks';
 import { selectCurrentTheme } from '../../../../store/slices/themeSlice';
+import { useAppSelector } from '../../../../store/store';
  
 export default function AdminProduct({ onShowItem, item, onDelete }: IAdminProductProps) {
 

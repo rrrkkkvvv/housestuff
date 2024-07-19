@@ -11,9 +11,9 @@ import { IHeaderProps } from '../../types/IHeader';
 import { IProduct } from '../../types/IProducts';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
 import { selectCurrentTheme, toggleTheme } from '../../store/slices/themeSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { selectOrders } from '../../store/slices/ordersSlice';
 import { selectIsLoggedIn } from '../../store/slices/loginSlice';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 
 
 export default function Header({ onShowModal }: IHeaderProps) {

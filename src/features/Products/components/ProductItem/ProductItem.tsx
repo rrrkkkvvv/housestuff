@@ -2,11 +2,11 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { IProductProps } from '../../../../types/IProducts';
 import { increment } from '../../../../store/slices/ordersSlice';
-import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 import { selectCurrentTheme } from '../../../../store/slices/themeSlice';
+import { useAppDispatch, useAppSelector } from '../../../../store/store';
 export default function Product({ onShowItem, item }: IProductProps) {
+    
     const dispatch = useAppDispatch();
-
 
     const currentTheme = useAppSelector(selectCurrentTheme)
     
