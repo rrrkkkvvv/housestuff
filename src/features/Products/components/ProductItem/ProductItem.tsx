@@ -1,6 +1,6 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import { IProductProps } from '../../../../types/IProducts';
+import { IProductProps } from '../../../../types/compontentTypes/IProducts';
 import { increment } from '../../../../store/slices/ordersSlice';
 import { selectCurrentTheme } from '../../../../store/slices/themeSlice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';

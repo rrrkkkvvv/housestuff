@@ -1,5 +1,5 @@
 import { FaTrash } from 'react-icons/fa'
-import { IOrderProps } from '../../types/IOrder';
+import { IOrderProps } from '../../types/compontentTypes/IOrder';
 import { decrement } from '../../store/slices/ordersSlice';
 import { useAppDispatch } from '../../store/store';
 

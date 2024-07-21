@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react';
-import { ICategory } from '../../types/ICategories';
+import { ICategory } from '../../types/compontentTypes/ICategories';
 import fetchCategories from '../../api/fetchCategories';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
 import { useAppDispatch } from '../../store/store';

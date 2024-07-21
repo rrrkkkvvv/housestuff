@@ -1,4 +1,4 @@
-import { IProductsProps } from '../../types/IProducts'
+import { IProductsProps } from '../../types/compontentTypes/IProducts'
 import AdminProduct from './components/AdminProductItem/AdminProduct'
 import Product from './components/ProductItem/ProductItem'
 import "./Products.css"

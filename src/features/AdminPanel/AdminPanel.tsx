@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useState } from 'react';
-import { IProduct } from '../../types/IProducts';
+import { IProduct } from '../../types/compontentTypes/IProducts';
 import CreateProductForm from '../../components/CreateProductForm';
 import Products from '../Products';
 import CreateCategoryForm from '../../components/CreateCategoryForm';
 import Modal from '../../components/Modal/Modal';
 import AdminCategories from '../../components/AdminCategories';
-import { ICategory } from '../../types/ICategories';
+import { ICategory } from '../../types/compontentTypes/ICategories';
 import fetchProducts from '../../api/fetchProducts';
 import './AdminPanel.css'
 import { showPopUpFn } from '../../store/slices/popUpSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { selectCurrentTheme } from '../../store/slices/themeSlice';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 
 const AdminPanel = () => {
 

@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 
  import './AdminCategories.css'
-import { ICategory } from '../../types/ICategories';
-import { IAdminCategoriesProps } from '../../types/ICategories';
+import { ICategory } from '../../types/compontentTypes/ICategories';
+import { IAdminCategoriesProps } from '../../types/compontentTypes/ICategories';
 import fetchCategories from '../../api/fetchCategories';
 import { selectReversedCurrentTheme } from '../../store/slices/themeSlice';
 import { useAppSelector } from '../../store/store';

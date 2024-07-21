@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IShowPopUpProps } from '../../contexts/context types/IPopUpContext';
+import { IShowPopUpProps } from '../../types/storeTypes/IPopUpContext';
 
 export interface popUpState extends IShowPopUpProps {
     showPopUp: boolean;

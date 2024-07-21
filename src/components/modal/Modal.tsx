@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 import { AiOutlineClose } from "react-icons/ai"
-import { IModalProps } from '../../types/IModal';
+import { IModalProps } from '../../types/compontentTypes/IModal';
 import './Modal.css';
-import { ICategory } from '../../types/ICategories';
+import { ICategory } from '../../types/compontentTypes/ICategories';
 import fetchCategories from '../../api/fetchCategories';
 import { increment } from '../../store/slices/ordersSlice';
 import { login } from '../../store/slices/loginSlice';

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
- import { ICategoriesProps } from '../../types/ICategories';
+ import { ICategoriesProps } from '../../types/compontentTypes/ICategories';
 import './Categories.css'
 import fetchCategories from '../../api/fetchCategories';
 import { selectReversedCurrentTheme } from '../../store/slices/themeSlice';

@@ -1,4 +1,4 @@
-import { IProduct } from "../../types/IProducts";
+import { IProduct } from "../compontentTypes/IProducts";
 
 
 export interface IOrdersContextValue {

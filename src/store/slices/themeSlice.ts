@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IColorThemes, IColorTheme } from '../../contexts/context types/IThemesContext';
+import { IColorThemes, IColorTheme } from '../../types/storeTypes/IThemesContext';
 
 export const themes: IColorThemes = {
     light: {

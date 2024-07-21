@@ -1,6 +1,6 @@
 import { createAsyncThunk,  createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IProduct } from '../../types/IProducts';
+import { IProduct } from '../../types/compontentTypes/IProducts';
 import { showPopUpFn } from './popUpSlice';
  
 export interface OrdersState {

@@ -28,6 +28,7 @@ const CreateCategoryForm = () => {
         }),
       });
       const data = await response.json();
+      
       if (data.message === "Category was created") {
         dispatch(showPopUpFn({popUpBg:"green", popUpText:"Category was added successfully"}))
        } else {
