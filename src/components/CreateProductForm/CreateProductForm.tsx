@@ -3,6 +3,7 @@ import { ICategory } from '../../types/compontentTypes/ICategories';
 import fetchCategories from '../../api/fetchCategories';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
 import { useAppDispatch } from '../../store/store';
+import { usePostProductMutation } from '../../api/productsApi';
  
 
 
@@ -18,7 +19,7 @@ const CreateProductForm = () => {
   const [categories, setCategories] = useState<ICategory[]>([]);
 
   const dispatch = useAppDispatch();
-
+  const [postProduct] = usePostProductMutation();
   
   const memoizedFetchCategories = useCallback(async () => {
     const fetchedCategories = await fetchCategories();
@@ -45,43 +46,24 @@ const CreateProductForm = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log({
+    const newProduct = {
       title: title,
       price: price,
       category: category,
       description: description,
       fullDesc: fullDesc,
-      img: img
-    });
+      img: img,
+      id: -1,
+    };
     try {
-        console.log({title: title,
-            price: price,
-            category: category,
-            description: description,
-            fullDesc: fullDesc,
-            img: img})
-      const response = await fetch('http://localhost/projects/housestuffbackend/servicies/product_service.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title: title,
-          price: price,
-          category: category,
-          description: description,
-          fullDesc: fullDesc,
-          img: img
-        }),
-      });
-      const data = await response.json();
-      if (data.message === "Product was created") {
-         dispatch(showPopUpFn({popUpBg:"green", popUpText:"Product was added successfully"}))
-
+    
+      const result = await postProduct(newProduct).unwrap();
+      if (result.message === "Product was created") {
+        dispatch(showPopUpFn({popUpBg:"green", popUpText:"Product was added successfully"}))
       } else {
-        setError(data.message);
-        dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${data.message}`}))
-
+        dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}))
+        setError(result.message);
+        console.error(result.message);
       }
     } catch (error) {
       setError('An error occurred. Please try again.');

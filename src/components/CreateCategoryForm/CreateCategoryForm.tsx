@@ -1,6 +1,7 @@
 import {   FormEvent, useState  } from 'react';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
 import { useAppDispatch } from '../../store/store';
+import { usePostCategoryMutation } from '../../api/categoriesApi';
 
  
 
@@ -10,31 +11,29 @@ const CreateCategoryForm = () => {
   const [error, setError] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useAppDispatch();
+  const [postCategory] = usePostCategoryMutation();
+
   const handleVisibility = () => {
     setIsVisible(!isVisible);
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const newCategory = {
+      title: title,
+      visible_title: visibleTitle,
+      id: -1
+    }
     try {
-      const response = await fetch('http://localhost/projects/housestuffbackend/servicies/categories_service.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title: title,
-          visible_title: visibleTitle,
-        }),
-      });
-      const data = await response.json();
       
-      if (data.message === "Category was created") {
+      const result = await postCategory(newCategory).unwrap()
+      
+      if (result.message === "Category was created") {
         dispatch(showPopUpFn({popUpBg:"green", popUpText:"Category was added successfully"}))
        } else {
-        setError(data.message);
-        console.log(data.message);
-        dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${data.message}`}))
+        setError(result.message);
+        console.log(result.message);
+        dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}))
 
       }
     } catch (error) {

@@ -16,7 +16,7 @@ const productsApi = createApi({
           }), 
     }),
     
-    postProduct: builder.query<IDefaultResponse,IProduct>({
+    postProduct: builder.mutation<IDefaultResponse,IProduct>({
         query: (product) => ({
             url: '/',
             method: 'POST',
@@ -30,21 +30,26 @@ const productsApi = createApi({
               }),
           }), 
     }),
-    updateProduct: builder.query<IDefaultResponse, IProduct>({
-        query: (product) => ({
-            url: '/',
-            method: 'PUT',
-            body:JSON.stringify({
-                title: product.title,
-                price: product.price,
-                category: product.category,
-                description: product.description,
-                fullDesc: product.fullDesc,
-                img: product.img
-              }),
-          }),     
+    updateProduct: builder.mutation<IDefaultResponse, IProduct>({
+      query: (product) => ({
+        url: '/',
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: product.title,
+          price: product.price,
+          category: product.category,
+          description: product.description,
+          fullDesc: product.fullDesc,
+          img: product.img,
+          id: product.id
         }),
-    deleteProduct: builder.query<IDefaultResponse, number>({
+      }),
+    }),
+    
+    deleteProduct: builder.mutation<IDefaultResponse, number>({
       query: (id) => ({
           url: '/',
           method: 'DELETE',
@@ -59,5 +64,5 @@ const productsApi = createApi({
   }),
 });
 
-export const { useGetProductsQuery, useDeleteProductQuery, useUpdateProductQuery, usePostProductQuery } = productsApi;
+export const { useGetProductsQuery, useDeleteProductMutation, usePostProductMutation, useUpdateProductMutation } = productsApi;
 export default productsApi;

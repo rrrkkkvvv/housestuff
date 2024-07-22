@@ -49,7 +49,7 @@ export default function Header({ onShowModal }: IHeaderProps) {
     function showOrders() {
 
         let summ = 0;
-        orders.forEach(el => { summ += Number.parseFloat(el.price) });
+        orders.forEach(el => { summ +=el.price});
         return (
             <div style={{ background: currentTheme.background, color: currentTheme.color }}>
                 <h3  className="shop-cart-title" >Product Cart{<FaShoppingCart className='cart-icon' />}</h3>

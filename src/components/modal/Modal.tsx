@@ -130,7 +130,7 @@ const Modal: React.FC<IModalProps> = (props) => {
             setFullDesc(props.item.fullDesc);
             setImg(props.item.img);
             setCategory(props.item.category);
-            setPrice(parseFloat(props.item.price) );
+            setPrice(props.item.price );
         }, [props.item]);
 
         useEffect(()=>{
@@ -146,6 +146,16 @@ const Modal: React.FC<IModalProps> = (props) => {
       
         const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
           event.preventDefault();
+          console.log(props.item)
+          console.log({
+            title:title,
+            category:category,
+            description:description,
+            fullDesc:fullDesc,
+            id: props.item.id,
+            img:img,
+            price: price
+          })
           props.updateProduct({
             title:title,
             category:category,
@@ -153,7 +163,7 @@ const Modal: React.FC<IModalProps> = (props) => {
             fullDesc:fullDesc,
             id: props.item.id,
             img:img,
-            price: price.toString()
+            price: price
           })
         };
       

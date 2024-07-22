@@ -13,7 +13,7 @@ const categoriesApi = createApi({
             method: 'GET',
           }), 
     }),
-    postCategory: builder.query<IDefaultResponse,ICategory>({
+    postCategory: builder.mutation<IDefaultResponse,ICategory>({
         query: ({title, visible_title}) => ({
             url: '/',
             method: 'POST',
@@ -23,7 +23,7 @@ const categoriesApi = createApi({
               }),
           }), 
     }),
-    updateCategory: builder.query<IDefaultResponse, ICategory>({
+    updateCategory: builder.mutation<IDefaultResponse, ICategory>({
         query: ({title, visible_title, id}) => ({
             url: '/',
             method: 'PUT',
@@ -34,7 +34,7 @@ const categoriesApi = createApi({
               }),
           }), 
     }),
-    deleteCategory: builder.query<IDefaultResponse, number>({
+    deleteCategory: builder.mutation<IDefaultResponse, number>({
       query: (id) => ({
           url: '/',
           method: 'DELETE',
@@ -47,5 +47,5 @@ const categoriesApi = createApi({
   }),
 });
 
-export const { useGetCategoriesQuery } = categoriesApi;
+export const { useGetCategoriesQuery , usePostCategoryMutation, useUpdateCategoryMutation, useDeleteCategoryMutation} = categoriesApi;
 export default categoriesApi;
