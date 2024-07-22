@@ -128,7 +128,7 @@ const AdminPanel = () => {
             dispatch(showPopUpFn({popUpBg:"green", popUpText:"Category was deleted succesefully"}));
           } else {
             dispatch(showPopUpFn({popUpBg:"red", popUpText: `Error: ${result.message}`}));
-          console.error(result.message);
+            console.error(result.message);
           }
       } catch (error) {
         console.error('An error occurred. Please try again.');
