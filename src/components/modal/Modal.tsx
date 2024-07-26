@@ -1,12 +1,12 @@
-import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent,  useEffect, useState } from 'react'
 import { AiOutlineClose } from "react-icons/ai"
 import { IModalProps } from '../../types/compontentTypes/IModal';
 import './Modal.css';
 import { ICategory } from '../../types/compontentTypes/ICategories';
-import fetchCategories from '../../api/fetchCategories';
 import { increment } from '../../store/slices/ordersSlice';
 import { login } from '../../store/slices/loginSlice';
 import { useAppDispatch } from '../../store/store';
+import { useGetCategoriesQuery } from '../../api/categoriesApi';
 const Modal: React.FC<IModalProps> = (props) => {
 
     const dispatch = useAppDispatch();
@@ -118,24 +118,26 @@ const Modal: React.FC<IModalProps> = (props) => {
         const [fullDesc, setFullDesc] = useState('');
         const [categories, setCategories] = useState<ICategory[]>([]);
 
-          
-        const memoizedFetchCategories = useCallback(async () => {
-            const fetchedCategories = await fetchCategories();
-            setCategories(fetchedCategories);
-            if(fetchedCategories && fetchedCategories[0].title){
-            setCategory(fetchedCategories[0].title);
-            }
+        const {data} = useGetCategoriesQuery();
+
+        useEffect(()=>{
+          if(data){
+          setCategories(data.records);
+          if(data.records && data.records[0].title){
+            setCategory(data.records[0].title);
+          }}
+        },[data])
+    
+
+        useEffect(()=>{
+       
             setTitle(props.item.title);
             setDescription(props.item.description);
             setFullDesc(props.item.fullDesc);
             setImg(props.item.img);
             setCategory(props.item.category);
             setPrice(props.item.price );
-        }, [props.item]);
-
-        useEffect(()=>{
-            memoizedFetchCategories()
-        },[memoizedFetchCategories, ])
+        },[props.item])
 
        
         const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -146,16 +148,7 @@ const Modal: React.FC<IModalProps> = (props) => {
       
         const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
           event.preventDefault();
-          console.log(props.item)
-          console.log({
-            title:title,
-            category:category,
-            description:description,
-            fullDesc:fullDesc,
-            id: props.item.id,
-            img:img,
-            price: price
-          })
+          
           props.updateProduct({
             title:title,
             category:category,
@@ -259,12 +252,7 @@ const Modal: React.FC<IModalProps> = (props) => {
      
        const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
          event.preventDefault();
-         console.log({
-            title:title,
-            visible_title: visibleTitle,
-            id: props.category.id,
-     
-          })
+         
          props.updateCategory({
            title:title,
            visible_title:visibleTitle,

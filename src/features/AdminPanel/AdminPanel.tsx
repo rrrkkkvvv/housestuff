@@ -44,7 +44,7 @@ const AdminPanel = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalItemsQuantity, setTotalItemsQuantity] = useState<number>(1);
 
-    const { data } = useGetProductsQuery({ page: currentPage, limit: itemsPerPage, category:category });
+    const { data, refetch } = useGetProductsQuery({ page: currentPage, limit: itemsPerPage, category:category });
 
     useEffect(() => {
       if (data) {
@@ -52,6 +52,10 @@ const AdminPanel = () => {
         setTotalItemsQuantity(data.pagination.total);
       }
     }, [data]);
+
+    useEffect(() => {
+      refetch();
+    }, [items,refetch]);
 
     const pageQuantity = useMemo(() => {
       return Math.ceil(totalItemsQuantity / itemsPerPage);
@@ -73,15 +77,15 @@ const AdminPanel = () => {
 
 
 
-    const onDeleteProduct =async(removedProductId:number)=>{
+    const onDeleteProduct = async(removedProductId:number)=>{
         let deleteConfirm = confirm("Are you sure want to delete this product?");
         if(deleteConfirm){
 
-        setItems(items = items.filter(el => el.id !== removedProductId));
-        try {
-          const result = await deleteProduct(removedProductId).unwrap();
-
-          if (result.message === "Product was deleted") {
+          try {
+            const result = await deleteProduct(removedProductId).unwrap();
+            
+            if (result.message === "Product was deleted") {
+            setItems(items = items.filter(el => el.id !== removedProductId));
             dispatch(showPopUpFn({popUpBg:"green", popUpText:"Product was deleted succesefully"}))
           } else {
             dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}))
@@ -103,12 +107,14 @@ const AdminPanel = () => {
     
     }
     const onUpdateProduct = async (product: IProduct)=>{
-      console.log(product)
+        
         try {
-          
           const result = await updateProduct(product).unwrap()
           if (result.message === "Product was updated") {
             dispatch(showPopUpFn({popUpBg:"green", popUpText:"Product was updated succesefully"}))
+            const updatedItems = items.filter((item)=>item.id === product.id ? product : item)
+            setItems(updatedItems)
+ 
           } else {
             dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}))
             console.error(result.message);

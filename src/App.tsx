@@ -22,13 +22,14 @@ const itemsPerPage = 6;
 export default function App() {
   const { popUpBg, popUpText, showPopUp } = useAppSelector(selectPopUp);
   const currentTheme: IColorTheme = useAppSelector(selectCurrentTheme);
-  
+
+
   const [items, setItems] = useState<IProduct[]>([]);
   const [currentItems, setCurrentItems] = useState<IProduct[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [currentCategory, setCurrentCategory] = useState<string>("all");
   const [totalItemsQuantity, setTotalItemsQuantity] = useState<number>(1);
-  const { data, error, isLoading } = useGetProductsQuery({ page: currentPage, limit: itemsPerPage, category: currentCategory});
+  const { data } = useGetProductsQuery({ page: currentPage, limit: itemsPerPage, category: currentCategory});
 
   useEffect(() => {
     if (currentTheme === themes.light) {

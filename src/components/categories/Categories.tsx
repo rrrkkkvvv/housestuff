@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useState } from 'react'
+import {  useEffect, useState } from 'react'
 
- import { ICategoriesProps } from '../../types/compontentTypes/ICategories';
+import { ICategoriesProps } from '../../types/compontentTypes/ICategories';
 import './Categories.css'
-import fetchCategories from '../../api/fetchCategories';
 import { selectReversedCurrentTheme } from '../../store/slices/themeSlice';
 import { useAppSelector } from '../../store/store';
+import { useGetCategoriesQuery } from '../../api/categoriesApi';
 const categoryHeight = 50;
 
 export default function Categories({ chooseCategory }: ICategoriesProps) {
@@ -20,21 +20,19 @@ export default function Categories({ chooseCategory }: ICategoriesProps) {
             visible_title: "All"
         },
     ])
-
-    const memoizedFetchCategories = useCallback(async () => {
-        const fetchedCategories = await fetchCategories();
-        setCategories([{
-            id: 0,
-            title:"all",
-            visible_title:"All",
-          }, ...fetchedCategories]
-        );
-        
-     }, []);
+    const {data} = useGetCategoriesQuery();
 
     useEffect(()=>{
-        memoizedFetchCategories()
-    },[memoizedFetchCategories])
+        if(data){
+            setCategories([{
+                id: 0,
+                title:"all",
+                visible_title:"All",
+              }, ...data.records]
+            );
+        }
+    },[data])
+  
 
 
 

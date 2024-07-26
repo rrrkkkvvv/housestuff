@@ -7,7 +7,7 @@ import adminApi from "../api/adminApi";
 import productsApi from "../api/productsApi";
 import categoriesApi from "../api/categoriesApi";
 
-
+    
 export const rootReducer = combineReducers({
     orders: ordersReducer,
     popUp: popUpReducer,

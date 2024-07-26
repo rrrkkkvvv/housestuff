@@ -32,12 +32,11 @@ const CreateCategoryForm = () => {
         dispatch(showPopUpFn({popUpBg:"green", popUpText:"Category was added successfully"}))
        } else {
         setError(result.message);
-        console.log(result.message);
         dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}))
 
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setError('An error occurred. Please try again.');
     }
   };

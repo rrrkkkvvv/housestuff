@@ -1,29 +1,29 @@
-import { useCallback, useEffect, useState } from 'react'
+import {  useEffect, useState } from 'react'
 
- import './AdminCategories.css'
+import './AdminCategories.css'
 import { ICategory } from '../../types/compontentTypes/ICategories';
 import { IAdminCategoriesProps } from '../../types/compontentTypes/ICategories';
-import fetchCategories from '../../api/fetchCategories';
 import { selectReversedCurrentTheme } from '../../store/slices/themeSlice';
 import { useAppSelector } from '../../store/store';
+import { useGetCategoriesQuery } from '../../api/categoriesApi';
 export default function AdminCategories({onDelete,onShowCategory}:IAdminCategoriesProps) {
 
 
     const reversedCurrentTheme = useAppSelector(selectReversedCurrentTheme)
   
     let [categories, setCategories] = useState<ICategory[]>([])
+    const {data, refetch} = useGetCategoriesQuery();
 
-    const memoizedFetchCategories = useCallback(async () => {
-        const fetchedCategories = await fetchCategories();
-        setCategories(fetchedCategories);
-      }, []);
+    useEffect(()=>{
+        if(data){
+            setCategories(data.records);
+        }
+    },[data])
   
-      useEffect(()=>{
-        memoizedFetchCategories()
-      },[memoizedFetchCategories])
-  
-  
-  
+    
+    useEffect(()=>{
+        refetch();
+    },[categories, refetch])
 
 
 

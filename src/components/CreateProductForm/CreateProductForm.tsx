@@ -1,9 +1,9 @@
-import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react';
-import { ICategory } from '../../types/compontentTypes/ICategories';
-import fetchCategories from '../../api/fetchCategories';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
 import { useAppDispatch } from '../../store/store';
 import { usePostProductMutation } from '../../api/productsApi';
+import { ICategory } from '../../types/compontentTypes/ICategories';
+import { useGetCategoriesQuery } from '../../api/categoriesApi';
  
 
 
@@ -20,18 +20,17 @@ const CreateProductForm = () => {
 
   const dispatch = useAppDispatch();
   const [postProduct] = usePostProductMutation();
-  
-  const memoizedFetchCategories = useCallback(async () => {
-    const fetchedCategories = await fetchCategories();
-    setCategories(fetchedCategories);
-    if(fetchedCategories && fetchedCategories[0].title){
-      setCategory(fetchedCategories[0].title);
-    }
- }, []);
+  const {data} = useGetCategoriesQuery();
 
-  useEffect(()=>{
-      memoizedFetchCategories()
-  },[memoizedFetchCategories])
+    useEffect(()=>{
+      if(data){
+      setCategories(data.records);
+      if(data.records && data.records[0].title){
+        setCategory(data.records[0].title);
+      }}
+    },[data])
+
+ 
 
 
 
