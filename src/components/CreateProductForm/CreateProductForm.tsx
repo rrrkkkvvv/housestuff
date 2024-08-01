@@ -1,13 +1,12 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
 import { useAppDispatch } from '../../store/store';
-import { usePostProductMutation } from '../../api/productsApi';
 import { ICategory } from '../../types/compontentTypes/ICategories';
 import { useGetCategoriesQuery } from '../../api/categoriesApi';
- 
+import { CreateProductFormProps } from '../../types/compontentTypes/ICreateProductForm';
 
 
-const CreateProductForm = () => {
+const CreateProductForm = ({onAddProduct}:CreateProductFormProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState(0);
@@ -19,7 +18,6 @@ const CreateProductForm = () => {
   const [categories, setCategories] = useState<ICategory[]>([]);
 
   const dispatch = useAppDispatch();
-  const [postProduct] = usePostProductMutation();
   const {data} = useGetCategoriesQuery();
 
     useEffect(()=>{
@@ -54,19 +52,15 @@ const CreateProductForm = () => {
       img: img,
       id: -1,
     };
-    try {
-    
-      const result = await postProduct(newProduct).unwrap();
-      if (result.message === "Product was created") {
-        dispatch(showPopUpFn({popUpBg:"green", popUpText:"Product was added successfully"}))
-      } else {
-        dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}))
-        setError(result.message);
-        console.error(result.message);
-      }
-    } catch (error) {
-      setError('An error occurred. Please try again.');
+    const result = await onAddProduct(newProduct);
+    if(result.type === "success"){
+      dispatch(showPopUpFn({popUpBg:"green", popUpText:result.message}));
+    }else if(result.type === "error"){
+      setError(result.message);
+      dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}));
     }
+    
+
   };
 
   return (

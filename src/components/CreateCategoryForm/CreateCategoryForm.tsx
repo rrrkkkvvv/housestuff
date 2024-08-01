@@ -1,17 +1,17 @@
 import {   FormEvent, useState  } from 'react';
-import { showPopUpFn } from '../../store/slices/popUpSlice';
+import { CreateCategoryFormProps } from '../../types/compontentTypes/ICreateCategoryForm';
 import { useAppDispatch } from '../../store/store';
-import { usePostCategoryMutation } from '../../api/categoriesApi';
+import { showPopUpFn } from '../../store/slices/popUpSlice';
 
  
 
-const CreateCategoryForm = () => {
+const CreateCategoryForm = ({onAddCategory}:CreateCategoryFormProps) => {
   const [title, setTitle] = useState('');
   const [visibleTitle, setVisibleTitle] = useState('');
   const [error, setError] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useAppDispatch();
-  const [postCategory] = usePostCategoryMutation();
+
 
   const handleVisibility = () => {
     setIsVisible(!isVisible);
@@ -24,21 +24,14 @@ const CreateCategoryForm = () => {
       visible_title: visibleTitle,
       id: -1
     }
-    try {
-      
-      const result = await postCategory(newCategory).unwrap()
-      
-      if (result.message === "Category was created") {
-        dispatch(showPopUpFn({popUpBg:"green", popUpText:"Category was added successfully"}))
-       } else {
-        setError(result.message);
-        dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}))
-
-      }
-    } catch (error) {
-      console.error(error);
-      setError('An error occurred. Please try again.');
+    const result = await onAddCategory(newCategory);
+    if(result.type === "success"){
+      dispatch(showPopUpFn({popUpBg:"green", popUpText:result.message}));
+    }else if(result.type === "error"){
+      setError(result.message);
+      dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}));
     }
+    
   };
 
   return (

@@ -6,8 +6,6 @@ export interface ICategory {
 }
 
 export interface IAdminCategoriesProps {
-    onDelete:(id:number)=>void;
-    onShowCategory:(category: ICategory)=>void;
 }
 
 export interface ICategoriesProps {
