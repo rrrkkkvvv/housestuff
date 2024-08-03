@@ -1,0 +1,3 @@
+[submodule "housestuffBackend"]
+	path = housestuffBackend
+	url = https://github.com/rrrkkkvvv/housestuffBackend
