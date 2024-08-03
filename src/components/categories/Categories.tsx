@@ -4,7 +4,7 @@ import { ICategoriesProps } from '../../types/compontentTypes/ICategories';
 import './Categories.css'
 import { selectReversedCurrentTheme } from '../../store/slices/themeSlice';
 import { useAppSelector } from '../../store/store';
-import { useGetCategoriesQuery } from '../../api/categoriesApi';
+import { useGetCategoriesQuery } from '../../api/modules/categoriesApi';
 const categoryHeight = 50;
 
 export default function Categories({ chooseCategory }: ICategoriesProps) {

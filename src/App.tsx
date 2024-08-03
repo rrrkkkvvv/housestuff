@@ -15,7 +15,7 @@ import { selectCurrentTheme, themes } from './store/slices/themeSlice';
 import { IColorTheme } from './types/storeTypes/IThemesContext';
 import { selectPopUp } from './store/slices/popUpSlice';
 import { useAppSelector } from './store/store';
-import { useGetProductsQuery } from './api/productsApi';
+import { useGetProductsQuery } from './api/modules/productsApi';
 
 const itemsPerPage = 6;
 

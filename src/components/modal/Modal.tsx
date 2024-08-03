@@ -6,7 +6,7 @@ import { ICategory } from '../../types/compontentTypes/ICategories';
 import { increment } from '../../store/slices/ordersSlice';
 import { login } from '../../store/slices/loginSlice';
 import { useAppDispatch } from '../../store/store';
-import { useGetCategoriesQuery } from '../../api/categoriesApi';
+import { useGetCategoriesQuery } from '../../api/modules/categoriesApi';
 const Modal: React.FC<IModalProps> = (props) => {
 
     const dispatch = useAppDispatch();

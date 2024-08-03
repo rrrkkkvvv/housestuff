@@ -1,24 +1,25 @@
-// http://localhost/projects/housestuffbackend/servicies/product_service.php?page=${page}&limit=${limit}
+import { IProductsResponse } from '../../types/responseTypes/productsServiceResponse';
+import { IDefaultResponse } from '../../types/responseTypes/defaultResponseType';
+import { IProduct } from '../../types/compontentTypes/IProducts';
+import baseApi from '../baseApi';
 
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { IProductsResponse } from '../types/responseTypes/productsServiceResponse';
-import { IDefaultResponse } from '../types/responseTypes/defaultResponseType';
-import { IProduct } from '../types/compontentTypes/IProducts';
+const fragmentBaseUrl = "/product_service.php"
 
-const productsApi = createApi({
-  reducerPath: 'productsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost/projects/housestuffbackend/servicies/product_service.php' }),
+const productsApi = baseApi.injectEndpoints({
+
   endpoints: (builder) => ({
     getProducts: builder.query<IProductsResponse, {page:number, limit:number, category: string}>({
         query: ({page, limit, category}) => ({
-            url: `?page=${page}&limit=${limit}&category=${category}`,
+            url: `${fragmentBaseUrl}?page=${page}&limit=${limit}&category=${category}`,
             method: 'GET',
           }), 
+        providesTags: ["Products"]
+
     }),
     
     postProduct: builder.mutation<IDefaultResponse,IProduct>({
         query: (product) => ({
-            url: '/',
+            url: fragmentBaseUrl,
             method: 'POST',
             body:JSON.stringify({
                 title: product.title,
@@ -29,10 +30,11 @@ const productsApi = createApi({
                 img: product.img
               }),
           }), 
+        invalidatesTags:["Products"]
     }),
     updateProduct: builder.mutation<IDefaultResponse, IProduct>({
       query: (product) => ({
-        url: '/',
+        url: fragmentBaseUrl,
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -47,20 +49,19 @@ const productsApi = createApi({
           id: product.id
         }),
       }),
+    invalidatesTags:["Products"]
     }),
     
     deleteProduct: builder.mutation<IDefaultResponse, number>({
       query: (id) => ({
-          url: '/',
+          url: fragmentBaseUrl,
           method: 'DELETE',
           body:JSON.stringify({
               id:id,
             }),
-        }), 
+        }),
+      invalidatesTags:["Products"]
   }),
-
-
-
   }),
 });
 

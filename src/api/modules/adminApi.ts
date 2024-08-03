@@ -1,13 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { IAdminUser } from '../types/IAdminUser';
+import { IAdminUser } from '../../types/IAdminUser';
+import baseApi from '../baseApi';
 
-const adminApi = createApi({
-  reducerPath: 'adminApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost/projects/housestuffbackend/servicies/admin_service.php' }),
+const fragmentBaseUrl = "/admin_service.php"
+
+const adminApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.query({
         query: (userData: IAdminUser) => ({
-            url: '/',
+            url: fragmentBaseUrl,
             method: 'POST',
             body: {
                 method: "login",

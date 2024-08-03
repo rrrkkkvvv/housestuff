@@ -1,31 +1,33 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import {  IDefaultResponse } from '../types/responseTypes/defaultResponseType';
-import { ICategoriesResponse } from '../types/responseTypes/categoriesServiceResponse';
-import { ICategory } from '../types/compontentTypes/ICategories';
+import {  IDefaultResponse } from '../../types/responseTypes/defaultResponseType';
+import { ICategoriesResponse } from '../../types/responseTypes/categoriesServiceResponse';
+import { ICategory } from '../../types/compontentTypes/ICategories';
+import baseApi from '../baseApi';
 
-const categoriesApi = createApi({
-  reducerPath: 'categoriesApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost/projects/housestuffbackend/servicies/categories_service.php' }),
+const fragmentBaseUrl = "/categories_service.php"
+
+const categoriesApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getCategories: builder.query<ICategoriesResponse, void>({
         query: () => ({
-            url: '/',
+            url: fragmentBaseUrl,
             method: 'GET',
           }), 
+        providesTags: ["Categories"]
     }),
     postCategory: builder.mutation<IDefaultResponse,ICategory>({
         query: ({title, visible_title}) => ({
-            url: '/',
+            url: fragmentBaseUrl,
             method: 'POST',
             body:JSON.stringify({
                 title: title,
                 visible_title: visible_title,
               }),
           }), 
+          invalidatesTags: ["Categories"]
     }),
     updateCategory: builder.mutation<IDefaultResponse, ICategory>({
         query: ({title, visible_title, id}) => ({
-            url: '/',
+            url: fragmentBaseUrl,
             method: 'PUT',
             body:JSON.stringify({
                 id:id,
@@ -33,17 +35,18 @@ const categoriesApi = createApi({
                 visible_title: visible_title,
               }),
           }), 
+        invalidatesTags: ["Categories"]
     }),
     deleteCategory: builder.mutation<IDefaultResponse, number>({
       query: (id) => ({
-          url: '/',
+          url: fragmentBaseUrl,
           method: 'DELETE',
           body:JSON.stringify({
               id:id,
             }),
         }), 
+      invalidatesTags: ["Categories"]
   }),
-
   }),
 });
 

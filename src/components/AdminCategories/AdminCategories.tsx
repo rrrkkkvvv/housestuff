@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../store/store';
 import { useDeleteCategoryMutation, 
     useGetCategoriesQuery, 
     usePostCategoryMutation,
-    useUpdateCategoryMutation } from '../../api/categoriesApi';
+    useUpdateCategoryMutation } from '../../api/modules/categoriesApi';
 import CreateCategoryForm from '../CreateCategoryForm';
 import { IOnAddCategory } from '../../types/objectTypes/IOnAddCategory';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
@@ -21,7 +21,7 @@ export default function AdminCategories() {
     let [currentEditCategory, setCurrentEditCategory] = useState<ICategory>(Object);
 
     let [categories, setCategories] = useState<ICategory[]>([])
-    const {data, refetch} = useGetCategoriesQuery();
+    const {data} = useGetCategoriesQuery();
     const [postCategory] = usePostCategoryMutation();
     const [deleteCategory] = useDeleteCategoryMutation();
     const [updateCategory] = useUpdateCategoryMutation();
@@ -41,7 +41,6 @@ export default function AdminCategories() {
             
             if (result.message === "Category was created") {
               dispatch(showPopUpFn({popUpBg:"green", popUpText:"Category was added successfully"}));
-              refetch()
               return {type:"success", message:"Category was added successfully"};
 
              } else {
@@ -62,7 +61,6 @@ export default function AdminCategories() {
           try {
           const result = await deleteCategory(removedCategoryId).unwrap();
             if (result.message === "Category was deleted") {
-                refetch()
                 dispatch(showPopUpFn({popUpBg:"green", popUpText:"Category was deleted succesefully"}));
             } else {
               dispatch(showPopUpFn({popUpBg:"red", popUpText: `Error: ${result.message}`}));
@@ -78,7 +76,6 @@ export default function AdminCategories() {
           const result = await updateCategory(category).unwrap();
   
           if (result.message === "Category was updated") {
-            refetch()
             dispatch(showPopUpFn({popUpBg:"green", popUpText:"Category was updated succesefully"}))
   
           } else {

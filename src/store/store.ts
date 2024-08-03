@@ -1,19 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { rootReducer } from "./rootReducer";
 import { useDispatch, useSelector } from "react-redux";
-import adminApi from "../api/adminApi";
-import productsApi from "../api/productsApi";
-import categoriesApi from "../api/categoriesApi";
 import { setupListeners } from "@reduxjs/toolkit/query";
+import baseApi from "../api/baseApi";
 
 export const store = configureStore({
     reducer:rootReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
-          .concat(adminApi.middleware)
-          .concat(productsApi.middleware)
-          .concat(categoriesApi.middleware),
-    
+          .concat(baseApi.middleware)
+
 });
     
 export type RootState = ReturnType<typeof store.getState>;

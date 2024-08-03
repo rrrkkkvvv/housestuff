@@ -8,7 +8,7 @@ import './AdminPanel.css'
 import { selectPopUp, showPopUpFn } from '../../store/slices/popUpSlice';
 import { selectCurrentTheme } from '../../store/slices/themeSlice';
 import { useAppDispatch, useAppSelector } from '../../store/store';
-import { useDeleteProductMutation, useGetProductsQuery, usePostProductMutation, useUpdateProductMutation } from '../../api/productsApi';
+import { useDeleteProductMutation, useGetProductsQuery, usePostProductMutation, useUpdateProductMutation } from '../../api/modules/productsApi';
 import Pagination from '../../components/Pagination';
 import { IOnAddProduct } from '../../types/objectTypes/IOnAddProduct';
 
@@ -37,7 +37,7 @@ const AdminPanel = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalItemsQuantity, setTotalItemsQuantity] = useState<number>(1);
 
-    const { data, refetch } = useGetProductsQuery({ page: currentPage, limit: itemsPerPage, category:category });
+    const { data } = useGetProductsQuery({ page: currentPage, limit: itemsPerPage, category:category });
     const [postProduct] = usePostProductMutation();
 
     useEffect(() => {
@@ -77,7 +77,6 @@ const AdminPanel = () => {
             const result = await deleteProduct(removedProductId).unwrap();
             
             if (result.message === "Product was deleted") {
-              refetch()
               dispatch(showPopUpFn({popUpBg:"green", popUpText:"Product was deleted succesefully"}))
           } else {
             dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}))
@@ -104,7 +103,6 @@ const AdminPanel = () => {
     
         const result = await postProduct(newProduct).unwrap();
         if (result.message === "Product was created") {
-          refetch()
           return {type:"success", message:"Product was added successfully"};
         } else {
           console.error(result.message);
@@ -123,7 +121,6 @@ const AdminPanel = () => {
         try {
           const result = await updateProduct(product).unwrap()
           if (result.message === "Product was updated") {
-            refetch()
             dispatch(showPopUpFn({popUpBg:"green", popUpText:"Product was updated succesefully"}))
 
  
