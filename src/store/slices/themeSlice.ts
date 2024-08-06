@@ -1,16 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IColorThemes, IColorTheme } from '../../types/storeTypes/IThemesContext';
+import {  IColorTheme, themes } from '../../types/storeTypes/IThemesContext';
 
-export const themes: IColorThemes = {
-    light: {
-        background: '#fff',
-        color: '#222',
-    },
-    dark: {
-        background: '#333',
-        color: '#fff',
-    },
-}
+
 
 const loadThemeFromLS = (): { currentTheme: "dark" | "light", reversedCurrentTheme: "dark" | "light" } => {
     const storedCurrentTheme = localStorage.getItem('currentTheme');

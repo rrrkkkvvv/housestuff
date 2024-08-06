@@ -12,6 +12,7 @@ import CreateCategoryForm from '../CreateCategoryForm';
 import { IOnAddCategory } from '../../types/objectTypes/IOnAddCategory';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
 import Modal from '../Modal';
+import { categoriesValues, colors, errorMessage, responseMessages, titles } from '../../values/stringValues';
 export default function AdminCategories() {
 
 
@@ -39,9 +40,8 @@ export default function AdminCategories() {
       
             const result = await postCategory(newCategory).unwrap()
             
-            if (result.message === "Category was created") {
-              dispatch(showPopUpFn({popUpBg:"green", popUpText:"Category was added successfully"}));
-              return {type:"success", message:"Category was added successfully"};
+            if (result.message === responseMessages.categoriesResponses.successAdd) {
+              return {type:"success", message:categoriesValues.successAdd};
 
              } else {
               return {type:"error", message:result.message};
@@ -50,24 +50,24 @@ export default function AdminCategories() {
             }
           } catch (error) {
             console.error(error);
-            return {type:"error", message:"An error occurred. Please try again"};
+            return {type:"error", message: errorMessage};
 
         }
     }
 
     const onDeleteCategory = async(removedCategoryId:number) =>{
-        let deleteConfirm = confirm("Are you sure want to delete this category?");
+        let deleteConfirm = confirm(categoriesValues.deleteConfirm);
         if(deleteConfirm){
           try {
           const result = await deleteCategory(removedCategoryId).unwrap();
-            if (result.message === "Category was deleted") {
-                dispatch(showPopUpFn({popUpBg:"green", popUpText:"Category was deleted succesefully"}));
+            if (result.message === responseMessages.categoriesResponses.successDelete) {
+                dispatch(showPopUpFn({popUpBg:"green", popUpText:categoriesValues.successDelete}));
             } else {
               dispatch(showPopUpFn({popUpBg:"red", popUpText: `Error: ${result.message}`}));
               console.error(result.message);
             }
         } catch (error) {
-          console.error('An error occurred. Please try again.');
+          console.error(errorMessage);
           }
       }
       }
@@ -75,8 +75,8 @@ export default function AdminCategories() {
         try {
           const result = await updateCategory(category).unwrap();
   
-          if (result.message === "Category was updated") {
-            dispatch(showPopUpFn({popUpBg:"green", popUpText:"Category was updated succesefully"}))
+          if (result.message === responseMessages.categoriesResponses.successUpdate) {
+            dispatch(showPopUpFn({popUpBg:"green", popUpText:categoriesValues.successUpdate}))
   
           } else {
             dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}))
@@ -84,7 +84,7 @@ export default function AdminCategories() {
             console.error(result.message);
           }
         } catch (error) {
-          console.error('An error occurred. Please try again.');
+          console.error(errorMessage);
         }
       }
       const onShowCategory = (category: ICategory)=> {
@@ -95,17 +95,17 @@ export default function AdminCategories() {
       
     return (
         <>
-            <h1 className='admin-panel-subtitle'>Categories</h1>
+            <h1 className='admin-panel-subtitle'>{titles.categories}</h1>
             <div className='admin-categories' style={{ borderColor:reversedCurrentTheme.background }}>
                 {categories.map(el => (
-                    <div className="category" style={{ background: "#eee", color: "#000" }}  key={el.title}>
+                    <div className="category" style={{ background:colors.lightGrayColor, color: colors.blackColor}}  key={el.title}>
                         <p className='category-title'>{el.visible_title}</p>
                         <p className="category-link" onClick={()=>onDeleteCategory(el.id)}>Delete</p>
                         <p className="category-link" onClick={()=>onShowCategory(el)}>Edit</p>
                         </div>
                 ))}
             </div>
-            <h3 className='admin-panel-subtitle'>Update/Delete categories</h3>
+            <h3 className='admin-panel-subtitle'>{titles.editCategory}</h3>
             <CreateCategoryForm onAddCategory={onAddCategory} />
             <Modal
           type='edit category'

@@ -11,9 +11,10 @@ import { useAppDispatch, useAppSelector } from '../../store/store';
 import { useDeleteProductMutation, useGetProductsQuery, usePostProductMutation, useUpdateProductMutation } from '../../api/modules/productsApi';
 import Pagination from '../../components/Pagination';
 import { IOnAddProduct } from '../../types/objectTypes/IOnAddProduct';
+import { itemsPerPage } from '../../values/intValues';
+import { authError, errorMessage, producsValues, responseMessages, titles } from '../../values/stringValues';
 
 const category = "all";
-const itemsPerPage = 6;
 
 const AdminPanel = () => {
 
@@ -70,14 +71,14 @@ const AdminPanel = () => {
 
 
     const onDeleteProduct = async(removedProductId:number)=>{
-        let deleteConfirm = confirm("Are you sure want to delete this product?");
+        let deleteConfirm = confirm(producsValues.deleteConfirm);
         if(deleteConfirm){
 
           try {
             const result = await deleteProduct(removedProductId).unwrap();
             
-            if (result.message === "Product was deleted") {
-              dispatch(showPopUpFn({popUpBg:"green", popUpText:"Product was deleted succesefully"}))
+            if (result.message === responseMessages.producsResponses.successDelete) {
+              dispatch(showPopUpFn({popUpBg:"green", popUpText:producsValues.successDelete}))
           } else {
             dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}))
             console.error(result.message);
@@ -86,7 +87,7 @@ const AdminPanel = () => {
 
         
       } catch (error) {
-          console.error('An error occurred. Please try again.');
+          console.error(errorMessage);
       }
     }
 
@@ -102,8 +103,8 @@ const AdminPanel = () => {
       try {
     
         const result = await postProduct(newProduct).unwrap();
-        if (result.message === "Product was created") {
-          return {type:"success", message:"Product was added successfully"};
+        if (result.message === responseMessages.producsResponses.successAdd) {
+          return {type:"success", message: producsValues.successAdd};
         } else {
           console.error(result.message);
           return {type:"error", message:result.message};
@@ -112,7 +113,7 @@ const AdminPanel = () => {
       } catch (error) {
         console.error(error);
 
-        return {type:"error", message:"An error occurred. Please try again."};
+        return {type:"error", message:errorMessage};
       }
     }
 
@@ -120,8 +121,8 @@ const AdminPanel = () => {
         
         try {
           const result = await updateProduct(product).unwrap()
-          if (result.message === "Product was updated") {
-            dispatch(showPopUpFn({popUpBg:"green", popUpText:"Product was updated succesefully"}))
+          if (result.message === responseMessages.producsResponses.successUpdate) {
+            dispatch(showPopUpFn({popUpBg:"green", popUpText:producsValues.successUpdate}))
 
  
           } else {
@@ -129,7 +130,7 @@ const AdminPanel = () => {
             console.error(result.message);
           }
       } catch (error) {
-          console.error('An error occurred. Please try again.');
+          console.error(errorMessage);
       }
     }
       
@@ -140,14 +141,14 @@ const AdminPanel = () => {
     return (
       <div className='wrapper' style={{ background:  currentTheme.background, color:  currentTheme.color }}>
 
-        <h1 className='admin-panel-title'>Admin Panel</h1>
+        <h1 className='admin-panel-title'>{titles.adminPanel}</h1>
 
 
-        <h1 className='admin-panel-subtitle'>Products</h1>
+        <h1 className='admin-panel-subtitle'>{titles.products}</h1>
 
         <CreateProductForm onAddProduct={onAddProduct}/>
 
-        <h3 className='admin-panel-subtitle'>Update/Delete products</h3>
+        <h3 className='admin-panel-subtitle'>{titles.editProdcut}</h3>
         <Products onShowItem={onShowItem} type='admin' onDelete={onDeleteProduct}  items={items} />
         <Pagination
         prevPage={prevPage}
@@ -182,7 +183,7 @@ const AdminPanel = () => {
     
     return (
       <div>
-        <h1>Firstly you must login as admin</h1>
+        <h1>{authError}</h1>
       </div>
     );
   }

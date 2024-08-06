@@ -7,6 +7,7 @@ import { increment } from '../../store/slices/ordersSlice';
 import { login } from '../../store/slices/loginSlice';
 import { useAppDispatch } from '../../store/store';
 import { useGetCategoriesQuery } from '../../api/modules/categoriesApi';
+import { errorMessage } from '../../values/stringValues';
 const Modal: React.FC<IModalProps> = (props) => {
 
     const dispatch = useAppDispatch();
@@ -69,7 +70,7 @@ const Modal: React.FC<IModalProps> = (props) => {
     
          
             } catch (error) {
-                setError('An error occurred. Please try again.');
+                setError(errorMessage);
             }
         };
         return (

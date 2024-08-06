@@ -28,12 +28,19 @@ export const titles = {
     editProdcut: "Update/Delete products",
 }
 
-export const popUpValues = {
+export const popUpColors= {
     greenColor: "green",
     redColor: "red",
     
 }
-
+export const popTexts = {
+    productsInCart:{
+        addedInCart:"Product was added in cart",
+        alreadyInCart:"Product is already in cart!",
+        removedFromCart:""
+    },
+    shopWarning: "This is not a real shop!!"
+}
 
 export const categoriesValues={
     deleteConfirm: "Are you sure want to delete this category?",

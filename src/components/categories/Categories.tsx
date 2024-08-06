@@ -5,7 +5,8 @@ import './Categories.css'
 import { selectReversedCurrentTheme } from '../../store/slices/themeSlice';
 import { useAppSelector } from '../../store/store';
 import { useGetCategoriesQuery } from '../../api/modules/categoriesApi';
-const categoryHeight = 50;
+import { categoryHeight } from '../../values/intValues';
+import { colors } from '../../values/stringValues';
 
 export default function Categories({ chooseCategory }: ICategoriesProps) {
     const [maxHeight, setMaxHeight] = useState(50);
@@ -42,7 +43,7 @@ export default function Categories({ chooseCategory }: ICategoriesProps) {
         <div className='categories'   style={{ borderColor: reversedCurrentTheme.background,  maxHeight: isExpanded ? `${maxHeight}px` : `${categoryHeight}px` } }>
             <div className="category category-choose" style={{ background: reversedCurrentTheme.background, color: reversedCurrentTheme.color }} onClick={() => showCategories()}>Choose Category </div>
             {categories.map(el => (
-                <div className="category" style={{ background: "#eee", color: "#000" }} onClick={() => chooseCategory(el.title)} key={el.title}>{el.visible_title}</div>
+                <div className="category" style={{ background: colors.lightGrayColor, color: colors.blackColor }} onClick={() => chooseCategory(el.title)} key={el.title}>{el.visible_title}</div>
             ))}
         </div>
     )

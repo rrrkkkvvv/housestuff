@@ -11,13 +11,14 @@ import Products from './features/Products';
 import Pagination from './components/Pagination';
 import Modal from './components/Modal';
 import Footer from './components/Footer';
-import { selectCurrentTheme, themes } from './store/slices/themeSlice';
-import { IColorTheme } from './types/storeTypes/IThemesContext';
+import { selectCurrentTheme } from './store/slices/themeSlice';
+import { IColorTheme, themes } from './types/storeTypes/IThemesContext';
 import { selectPopUp } from './store/slices/popUpSlice';
 import { useAppSelector } from './store/store';
 import { useGetProductsQuery } from './api/modules/productsApi';
+import { itemsPerPage } from './values/intValues';
+import { colors, stringValues, titles } from './values/stringValues';
 
-const itemsPerPage = 6;
 
 export default function App() {
   const { popUpBg, popUpText, showPopUp } = useAppSelector(selectPopUp);
@@ -33,9 +34,9 @@ export default function App() {
 
   useEffect(() => {
     if (currentTheme === themes.light) {
-      document.body.style.backgroundColor = "#fff";
+      document.body.style.backgroundColor = colors.whiteColor;
     } else {
-      document.body.style.backgroundColor = "#333";
+      document.body.style.backgroundColor = colors.darkGrayColor;
     }
   }, [currentTheme]);
 
@@ -150,19 +151,19 @@ export default function App() {
         type={"information"}
         show={showModalAbout}
         onShowModal={onShowModal}
-        title={"About us"}
-        textContent={<p>We are a home furniture store, and we are selling the best stuff for your home</p>}
+        title={titles.aboutUs}
+        textContent={<p>{stringValues.aboutUs}</p>}
       />
       <Modal
         type={"information"}
         show={showModalContact}
         onShowModal={onShowModal}
-        title={"Contact with us"}
+        title={titles.contacts}
         textContent={
           <div className='modal-text-content'>
-            <h3>Phone:  <a>+48000999222</a></h3>
-            <h3>Instagram:  <a>@HouseStuffInst</a></h3>
-            <h3>Facebook: <a>@HouseStuffFacebook</a></h3>
+            <h3>Phone:  <a>{stringValues.phoneNum}</a></h3>
+            <h3>Instagram:  <a>{stringValues.instagram}</a></h3>
+            <h3>Facebook: <a>{stringValues.facebook}</a></h3>
           </div>
         }
       />

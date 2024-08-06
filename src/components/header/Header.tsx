@@ -14,6 +14,7 @@ import { selectCurrentTheme, toggleTheme } from '../../store/slices/themeSlice';
 import { selectOrders } from '../../store/slices/ordersSlice';
 import { selectIsLoggedIn } from '../../store/slices/loginSlice';
 import { useAppDispatch, useAppSelector } from '../../store/store';
+import { popTexts } from '../../values/stringValues';
 
 
 export default function Header({ onShowModal }: IHeaderProps) {
@@ -107,7 +108,7 @@ export default function Header({ onShowModal }: IHeaderProps) {
                     <div className="close-cart-button" onClick={() => setCartOpen(!cartOpen)} >X</div>
 
                     {orders.length > 0 ? showOrders() : showNothing()}
-                    <button className='make-order-button' onClick={() => dispatch(showPopUpFn({popUpBg:"red", popUpText:"This is not a real shop!!"}))}>Make an order</button>
+                    <button className='make-order-button' onClick={() => dispatch(showPopUpFn({popUpBg:"red", popUpText:popTexts.shopWarning}))}>Make an order</button>
                 </div>
 
             </div>

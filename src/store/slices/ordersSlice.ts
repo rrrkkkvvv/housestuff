@@ -2,6 +2,7 @@ import { createAsyncThunk,  createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { IProduct } from '../../types/compontentTypes/IProducts';
 import { showPopUpFn } from './popUpSlice';
+import { popTexts } from '../../values/stringValues';
  
 export interface OrdersState {
     orders: IProduct[];
@@ -50,10 +51,10 @@ export const increment = createAsyncThunk(
         if (!itIsInCart) {
             const updatedOrders = [...orders, product];
             localStorage.setItem('orders', JSON.stringify(updatedOrders));
-            dispatch(showPopUpFn({ popUpBg: 'green', popUpText: 'Product was added in cart' }));
+            dispatch(showPopUpFn({ popUpBg: 'green', popUpText: popTexts.productsInCart.addedInCart }));
             return updatedOrders;
         } else {
-            dispatch(showPopUpFn({ popUpBg: 'red', popUpText: 'Product is already in cart!' }));
+            dispatch(showPopUpFn({ popUpBg: 'red', popUpText: popTexts.productsInCart.alreadyInCart }));
             return orders;
         }
     }
