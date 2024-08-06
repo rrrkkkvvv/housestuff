@@ -1,6 +1,6 @@
 import { IProductsResponse } from '../../types/responseTypes/productsServiceResponse';
 import { IDefaultResponse } from '../../types/responseTypes/defaultResponseType';
-import { IProduct } from '../../types/compontentTypes/IProducts';
+import { IProduct } from '../../types/objectTypes/IProduct';
 import baseApi from '../baseApi';
 
 const fragmentBaseUrl = "/product_service.php"

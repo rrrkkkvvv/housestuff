@@ -1,7 +1,7 @@
 import {  useEffect, useState } from 'react'
 
 import './AdminCategories.css'
-import { ICategory } from '../../types/compontentTypes/ICategories';
+import { ICategory } from '../../types/objectTypes/ICategory';
 import { selectReversedCurrentTheme } from '../../store/slices/themeSlice';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { useDeleteCategoryMutation, 

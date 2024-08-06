@@ -1,4 +1,4 @@
-import { IAdminUser } from '../../types/IAdminUser';
+import { IAdminUser } from '../../types/objectTypes/IAdminUser';
 import baseApi from '../baseApi';
 
 const fragmentBaseUrl = "/admin_service.php"

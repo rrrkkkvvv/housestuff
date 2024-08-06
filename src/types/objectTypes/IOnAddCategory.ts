@@ -1,4 +1,4 @@
-import { ICategory } from "../compontentTypes/ICategories"
+import { ICategory } from "../objectTypes/ICategory"
 
 export type IOnAddCategory = (newCategory:ICategory)=>Promise<{
     type: "success" | "error",

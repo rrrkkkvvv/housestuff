@@ -1,14 +1,5 @@
- 
-export interface IProduct {
-    id: number;
-    price: number;
-    img: string;
-    title: string;
-    description: string;
-    fullDesc: string;
-    category: string;
-}
- 
+import { IProduct } from "../objectTypes/IProduct";
+
 export interface IProductProps {
     onShowItem: (product: IProduct) => void;
     item: IProduct;

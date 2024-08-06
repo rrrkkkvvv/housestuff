@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 
 //To deploy a gh pages use: npm run predeploy    npm run deploy
 
-import { IProduct } from './types/compontentTypes/IProducts';
+import { IProduct } from './types/objectTypes/IProduct';
 import debounce from './hooks/useDebounce';
 import Header from './components/Header';
 import Search from './components/Search';
@@ -12,7 +12,7 @@ import Pagination from './components/Pagination';
 import Modal from './components/Modal';
 import Footer from './components/Footer';
 import { selectCurrentTheme } from './store/slices/themeSlice';
-import { IColorTheme, themes } from './types/storeTypes/IThemesContext';
+import { IColorTheme, themes } from './types/storeTypes/IThemesState';
 import { selectPopUp } from './store/slices/popUpSlice';
 import { useAppSelector } from './store/store';
 import { useGetProductsQuery } from './api/modules/productsApi';

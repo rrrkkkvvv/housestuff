@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent,  useEffect, useState } from 'react'
 import { AiOutlineClose } from "react-icons/ai"
 import { IModalProps } from '../../types/compontentTypes/IModal';
 import './Modal.css';
-import { ICategory } from '../../types/compontentTypes/ICategories';
+import { ICategory } from '../../types/objectTypes/ICategory';
 import { increment } from '../../store/slices/ordersSlice';
 import { login } from '../../store/slices/loginSlice';
 import { useAppDispatch } from '../../store/store';

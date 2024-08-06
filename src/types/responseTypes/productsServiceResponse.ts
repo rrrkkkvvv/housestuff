@@ -1,4 +1,4 @@
-import { IProduct } from "../compontentTypes/IProducts";
+import { IProduct } from "../objectTypes/IProduct";
 import { IDefaultGetResponse } from "./defaultResponseType";
 
 export interface IProductsResponse extends IDefaultGetResponse<IProduct>{

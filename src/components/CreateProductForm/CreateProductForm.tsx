@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
 import { useAppDispatch } from '../../store/store';
-import { ICategory } from '../../types/compontentTypes/ICategories';
+import { ICategory } from '../../types/objectTypes/ICategory';
 import { useGetCategoriesQuery } from '../../api/modules/categoriesApi';
 import { CreateProductFormProps } from '../../types/compontentTypes/ICreateProductForm';
 

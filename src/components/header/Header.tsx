@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 import './Header.css'
 import { IHeaderProps } from '../../types/compontentTypes/IHeader';
-import { IProduct } from '../../types/compontentTypes/IProducts';
+import { IProduct } from '../../types/objectTypes/IProduct';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
 import { selectCurrentTheme, toggleTheme } from '../../store/slices/themeSlice';
 import { selectOrders } from '../../store/slices/ordersSlice';

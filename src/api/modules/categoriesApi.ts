@@ -1,6 +1,6 @@
 import {  IDefaultResponse } from '../../types/responseTypes/defaultResponseType';
 import { ICategoriesResponse } from '../../types/responseTypes/categoriesServiceResponse';
-import { ICategory } from '../../types/compontentTypes/ICategories';
+import { ICategory } from '../../types/objectTypes/ICategory';
 import baseApi from '../baseApi';
 
 const fragmentBaseUrl = "/categories_service.php"

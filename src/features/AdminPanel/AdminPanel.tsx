@@ -1,5 +1,5 @@
 import {  useEffect, useMemo, useState } from 'react';
-import { IProduct } from '../../types/compontentTypes/IProducts';
+import { IProduct } from '../../types/objectTypes/IProduct';
 import CreateProductForm from '../../components/CreateProductForm';
 import Products from '../Products';
 import Modal from '../../components/Modal/Modal';

@@ -1,4 +1,4 @@
-import { ICategory } from "../compontentTypes/ICategories";
+import { ICategory } from "../objectTypes/ICategory";
 import { IDefaultGetResponse } from "./defaultResponseType";
 
 export interface ICategoriesResponse extends IDefaultGetResponse<ICategory>{
