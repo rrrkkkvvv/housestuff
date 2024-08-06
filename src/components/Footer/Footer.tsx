@@ -1,10 +1,11 @@
+import { footerText } from "../../values/stringValues";
 
 
 export default function Footer() {
 
     return (
         <footer>
-            All rights reserved &copy;
+            {footerText}
         </footer>
     )
 }
