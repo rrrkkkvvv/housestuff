@@ -1,4 +1,4 @@
-import { createAsyncThunk,  createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk,  createSelector,  createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { IProduct } from '../../types/objectTypes/IProduct';
 import { showPopUpFn } from './popUpSlice';
@@ -85,6 +85,13 @@ const ordersSlice = createSlice({
 
 
 export const {decrement} = ordersSlice.actions;
-export const {selectOrders} = ordersSlice.selectors
+export const {selectOrders} = ordersSlice.selectors;
+export const selectOrdersPriceSumm = createSelector(
+    [selectOrders],
+    (orders)=> 
+        orders.reduce((acc, product)=>{
+            return acc + product.price;
+        }, 0)
+);
 const ordersReducer = ordersSlice.reducer
 export default ordersReducer;

@@ -11,7 +11,7 @@ import { IHeaderProps } from '../../types/compontentTypes/IHeader';
 import { IProduct } from '../../types/objectTypes/IProduct';
 import { showPopUpFn } from '../../store/slices/popUpSlice';
 import { selectCurrentTheme, toggleTheme } from '../../store/slices/themeSlice';
-import { selectOrders } from '../../store/slices/ordersSlice';
+import { selectOrders, selectOrdersPriceSumm } from '../../store/slices/ordersSlice';
 import { selectIsLoggedIn } from '../../store/slices/loginSlice';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { popTexts } from '../../values/stringValues';
@@ -22,7 +22,7 @@ export default function Header({ onShowModal }: IHeaderProps) {
     const dispatch = useAppDispatch();
     
     const orders:IProduct[] = useAppSelector(selectOrders);
-
+    const ordersPriceSumm = useAppSelector(selectOrdersPriceSumm)
     const currentTheme = useAppSelector(selectCurrentTheme)
     
 
@@ -49,15 +49,13 @@ export default function Header({ onShowModal }: IHeaderProps) {
 
     function showOrders() {
 
-        let summ = 0;
-        orders.forEach(el => { summ +=el.price});
         return (
             <div style={{ background: currentTheme.background, color: currentTheme.color }}>
                 <h3  className="shop-cart-title" >Product Cart{<FaShoppingCart className='cart-icon' />}</h3>
                 {orders.map(el => (
                     <Order key={el.id} item={el} />
                 ))}
-                <p className='summ'>Summ: <span style={{ color: "#5fa36a" }}>{summ.toFixed(2)}$</span></p>
+                <p className='summ'>Summ: <span style={{ color: "#5fa36a" }}>{ordersPriceSumm}$</span></p>
             </div>
         )
 

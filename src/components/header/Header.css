@@ -137,20 +137,17 @@ header .shop-cart {
     top: 30px;
     right: 10px;
     width: 450px;
+    z-index: 1000; /* Повышаем z-index */
+    overflow-y: auto; /* Принудительно задаем скролл */
+    max-height: 75dvh; /* Проверяем, что высота установлена корректно */
 
     background-color: #fff;
     box-shadow: 4px 4px 14px 0px rgb(96, 97, 98);
-    z-index: 2;
     padding: 20px;
     padding-bottom: 0;
 }
 
-header .shop-cart {
 
-    max-height: 700px;
-    overflow-y: scroll;
-
-}
 
 @media (max-width: 800px) {
     header .shop-cart {
