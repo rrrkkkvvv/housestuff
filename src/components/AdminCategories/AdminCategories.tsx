@@ -2,7 +2,7 @@ import {  useEffect, useState } from 'react'
 
 import './AdminCategories.css'
 import { ICategory } from '../../types/objectTypes/ICategory';
-import { selectReversedCurrentTheme } from '../../store/slices/themeSlice';
+import { selectReversedCurrentTheme } from '../../store/slices/theme/themeSlice';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { useDeleteCategoryMutation, 
     useGetCategoriesQuery, 
@@ -10,9 +10,9 @@ import { useDeleteCategoryMutation,
     useUpdateCategoryMutation } from '../../api/modules/categoriesApi';
 import CreateCategoryForm from '../CreateCategoryForm';
 import { IOnAddCategory } from '../../types/objectTypes/IOnAddCategory';
-import { showPopUpFn } from '../../store/slices/popUpSlice';
 import Modal from '../Modal';
 import { categoriesValues, colors, errorMessage, responseMessages, titles } from '../../values/stringValues';
+import { showPopUpCaller } from '../../store/slices/popUp/thunks/showPopUpThunk';
 export default function AdminCategories() {
 
 
@@ -61,9 +61,9 @@ export default function AdminCategories() {
           try {
           const result = await deleteCategory(removedCategoryId).unwrap();
             if (result.message === responseMessages.categoriesResponses.successDelete) {
-                dispatch(showPopUpFn({popUpBg:"green", popUpText:categoriesValues.successDelete}));
+                dispatch(showPopUpCaller({popUpBg:"green", popUpText:categoriesValues.successDelete}));
             } else {
-              dispatch(showPopUpFn({popUpBg:"red", popUpText: `Error: ${result.message}`}));
+              dispatch(showPopUpCaller({popUpBg:"red", popUpText: `Error: ${result.message}`}));
               console.error(result.message);
             }
         } catch (error) {
@@ -76,10 +76,10 @@ export default function AdminCategories() {
           const result = await updateCategory(category).unwrap();
   
           if (result.message === responseMessages.categoriesResponses.successUpdate) {
-            dispatch(showPopUpFn({popUpBg:"green", popUpText:categoriesValues.successUpdate}))
+            dispatch(showPopUpCaller({popUpBg:"green", popUpText:categoriesValues.successUpdate}))
   
           } else {
-            dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}))
+            dispatch(showPopUpCaller({popUpBg:"red", popUpText:`Error: ${result.message}`}))
   
             console.error(result.message);
           }

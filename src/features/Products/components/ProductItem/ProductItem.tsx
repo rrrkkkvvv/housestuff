@@ -1,9 +1,9 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { IProductProps } from '../../../../types/compontentTypes/IProducts';
-import { increment } from '../../../../store/slices/ordersSlice';
-import { selectCurrentTheme } from '../../../../store/slices/themeSlice';
+import { selectCurrentTheme } from '../../../../store/slices/theme/themeSlice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
+import { addOrder } from '../../../../store/slices/orders/thunks/addOrderThunk';
 export default function Product({ onShowItem, item }: IProductProps) {
     
     const dispatch = useAppDispatch();
@@ -29,7 +29,7 @@ export default function Product({ onShowItem, item }: IProductProps) {
 
             <p style={{ background: currentTheme.background, color: currentTheme.color }}>{product.description}</p>
             <b >{product.price}$</b>
-            <div className='add-to-cart' onClick={() => {dispatch(increment(product))}}>+</div>
+            <div className='add-to-cart' onClick={() => {dispatch(addOrder(product))}}>+</div>
         </div>
     )
 }

@@ -2,7 +2,7 @@ import {  useEffect, useState } from 'react'
 
 import { ICategoriesProps } from '../../types/compontentTypes/ICategories';
 import './Categories.css'
-import { selectReversedCurrentTheme } from '../../store/slices/themeSlice';
+import { selectReversedCurrentTheme } from '../../store/slices/theme/themeSlice';
 import { useAppSelector } from '../../store/store';
 import { useGetCategoriesQuery } from '../../api/modules/categoriesApi';
 import { categoryHeight } from '../../values/intValues';

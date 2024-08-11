@@ -1,7 +1,7 @@
 import {   FormEvent, useState  } from 'react';
 import { CreateCategoryFormProps } from '../../types/compontentTypes/ICreateCategoryForm';
 import { useAppDispatch } from '../../store/store';
-import { showPopUpFn } from '../../store/slices/popUpSlice';
+import { showPopUpCaller } from '../../store/slices/popUp/thunks/showPopUpThunk';
 
  
 
@@ -26,10 +26,10 @@ const CreateCategoryForm = ({onAddCategory}:CreateCategoryFormProps) => {
     }
     const result = await onAddCategory(newCategory);
     if(result.type === "success"){
-      dispatch(showPopUpFn({popUpBg:"green", popUpText:result.message}));
+      dispatch(showPopUpCaller({popUpBg:"green", popUpText:result.message}));
     }else if(result.type === "error"){
       setError(result.message);
-      dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}));
+      dispatch(showPopUpCaller({popUpBg:"red", popUpText:`Error: ${result.message}`}));
     }
     
   };

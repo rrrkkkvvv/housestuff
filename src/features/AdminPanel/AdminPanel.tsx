@@ -5,14 +5,15 @@ import Products from '../Products';
 import Modal from '../../components/Modal/Modal';
 import AdminCategories from '../../components/AdminCategories';
 import './AdminPanel.css'
-import { selectPopUp, showPopUpFn } from '../../store/slices/popUpSlice';
-import { selectCurrentTheme } from '../../store/slices/themeSlice';
+import { selectPopUp } from '../../store/slices/popUp/popUpSlice';
+import { selectCurrentTheme } from '../../store/slices/theme/themeSlice';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { useDeleteProductMutation, useGetProductsQuery, usePostProductMutation, useUpdateProductMutation } from '../../api/modules/productsApi';
 import Pagination from '../../components/Pagination';
 import { IOnAddProduct } from '../../types/objectTypes/IOnAddProduct';
 import { itemsPerPage } from '../../values/intValues';
 import { authError, errorMessage, producsValues, responseMessages, titles } from '../../values/stringValues';
+import { showPopUpCaller } from '../../store/slices/popUp/thunks/showPopUpThunk';
 
 const category = "all";
 
@@ -78,9 +79,9 @@ const AdminPanel = () => {
             const result = await deleteProduct(removedProductId).unwrap();
             
             if (result.message === responseMessages.producsResponses.successDelete) {
-              dispatch(showPopUpFn({popUpBg:"green", popUpText:producsValues.successDelete}))
+              dispatch(showPopUpCaller({popUpBg:"green", popUpText:producsValues.successDelete}))
           } else {
-            dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}))
+            dispatch(showPopUpCaller({popUpBg:"red", popUpText:`Error: ${result.message}`}))
             console.error(result.message);
 
           }
@@ -122,11 +123,11 @@ const AdminPanel = () => {
         try {
           const result = await updateProduct(product).unwrap()
           if (result.message === responseMessages.producsResponses.successUpdate) {
-            dispatch(showPopUpFn({popUpBg:"green", popUpText:producsValues.successUpdate}))
+            dispatch(showPopUpCaller({popUpBg:"green", popUpText:producsValues.successUpdate}))
 
  
           } else {
-            dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}))
+            dispatch(showPopUpCaller({popUpBg:"red", popUpText:`Error: ${result.message}`}))
             console.error(result.message);
           }
       } catch (error) {

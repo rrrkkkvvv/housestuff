@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice,  } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IShowPopUpProps } from '../../types/storeTypes/IPopUpStore';
+import { IShowPopUpProps } from '../../../types/storeTypes/IPopUpStore';
 
 export interface popUpState extends IShowPopUpProps {
     showPopUp: boolean;
@@ -12,15 +12,7 @@ const initialState: popUpState = {
     showPopUp: false,
 };
 
-export const showPopUpFn = createAsyncThunk(
-    'popUp/showPopUpFn',
-    async (payload: IShowPopUpProps, { dispatch }) => {
-        dispatch(showPopUp(payload));
-        setTimeout(() => {
-            dispatch(hidePopUp());
-        }, 2000);
-    }
-);
+
 
 const popUpSlice = createSlice({
     name: 'popUp',
@@ -37,6 +29,7 @@ const popUpSlice = createSlice({
         },
         
     },
+
     selectors:{
         selectPopUp:(state)=> state
     }

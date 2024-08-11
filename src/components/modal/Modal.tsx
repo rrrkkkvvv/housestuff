@@ -3,11 +3,11 @@ import { AiOutlineClose } from "react-icons/ai"
 import { IModalProps } from '../../types/compontentTypes/IModal';
 import './Modal.css';
 import { ICategory } from '../../types/objectTypes/ICategory';
-import { increment } from '../../store/slices/ordersSlice';
-import { login } from '../../store/slices/loginSlice';
+import { login } from '../../store/slices/login/loginSlice';
 import { useAppDispatch } from '../../store/store';
 import { useGetCategoriesQuery } from '../../api/modules/categoriesApi';
 import { errorMessage } from '../../values/stringValues';
+import { addOrder } from '../../store/slices/orders/thunks/addOrderThunk';
 const Modal: React.FC<IModalProps> = (props) => {
 
     const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ const Modal: React.FC<IModalProps> = (props) => {
                     <h2>{props.item.title}</h2>
                     <p>{props.item.fullDesc}</p>
                     <b>{props.item.price}$</b>
-                    <div className='add-to-cart' onClick={() => dispatch(increment(props.item))}>+</div>
+                    <div className='add-to-cart' onClick={() => dispatch(addOrder(props.item))}>+</div>
                 </div>
             </div>)
     } else if(props.type === "information") {

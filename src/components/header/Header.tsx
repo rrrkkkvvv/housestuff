@@ -9,12 +9,13 @@ import { Link } from 'react-router-dom';
 import './Header.css'
 import { IHeaderProps } from '../../types/compontentTypes/IHeader';
 import { IProduct } from '../../types/objectTypes/IProduct';
-import { showPopUpFn } from '../../store/slices/popUpSlice';
-import { selectCurrentTheme, toggleTheme } from '../../store/slices/themeSlice';
-import { selectOrders, selectOrdersPriceSumm } from '../../store/slices/ordersSlice';
-import { selectIsLoggedIn } from '../../store/slices/loginSlice';
+import { selectCurrentTheme, toggleTheme } from '../../store/slices/theme/themeSlice';
+import { selectOrders } from '../../store/slices/orders/ordersSlice';
+import { selectIsLoggedIn } from '../../store/slices/login/loginSlice';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { popTexts } from '../../values/stringValues';
+import selectOrdersPriceSum from '../../store/slices/orders/selectors/selectOrdersPriceSum';
+import { showPopUpCaller } from '../../store/slices/popUp/thunks/showPopUpThunk';
 
 
 export default function Header({ onShowModal }: IHeaderProps) {
@@ -22,7 +23,7 @@ export default function Header({ onShowModal }: IHeaderProps) {
     const dispatch = useAppDispatch();
     
     const orders:IProduct[] = useAppSelector(selectOrders);
-    const ordersPriceSumm = useAppSelector(selectOrdersPriceSumm)
+    const ordersPriceSumm = useAppSelector(selectOrdersPriceSum)
     const currentTheme = useAppSelector(selectCurrentTheme)
     
 
@@ -106,7 +107,7 @@ export default function Header({ onShowModal }: IHeaderProps) {
                     <div className="close-cart-button" onClick={() => setCartOpen(!cartOpen)} >X</div>
 
                     {orders.length > 0 ? showOrders() : showNothing()}
-                    <button className='make-order-button' onClick={() => dispatch(showPopUpFn({popUpBg:"red", popUpText:popTexts.shopWarning}))}>Make an order</button>
+                    <button className='make-order-button' onClick={() => dispatch(showPopUpCaller({popUpBg:"red", popUpText:popTexts.shopWarning}))}>Make an order</button>
                 </div>
 
             </div>

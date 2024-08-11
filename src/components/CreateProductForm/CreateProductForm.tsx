@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { showPopUpFn } from '../../store/slices/popUpSlice';
 import { useAppDispatch } from '../../store/store';
 import { ICategory } from '../../types/objectTypes/ICategory';
 import { useGetCategoriesQuery } from '../../api/modules/categoriesApi';
 import { CreateProductFormProps } from '../../types/compontentTypes/ICreateProductForm';
+import { showPopUpCaller } from '../../store/slices/popUp/thunks/showPopUpThunk';
 
 
 const CreateProductForm = ({onAddProduct}:CreateProductFormProps) => {
@@ -54,10 +54,10 @@ const CreateProductForm = ({onAddProduct}:CreateProductFormProps) => {
     };
     const result = await onAddProduct(newProduct);
     if(result.type === "success"){
-      dispatch(showPopUpFn({popUpBg:"green", popUpText:result.message}));
+      dispatch(showPopUpCaller({popUpBg:"green", popUpText:result.message}));
     }else if(result.type === "error"){
       setError(result.message);
-      dispatch(showPopUpFn({popUpBg:"red", popUpText:`Error: ${result.message}`}));
+      dispatch(showPopUpCaller({popUpBg:"red", popUpText:`Error: ${result.message}`}));
     }
     
 
