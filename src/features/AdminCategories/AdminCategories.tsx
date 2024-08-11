@@ -8,7 +8,7 @@ import { useDeleteCategoryMutation,
     useGetCategoriesQuery, 
     usePostCategoryMutation,
     useUpdateCategoryMutation } from '../../api/modules/categoriesApi';
-import CreateCategoryForm from '../CreateCategoryForm';
+import CreateCategoryForm from './CreateCategoryForm';
 import { IOnAddCategory } from '../../types/objectTypes/IOnAddCategory';
 import Modal from '../Modal';
 import { categoriesValues, colors, errorMessage, responseMessages, titles } from '../../values/stringValues';

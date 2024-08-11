@@ -1,7 +1,7 @@
 import {   FormEvent, useState  } from 'react';
-import { CreateCategoryFormProps } from '../../types/compontentTypes/ICreateCategoryForm';
-import { useAppDispatch } from '../../store/store';
-import { showPopUpCaller } from '../../store/slices/popUp/thunks/showPopUpThunk';
+import { CreateCategoryFormProps } from '../../../types/compontentTypes/ICreateCategoryForm';
+import { useAppDispatch } from '../../../store/store';
+import { showPopUpCaller } from '../../../store/slices/popUp/thunks/showPopUpThunk';
 
  
 
