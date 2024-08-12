@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IProduct } from '../../../types/objectTypes/IProduct';
+import { TProduct } from '../../../types/objectTypes/TProduct';
 import { addOrder } from './thunks/addOrderThunk';
 import loadOrdersFromLS from '../../../utils/localStorage/loadOrdersFromLS';
  
 export interface OrdersState {
-    orders: IProduct[];
+    orders: TProduct[];
 }
 
 

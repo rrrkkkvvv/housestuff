@@ -1,6 +1,6 @@
-import {  IDefaultResponse } from '../../types/responseTypes/defaultResponseType';
-import { ICategoriesResponse } from '../../types/responseTypes/categoriesServiceResponse';
-import { ICategory } from '../../types/objectTypes/ICategory';
+import {  TDefaultResponse } from '../../types/responseTypes/TDefaultResponse';
+import { ICategoriesResponse } from '../../types/responseTypes/TCategoriesServiceResponse';
+import { TCategory } from '../../types/objectTypes/TCategory';
 import baseApi from '../baseApi';
 
 const fragmentBaseUrl = "/categories_service.php"
@@ -14,7 +14,7 @@ const categoriesApi = baseApi.injectEndpoints({
           }), 
         providesTags: ["Categories"]
     }),
-    postCategory: builder.mutation<IDefaultResponse,ICategory>({
+    postCategory: builder.mutation<TDefaultResponse,TCategory>({
         query: ({title, visible_title}) => ({
             url: fragmentBaseUrl,
             method: 'POST',
@@ -25,7 +25,7 @@ const categoriesApi = baseApi.injectEndpoints({
           }), 
           invalidatesTags: ["Categories"]
     }),
-    updateCategory: builder.mutation<IDefaultResponse, ICategory>({
+    updateCategory: builder.mutation<TDefaultResponse, TCategory>({
         query: ({title, visible_title, id}) => ({
             url: fragmentBaseUrl,
             method: 'PUT',
@@ -37,7 +37,7 @@ const categoriesApi = baseApi.injectEndpoints({
           }), 
         invalidatesTags: ["Categories"]
     }),
-    deleteCategory: builder.mutation<IDefaultResponse, number>({
+    deleteCategory: builder.mutation<TDefaultResponse, number>({
       query: (id) => ({
           url: fragmentBaseUrl,
           method: 'DELETE',

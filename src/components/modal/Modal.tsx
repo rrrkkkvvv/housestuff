@@ -1,14 +1,14 @@
 import { ChangeEvent, FormEvent,  useEffect, useState } from 'react'
 import { AiOutlineClose } from "react-icons/ai"
-import { IModalProps } from '../../types/compontentTypes/IModal';
+import { TModalProps } from '../../types/compontentTypes/TModal';
 import './Modal.css';
-import { ICategory } from '../../types/objectTypes/ICategory';
+import { TCategory } from '../../types/objectTypes/TCategory';
 import { login } from '../../store/slices/login/loginSlice';
 import { useAppDispatch } from '../../store/store';
 import { useGetCategoriesQuery } from '../../api/modules/categoriesApi';
 import { errorMessage } from '../../values/stringValues';
 import { addOrder } from '../../store/slices/orders/thunks/addOrderThunk';
-const Modal: React.FC<IModalProps> = (props) => {
+const Modal: React.FC<TModalProps> = (props) => {
 
     const dispatch = useAppDispatch();
 
@@ -117,7 +117,7 @@ const Modal: React.FC<IModalProps> = (props) => {
         const [img, setImg] = useState('');
         const [description, setDescription] = useState('');
         const [fullDesc, setFullDesc] = useState('');
-        const [categories, setCategories] = useState<ICategory[]>([]);
+        const [categories, setCategories] = useState<TCategory[]>([]);
 
         const {data} = useGetCategoriesQuery();
 

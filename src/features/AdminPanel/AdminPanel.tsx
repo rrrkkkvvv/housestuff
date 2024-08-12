@@ -1,5 +1,5 @@
 import {  useEffect, useMemo, useState } from 'react';
-import { IProduct } from '../../types/objectTypes/IProduct';
+import { TProduct } from '../../types/objectTypes/TProduct';
 import CreateProductForm from '../../components/CreateProductForm';
 import Products from '../Products';
 import Modal from '../../components/Modal/Modal';
@@ -10,7 +10,7 @@ import { selectCurrentTheme } from '../../store/slices/theme/themeSlice';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { useDeleteProductMutation, useGetProductsQuery, usePostProductMutation, useUpdateProductMutation } from '../../api/modules/productsApi';
 import Pagination from '../../components/Pagination';
-import { IOnAddProduct } from '../../types/objectTypes/IOnAddProduct';
+import { TOnAddProduct } from '../../types/objectTypes/TOnAddProduct';
 import { itemsPerPage } from '../../values/intValues';
 import { authError, errorMessage, producsValues, responseMessages, titles } from '../../values/stringValues';
 import { showPopUpCaller } from '../../store/slices/popUp/thunks/showPopUpThunk';
@@ -27,11 +27,11 @@ const AdminPanel = () => {
     const [updateProduct] = useUpdateProductMutation();
     const [deleteProduct] = useDeleteProductMutation();
 
-    let [items, setItems] = useState<IProduct[]>([]);
+    let [items, setItems] = useState<TProduct[]>([]);
 
     
     let [showCurrentItem, setShowCurrentItem] = useState(false);
-    let [currentEditItem, setCurrentEditItem] = useState<IProduct>(Object);
+    let [currentEditItem, setCurrentEditItem] = useState<TProduct>(Object);
 
 
 
@@ -93,14 +93,14 @@ const AdminPanel = () => {
     }
 
     }
-    const onShowItem = (item: IProduct) =>{
+    const onShowItem = (item: TProduct) =>{
         setCurrentEditItem(item);
         setShowCurrentItem(!showCurrentItem);
         document.body.classList.toggle('lock');
     
     }
 
-    const onAddProduct:IOnAddProduct = async (newProduct)=>{
+    const onAddProduct:TOnAddProduct = async (newProduct)=>{
       try {
     
         const result = await postProduct(newProduct).unwrap();
@@ -118,7 +118,7 @@ const AdminPanel = () => {
       }
     }
 
-    const onUpdateProduct = async (product: IProduct)=>{
+    const onUpdateProduct = async (product: TProduct)=>{
         
         try {
           const result = await updateProduct(product).unwrap()

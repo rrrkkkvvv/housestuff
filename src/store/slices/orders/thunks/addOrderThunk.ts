@@ -1,12 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IProduct } from "../../../../types/objectTypes/IProduct";
+import { TProduct } from "../../../../types/objectTypes/TProduct";
 import { OrdersState } from "../ordersSlice";
 import { popTexts } from "../../../../values/stringValues";
 import { showPopUpCaller } from "../../popUp/thunks/showPopUpThunk";
 
 export const addOrder = createAsyncThunk(
     'orders/addOrder',
-    async (product: IProduct, { dispatch, getState }) => {
+    async (product: TProduct, { dispatch, getState }) => {
         const state = getState() as { orders: OrdersState };
         const orders = state.orders.orders;
         let itIsInCart = false;

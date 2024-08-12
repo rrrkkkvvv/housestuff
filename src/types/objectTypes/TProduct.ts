@@ -1,5 +1,5 @@
  
-export interface IProduct {
+export type TProduct = {
     id: number;
     price: number;
     img: string;

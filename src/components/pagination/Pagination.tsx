@@ -1,4 +1,4 @@
-import { IPaginationProps } from '../../types/compontentTypes/IPagination';
+import { IPaginationProps } from '../../types/compontentTypes/TPagination';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import './Pagination.css'
 import { selectReversedCurrentTheme } from '../../store/slices/theme/themeSlice';

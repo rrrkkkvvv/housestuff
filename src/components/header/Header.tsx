@@ -7,8 +7,8 @@ import { AiOutlineClose } from "react-icons/ai"
 import { Link } from 'react-router-dom';
 
 import './Header.css'
-import { IHeaderProps } from '../../types/compontentTypes/IHeader';
-import { IProduct } from '../../types/objectTypes/IProduct';
+import { IHeaderProps } from '../../types/compontentTypes/THeader';
+import { TProduct } from '../../types/objectTypes/TProduct';
 import { selectCurrentTheme, toggleTheme } from '../../store/slices/theme/themeSlice';
 import { selectOrders } from '../../store/slices/orders/ordersSlice';
 import { selectIsLoggedIn } from '../../store/slices/login/loginSlice';
@@ -22,7 +22,7 @@ export default function Header({ onShowModal }: IHeaderProps) {
 
     const dispatch = useAppDispatch();
     
-    const orders:IProduct[] = useAppSelector(selectOrders);
+    const orders:TProduct[] = useAppSelector(selectOrders);
     const ordersPriceSumm = useAppSelector(selectOrdersPriceSum)
     const currentTheme = useAppSelector(selectCurrentTheme)
     

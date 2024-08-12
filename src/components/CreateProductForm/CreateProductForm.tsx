@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch } from '../../store/store';
-import { ICategory } from '../../types/objectTypes/ICategory';
+import { TCategory } from '../../types/objectTypes/TCategory';
 import { useGetCategoriesQuery } from '../../api/modules/categoriesApi';
-import { CreateProductFormProps } from '../../types/compontentTypes/ICreateProductForm';
+import { CreateProductFormProps } from '../../types/compontentTypes/TCreateProductForm';
 import { showPopUpCaller } from '../../store/slices/popUp/thunks/showPopUpThunk';
 
 
@@ -15,7 +15,7 @@ const CreateProductForm = ({onAddProduct}:CreateProductFormProps) => {
   const [description, setDescription] = useState('');
   const [fullDesc, setFullDesc] = useState('');
   const [error, setError] = useState('');
-  const [categories, setCategories] = useState<ICategory[]>([]);
+  const [categories, setCategories] = useState<TCategory[]>([]);
 
   const dispatch = useAppDispatch();
   const {data} = useGetCategoriesQuery();

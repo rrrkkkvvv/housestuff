@@ -1,10 +1,10 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import { IProductProps } from '../../../../types/compontentTypes/IProducts';
+import { TProductProps } from '../../../../types/compontentTypes/TProducts';
 import { selectCurrentTheme } from '../../../../store/slices/theme/themeSlice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { addOrder } from '../../../../store/slices/orders/thunks/addOrderThunk';
-export default function Product({ onShowItem, item }: IProductProps) {
+export default function Product({ onShowItem, item }: TProductProps) {
     
     const dispatch = useAppDispatch();
 

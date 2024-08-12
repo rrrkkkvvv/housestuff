@@ -1,6 +1,6 @@
 import {  useEffect, useState } from 'react'
 
-import { ICategoriesProps } from '../../types/compontentTypes/ICategories';
+import { TCategoriesProps } from '../../types/compontentTypes/TCategories';
 import './Categories.css'
 import { selectReversedCurrentTheme } from '../../store/slices/theme/themeSlice';
 import { useAppSelector } from '../../store/store';
@@ -8,7 +8,7 @@ import { useGetCategoriesQuery } from '../../api/modules/categoriesApi';
 import { categoryHeight } from '../../values/intValues';
 import { colors } from '../../values/stringValues';
 
-export default function Categories({ chooseCategory }: ICategoriesProps) {
+export default function Categories({ chooseCategory }: TCategoriesProps) {
     const [maxHeight, setMaxHeight] = useState(50);
     const [isExpanded, setIsExpanded] = useState(false);
 

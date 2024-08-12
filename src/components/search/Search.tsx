@@ -1,5 +1,5 @@
 import { useState, ChangeEvent } from "react"
-import { ISearchProps } from "../../types/compontentTypes/ISearch";
+import { ISearchProps } from "../../types/compontentTypes/TSearch";
 
 export default function Search({ searchFilter }: ISearchProps) {
 

@@ -1,6 +1,6 @@
-import { IProduct } from "../../types/objectTypes/IProduct";
+import { TProduct } from "../../types/objectTypes/TProduct";
 
-const loadOrdersFromLS = ():IProduct[]=>{
+const loadOrdersFromLS = ():TProduct[]=>{
     const storedOrders = localStorage.getItem('orders')
 
     if (storedOrders) {

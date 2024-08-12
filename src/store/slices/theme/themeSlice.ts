@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {  IColorTheme, themes } from '../../../types/storeTypes/IThemesState';
+import {  TColorTheme, themes } from '../../../types/storeTypes/TThemesState';
 import loadThemeFromLS from '../../../utils/localStorage/loadThemeFromLS';
 import deepEqual from '../../../utils/objectsDeepEqual';
 
 
 
 export interface IThemeSliceProps {
-    currentTheme: IColorTheme;
-    reversedCurrentTheme: IColorTheme;
+    currentTheme: TColorTheme;
+    reversedCurrentTheme: TColorTheme;
 }
 
 const initialState: IThemeSliceProps = {

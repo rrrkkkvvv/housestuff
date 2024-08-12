@@ -1,6 +1,6 @@
-import { IProductsResponse } from '../../types/responseTypes/productsServiceResponse';
-import { IDefaultResponse } from '../../types/responseTypes/defaultResponseType';
-import { IProduct } from '../../types/objectTypes/IProduct';
+import { TProductsResponse } from '../../types/responseTypes/TProductsServiceResponse';
+import { TDefaultResponse } from '../../types/responseTypes/TDefaultResponse';
+import { TProduct } from '../../types/objectTypes/TProduct';
 import baseApi from '../baseApi';
 
 const fragmentBaseUrl = "/product_service.php"
@@ -8,7 +8,7 @@ const fragmentBaseUrl = "/product_service.php"
 const productsApi = baseApi.injectEndpoints({
 
   endpoints: (builder) => ({
-    getProducts: builder.query<IProductsResponse, {page:number, limit:number, category: string}>({
+    getProducts: builder.query<TProductsResponse, {page:number, limit:number, category: string}>({
         query: ({page, limit, category}) => ({
             url: `${fragmentBaseUrl}?page=${page}&limit=${limit}&category=${category}`,
             method: 'GET',
@@ -17,7 +17,7 @@ const productsApi = baseApi.injectEndpoints({
 
     }),
     
-    postProduct: builder.mutation<IDefaultResponse,IProduct>({
+    postProduct: builder.mutation<TDefaultResponse,TProduct>({
         query: (product) => ({
             url: fragmentBaseUrl,
             method: 'POST',
@@ -32,7 +32,7 @@ const productsApi = baseApi.injectEndpoints({
           }), 
         invalidatesTags:["Products"]
     }),
-    updateProduct: builder.mutation<IDefaultResponse, IProduct>({
+    updateProduct: builder.mutation<TDefaultResponse, TProduct>({
       query: (product) => ({
         url: fragmentBaseUrl,
         method: 'PUT',
@@ -52,7 +52,7 @@ const productsApi = baseApi.injectEndpoints({
     invalidatesTags:["Products"]
     }),
     
-    deleteProduct: builder.mutation<IDefaultResponse, number>({
+    deleteProduct: builder.mutation<TDefaultResponse, number>({
       query: (id) => ({
           url: fragmentBaseUrl,
           method: 'DELETE',

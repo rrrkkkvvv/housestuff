@@ -1,4 +1,4 @@
-export interface IPaginationProps {
+export type IPaginationProps = {
     itemsPerPage: number,
     totalItems: number,
     paginateFn: (pageNumber: number, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,

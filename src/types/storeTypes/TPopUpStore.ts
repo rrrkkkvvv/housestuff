@@ -1,4 +1,4 @@
-export interface IShowPopUpProps {
+export type IShowPopUpProps = {
     popUpBg: "green" | "red",
     popUpText: string,
 }

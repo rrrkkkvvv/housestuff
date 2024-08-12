@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IShowPopUpProps } from "../../../../types/storeTypes/IPopUpStore";
+import { IShowPopUpProps } from "../../../../types/storeTypes/TPopUpStore";
 import { hidePopUp, showPopUp } from "../popUpSlice";
 
 export const showPopUpCaller = createAsyncThunk(

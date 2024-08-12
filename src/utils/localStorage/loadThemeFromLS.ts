@@ -1,4 +1,4 @@
-import { themes } from "../../types/storeTypes/IThemesState";
+import { themes } from "../../types/storeTypes/TThemesState";
 
 const loadThemeFromLS = (): { currentTheme: "dark" | "light", reversedCurrentTheme: "dark" | "light" } => {
     const storedCurrentTheme = localStorage.getItem('currentTheme');

@@ -1,12 +1,12 @@
  import { ReactNode } from 'react';
-import { IProduct } from '../objectTypes/IProduct';
-import { ICategory } from '../objectTypes/ICategory';
+import { TProduct } from '../objectTypes/TProduct';
+import { TCategory } from '../objectTypes/TCategory';
 
-export type IModalProps = {
+export type TModalProps = {
     type: 'full-item'
     show: boolean;
-    item: IProduct;
-    onShowItem: (item: IProduct) => void;
+    item: TProduct;
+    onShowItem: (item: TProduct) => void;
 } | {
     type: 'information';
     show: boolean;
@@ -20,14 +20,14 @@ export type IModalProps = {
 }|{
     type: 'edit product'
     show: boolean;
-    item: IProduct;
+    item: TProduct;
     onShowItem: () => void;
-    updateProduct:(item: IProduct)=>void
+    updateProduct:(item: TProduct)=>void
 }|{
     type: 'edit category'
     show: boolean;
-    category: ICategory;
+    category: TCategory;
     onShowCategory: () => void;
-    updateCategory:(category: ICategory)=>void
+    updateCategory:(category: TCategory)=>void
 }
 

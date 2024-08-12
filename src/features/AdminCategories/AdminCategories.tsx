@@ -1,7 +1,7 @@
 import {  useEffect, useState } from 'react'
 
 import './AdminCategories.css'
-import { ICategory } from '../../types/objectTypes/ICategory';
+import { TCategory } from '../../types/objectTypes/TCategory';
 import { selectReversedCurrentTheme } from '../../store/slices/theme/themeSlice';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { useDeleteCategoryMutation, 
@@ -9,7 +9,7 @@ import { useDeleteCategoryMutation,
     usePostCategoryMutation,
     useUpdateCategoryMutation } from '../../api/modules/categoriesApi';
 import CreateCategoryForm from './CreateCategoryForm';
-import { IOnAddCategory } from '../../types/objectTypes/IOnAddCategory';
+import { TOnAddCategory } from '../../types/objectTypes/TOnAddCategory';
 import Modal from '../Modal';
 import { categoriesValues, colors, errorMessage, responseMessages, titles } from '../../values/stringValues';
 import { showPopUpCaller } from '../../store/slices/popUp/thunks/showPopUpThunk';
@@ -19,9 +19,9 @@ export default function AdminCategories() {
     const reversedCurrentTheme = useAppSelector(selectReversedCurrentTheme)
     const dispatch = useAppDispatch();
     let [showCurrentCategory, setShowCurrentCategory] = useState(false);
-    let [currentEditCategory, setCurrentEditCategory] = useState<ICategory>(Object);
+    let [currentEditCategory, setCurrentEditCategory] = useState<TCategory>(Object);
 
-    let [categories, setCategories] = useState<ICategory[]>([])
+    let [categories, setCategories] = useState<TCategory[]>([])
     const {data} = useGetCategoriesQuery();
     const [postCategory] = usePostCategoryMutation();
     const [deleteCategory] = useDeleteCategoryMutation();
@@ -35,7 +35,7 @@ export default function AdminCategories() {
   
     
 
-    const onAddCategory:IOnAddCategory = async(newCategory)=>{
+    const onAddCategory:TOnAddCategory = async(newCategory)=>{
         try {
       
             const result = await postCategory(newCategory).unwrap()
@@ -71,7 +71,7 @@ export default function AdminCategories() {
           }
       }
       }
-      const onUpdateCategory = async(category: ICategory)=>{
+      const onUpdateCategory = async(category: TCategory)=>{
         try {
           const result = await updateCategory(category).unwrap();
   
@@ -87,7 +87,7 @@ export default function AdminCategories() {
           console.error(errorMessage);
         }
       }
-      const onShowCategory = (category: ICategory)=> {
+      const onShowCategory = (category: TCategory)=> {
         setCurrentEditCategory(category);
         setShowCurrentCategory(!showCurrentCategory);
         document.body.classList.toggle('lock');

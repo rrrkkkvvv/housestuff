@@ -1,8 +1,8 @@
-import { IProductsProps } from '../../types/compontentTypes/IProducts'
+import { TProductsProps } from '../../types/compontentTypes/TProducts'
 import AdminProduct from './components/AdminProductItem/AdminProduct'
 import Product from './components/ProductItem/ProductItem'
 import "./Products.css"
-export default function Products(props: IProductsProps) {
+export default function Products(props: TProductsProps) {
 
     if(props.type === "user"){
         return (

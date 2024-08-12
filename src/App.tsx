@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 
 //To deploy a gh pages use: npm run predeploy    npm run deploy
 
-import { IProduct } from './types/objectTypes/IProduct';
+import { TProduct } from './types/objectTypes/TProduct';
 import debounce from './hooks/useDebounce';
 import Header from './components/Header';
 import Search from './components/Search';
@@ -12,7 +12,7 @@ import Pagination from './components/Pagination';
 import Modal from './components/Modal';
 import Footer from './components/Footer';
 import { selectCurrentTheme } from './store/slices/theme/themeSlice';
-import { IColorTheme, themes } from './types/storeTypes/IThemesState';
+import { TColorTheme, themes } from './types/storeTypes/TThemesState';
 import { selectPopUp } from './store/slices/popUp/popUpSlice';
 import { useAppSelector } from './store/store';
 import { useGetProductsQuery } from './api/modules/productsApi';
@@ -22,11 +22,11 @@ import { colors, stringValues, titles } from './values/stringValues';
 
 export default function App() {
   const { popUpBg, popUpText, showPopUp } = useAppSelector(selectPopUp);
-  const currentTheme: IColorTheme = useAppSelector(selectCurrentTheme);
+  const currentTheme: TColorTheme = useAppSelector(selectCurrentTheme);
 
 
-  const [items, setItems] = useState<IProduct[]>([]);
-  const [currentItems, setCurrentItems] = useState<IProduct[]>([]);
+  const [items, setItems] = useState<TProduct[]>([]);
+  const [currentItems, setCurrentItems] = useState<TProduct[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [currentCategory, setCurrentCategory] = useState<string>("all");
   const [totalItemsQuantity, setTotalItemsQuantity] = useState<number>(1);
@@ -109,7 +109,7 @@ export default function App() {
   }
 
   const [showFullItem, setShowFullItem] = useState(false);
-  const [fullItem, setFullItem] = useState<IProduct >(Object);
+  const [fullItem, setFullItem] = useState<TProduct >(Object);
 
   const [showModalAbout, setShowModalAbout] = useState(false);
   const [showModalContact, setShowModalContact] = useState(false);
@@ -196,7 +196,7 @@ export default function App() {
     });
   }
 
-  function onShowItem(item: IProduct) {
+  function onShowItem(item: TProduct) {
     setFullItem(item);
     setShowFullItem(!showFullItem);
     document.body.classList.toggle('lock');

@@ -1,6 +1,6 @@
 import { createSlice,  } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IShowPopUpProps } from '../../../types/storeTypes/IPopUpStore';
+import { IShowPopUpProps } from '../../../types/storeTypes/TPopUpStore';
 
 export interface popUpState extends IShowPopUpProps {
     showPopUp: boolean;
