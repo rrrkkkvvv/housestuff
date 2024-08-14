@@ -3,7 +3,7 @@ import { TProduct } from '../../types/objectTypes/TProduct';
 import CreateProductForm from '../../components/CreateProductForm';
 import Products from '../Products';
 import Modal from '../../components/Modal/Modal';
-import AdminCategories from '../../components/AdminCategories';
+import AdminCategories from '../AdminCategories';
 import './AdminPanel.css'
 import { selectPopUp } from '../../store/slices/popUp/popUpSlice';
 import { selectCurrentTheme } from '../../store/slices/theme/themeSlice';

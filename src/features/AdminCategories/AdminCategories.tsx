@@ -10,7 +10,7 @@ import { useDeleteCategoryMutation,
     useUpdateCategoryMutation } from '../../api/modules/categoriesApi';
 import CreateCategoryForm from './CreateCategoryForm';
 import { TOnAddCategory } from '../../types/objectTypes/TOnAddCategory';
-import Modal from '../Modal';
+import Modal from '../../components/Modal';
 import { categoriesValues, colors, errorMessage, responseMessages, titles } from '../../values/stringValues';
 import { showPopUpCaller } from '../../store/slices/popUp/thunks/showPopUpThunk';
 export default function AdminCategories() {

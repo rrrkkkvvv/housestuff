@@ -12,7 +12,7 @@ const Modal: React.FC<TModalProps> = (props) => {
 
     const dispatch = useAppDispatch();
 
-
+    
     if (props.type === "full-item") {
         return (
             <div className={`modal full-item  ${props.show && 'visible'}`} onClick={() => props.onShowItem(props.item)}>
