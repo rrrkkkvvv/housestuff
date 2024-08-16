@@ -5,7 +5,8 @@ const baseApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost/projects/housestuffbackend/servicies' }),
   endpoints: () => ({}),
   tagTypes:["Products", "Categories"],
-  refetchOnFocus: true
+  refetchOnFocus: true,
+  refetchOnReconnect: true
 });
 
 export default baseApi;
