@@ -1,4 +1,4 @@
-import { TProductsResponse } from '../../types/responseTypes/TProductsServiceResponse';
+import { TProductResponse, TProductsResponse } from '../../types/responseTypes/TProductsServiceResponse';
 import { TDefaultResponse } from '../../types/responseTypes/TDefaultResponse';
 import { TProduct } from '../../types/objectTypes/TProduct';
 import baseApi from '../baseApi';
@@ -13,9 +13,19 @@ const productsApi = baseApi.injectEndpoints({
             url: `${fragmentBaseUrl}?page=${page}&limit=${limit}&category=${category}`,
             method: 'GET',
           }), 
-        providesTags: ["Products"]
+        providesTags:(result)=>
+          result ? result.records.map(({id})=>({type:"Products", id:id}))
+          : [{type:"Products"}]
 
     }),
+    getProduct: builder.query<TProductResponse, {id:number}>({
+      query: ({id}) => ({
+          url: `${fragmentBaseUrl}?id=${id}`,
+          method: 'GET',
+        }), 
+        providesTags: (_, __, arg) => [{ type: 'Products', id: arg.id }],
+
+  }),
     
     postProduct: builder.mutation<TDefaultResponse,TProduct>({
         query: (product) => ({
@@ -49,7 +59,7 @@ const productsApi = baseApi.injectEndpoints({
           id: product.id
         }),
       }),
-    invalidatesTags:["Products"]
+      invalidatesTags: (_, __, arg) => [{ type: 'Products', id: arg.id }],
     }),
     
     deleteProduct: builder.mutation<TDefaultResponse, number>({
@@ -60,10 +70,10 @@ const productsApi = baseApi.injectEndpoints({
               id:id,
             }),
         }),
-      invalidatesTags:["Products"]
-  }),
+        invalidatesTags: (_, __, arg) => [{ type: 'Products', id: arg }],
+      }),
   }),
 });
 
-export const { useGetProductsQuery, useDeleteProductMutation, usePostProductMutation, useUpdateProductMutation } = productsApi;
+export const { useGetProductsQuery, useGetProductQuery,useDeleteProductMutation, usePostProductMutation, useUpdateProductMutation } = productsApi;
 export default productsApi;

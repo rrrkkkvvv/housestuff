@@ -8,3 +8,4 @@ export type TProductsResponse = TDefaultGetResponse<TProduct> &{
         total: number;
     }
 }
+export type TProductResponse = TDefaultGetResponse<TProduct>

@@ -165,7 +165,7 @@ const AdminPanel = () => {
         <AdminCategories />
         <Modal
           type='edit product'
-          item={currentEditItem} 
+          productId={currentEditItem.id} 
           onShowItem={()=>{
             setShowCurrentItem(!showCurrentItem); 
             document.body.classList.toggle('lock');

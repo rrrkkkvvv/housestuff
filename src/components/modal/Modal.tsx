@@ -5,9 +5,11 @@ import './Modal.css';
 import { TCategory } from '../../types/objectTypes/TCategory';
 import { login } from '../../store/slices/login/loginSlice';
 import { useAppDispatch } from '../../store/store';
-import { useGetCategoriesQuery } from '../../api/modules/categoriesApi';
+import { useGetCategoriesQuery, useGetCategoryQuery } from '../../api/modules/categoriesApi';
 import { errorMessage } from '../../values/stringValues';
 import { addOrder } from '../../store/slices/orders/thunks/addOrderThunk';
+import { useGetProductQuery } from '../../api/modules/productsApi';
+import { skipToken } from '@reduxjs/toolkit/query';
 const Modal: React.FC<TModalProps> = (props) => {
 
     const dispatch = useAppDispatch();
@@ -118,8 +120,21 @@ const Modal: React.FC<TModalProps> = (props) => {
         const [description, setDescription] = useState('');
         const [fullDesc, setFullDesc] = useState('');
         const [categories, setCategories] = useState<TCategory[]>([]);
-
+        
         const {data} = useGetCategoriesQuery();
+        const { data:getProductData } = useGetProductQuery(props.productId? { id: props.productId  }: skipToken);
+        useEffect(()=>{
+            if(getProductData){
+                const product = getProductData.records[0]
+                setTitle(product.title);
+                setDescription(product.description);
+                setFullDesc(product.fullDesc);
+                setImg(product.img);
+                setCategory(product.category);
+                setPrice(product.price );
+    
+            }
+        },[getProductData]);
 
         useEffect(()=>{
           if(data){
@@ -130,15 +145,7 @@ const Modal: React.FC<TModalProps> = (props) => {
         },[data])
     
 
-        useEffect(()=>{
        
-            setTitle(props.item.title);
-            setDescription(props.item.description);
-            setFullDesc(props.item.fullDesc);
-            setImg(props.item.img);
-            setCategory(props.item.category);
-            setPrice(props.item.price );
-        },[props.item])
 
        
         const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -155,7 +162,7 @@ const Modal: React.FC<TModalProps> = (props) => {
             category:category,
             description:description,
             fullDesc:fullDesc,
-            id: props.item.id,
+            id: props.productId,
             img:img,
             price: price
           })
@@ -240,13 +247,16 @@ const Modal: React.FC<TModalProps> = (props) => {
         const [title, setTitle] = useState('');
         const [visibleTitle, setVisibleTitle] = useState('');
         
- 
-       useEffect(() => {
-       
-        setTitle(props.category.title);
-        setVisibleTitle(props.category.visible_title);
-           
-       }, [props.category]);
+        const { data:getCategoryData } = useGetCategoryQuery(props.categoryId ? { id: props.categoryId} : skipToken);
+        useEffect(()=>{
+            if(getCategoryData){
+
+            const category = getCategoryData?.records[0]
+            setTitle(category.title);
+            setVisibleTitle(category.visible_title);
+            }
+        },[getCategoryData])
+  
      
   
    
@@ -257,7 +267,7 @@ const Modal: React.FC<TModalProps> = (props) => {
          props.updateCategory({
            title:title,
            visible_title:visibleTitle,
-           id: props.category.id,
+           id: props.categoryId,
     
          })
         };

@@ -109,7 +109,7 @@ export default function AdminCategories() {
             <CreateCategoryForm onAddCategory={onAddCategory} />
             <Modal
           type='edit category'
-          category={currentEditCategory} 
+          categoryId={currentEditCategory.id} 
           onShowCategory={()=>{
             setShowCurrentCategory(!showCurrentCategory); 
             document.body.classList.toggle('lock');

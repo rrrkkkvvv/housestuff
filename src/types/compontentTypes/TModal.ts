@@ -20,13 +20,13 @@ export type TModalProps = {
 }|{
     type: 'edit product'
     show: boolean;
-    item: TProduct;
+    productId: number;
     onShowItem: () => void;
     updateProduct:(item: TProduct)=>void
 }|{
     type: 'edit category'
     show: boolean;
-    category: TCategory;
+    categoryId: number;
     onShowCategory: () => void;
     updateCategory:(category: TCategory)=>void
 }
