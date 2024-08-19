@@ -5,7 +5,7 @@ import { TCategory } from '../objectTypes/TCategory';
 export type TModalProps = {
     type: 'full-item'
     show: boolean;
-    item: TProduct;
+    productId: number;
     onShowItem: (item: TProduct) => void;
 } | {
     type: 'information';

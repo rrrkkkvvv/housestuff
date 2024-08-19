@@ -2,6 +2,7 @@ import { TProductResponse, TProductsResponse } from '../../types/responseTypes/T
 import { TDefaultResponse } from '../../types/responseTypes/TDefaultResponse';
 import { TProduct } from '../../types/objectTypes/TProduct';
 import baseApi from '../baseApi';
+import { providesList } from '../../utils/providingTagsWIds';
 
 const fragmentBaseUrl = "/product_service.php"
 
@@ -9,21 +10,18 @@ const productsApi = baseApi.injectEndpoints({
 
   endpoints: (builder) => ({
     getProducts: builder.query<TProductsResponse, {page:number, limit:number, category: string}>({
-        query: ({page, limit, category}) => ({
-            url: `${fragmentBaseUrl}?page=${page}&limit=${limit}&category=${category}`,
-            method: 'GET',
-          }), 
-        providesTags:(result)=>
-          result ? result.records.map(({id})=>({type:"Products", id:id}))
-          : [{type:"Products"}]
-
+      query: ({page, limit, category}) => ({
+          url: `${fragmentBaseUrl}?page=${page}&limit=${limit}&category=${category}`,
+          method: 'GET',
+        }), 
+      providesTags: (result) => providesList(result, "Products")
     }),
     getProduct: builder.query<TProductResponse, {id:number}>({
       query: ({id}) => ({
           url: `${fragmentBaseUrl}?id=${id}`,
           method: 'GET',
         }), 
-        providesTags: (_, __, arg) => [{ type: 'Products', id: arg.id }],
+      providesTags: (_, __, arg) => [{ type: 'Products', id: arg.id }],
 
   }),
     

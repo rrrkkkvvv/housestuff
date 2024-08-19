@@ -143,7 +143,7 @@ export default function App() {
       />
       <Modal
         type={"full-item"}
-        item={fullItem}
+        productId={fullItem.id}
         show={showFullItem}
         onShowItem={onShowItem}
       />

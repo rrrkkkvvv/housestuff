@@ -10,21 +10,30 @@ import { errorMessage } from '../../values/stringValues';
 import { addOrder } from '../../store/slices/orders/thunks/addOrderThunk';
 import { useGetProductQuery } from '../../api/modules/productsApi';
 import { skipToken } from '@reduxjs/toolkit/query';
+import { TProduct } from '../../types/objectTypes/TProduct';
 const Modal: React.FC<TModalProps> = (props) => {
 
     const dispatch = useAppDispatch();
 
     
     if (props.type === "full-item") {
+        const { data:getProductData } = useGetProductQuery(props.productId? { id: props.productId  }: skipToken);
+        const [currentProduct, setCurrentProduct] = useState<TProduct>(Object);
+        useEffect(()=>{
+            if(getProductData){
+                setCurrentProduct(getProductData.records[0]);
+            }
+
+        },[getProductData])
         return (
-            <div className={`modal full-item  ${props.show && 'visible'}`} onClick={() => props.onShowItem(props.item)}>
+            <div className={`modal full-item  ${props.show && 'visible'}`} onClick={() => props.onShowItem(currentProduct)}>
                 <div className='modal-body' onClick={(e) => e.stopPropagation()} >
-                    <span className='close-modal-x' onClick={() => props.onShowItem(props.item)}><AiOutlineClose></AiOutlineClose></span>
-                    <img onClick={() => props.onShowItem(props.item)} src={"./imgs-public/" + props.item.img} alt={props.item.img} />
-                    <h2>{props.item.title}</h2>
-                    <p>{props.item.fullDesc}</p>
-                    <b>{props.item.price}$</b>
-                    <div className='add-to-cart' onClick={() => dispatch(addOrder(props.item))}>+</div>
+                    <span className='close-modal-x' onClick={() => props.onShowItem(currentProduct)}><AiOutlineClose></AiOutlineClose></span>
+                    <img onClick={() => props.onShowItem(currentProduct)} src={"./imgs-public/" + currentProduct.img} alt={currentProduct.img} />
+                    <h2>{currentProduct.title}</h2>
+                    <p>{currentProduct.fullDesc}</p>
+                    <b>{currentProduct.price}$</b>
+                    <div className='add-to-cart' onClick={() => dispatch(addOrder(currentProduct))}>+</div>
                 </div>
             </div>)
     } else if(props.type === "information") {

@@ -2,6 +2,7 @@ import {  TDefaultResponse } from '../../types/responseTypes/TDefaultResponse';
 import { ICategoriesResponse } from '../../types/responseTypes/TCategoriesServiceResponse';
 import { TCategory } from '../../types/objectTypes/TCategory';
 import baseApi from '../baseApi';
+import { providesList } from '../../utils/providingTagsWIds';
 
 const fragmentBaseUrl = "/categories_service.php"
 
@@ -12,10 +13,8 @@ const categoriesApi = baseApi.injectEndpoints({
             url: fragmentBaseUrl,
             method: 'GET',
           }), 
-      providesTags: (result) =>
-        result
-          ? result.records.map(({ id }) => ({ type: 'Categories', id }))
-          : [{ type: 'Categories' }], 
+      providesTags: (result) => providesList(result, "Categories")
+        
     }),
     getCategory: builder.query<ICategoriesResponse, {id:number}>({
       query: ({id}) => ({
