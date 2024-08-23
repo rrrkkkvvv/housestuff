@@ -16,7 +16,7 @@ import { TColorTheme, themes } from './types/storeTypes/TThemesState';
 import { selectPopUp } from './store/slices/popUp/popUpSlice';
 import { useAppSelector } from './store/store';
 import { useGetProductsQuery } from './api/modules/productsApi';
-import { itemsPerPage } from './values/intValues';
+import { itemsPerPage, pollingInterval } from './values/intValues';
 import { colors, stringValues, titles } from './values/stringValues';
 
 
@@ -30,7 +30,10 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [currentCategory, setCurrentCategory] = useState<string>("all");
   const [totalItemsQuantity, setTotalItemsQuantity] = useState<number>(1);
-  const { data } = useGetProductsQuery({ page: currentPage, limit: itemsPerPage, category: currentCategory});
+  const { data } = useGetProductsQuery({ page: currentPage, limit: itemsPerPage, category: currentCategory}, {
+    pollingInterval: pollingInterval,
+    skipPollingIfUnfocused: true
+  });
 
   useEffect(() => {
     if (currentTheme === themes.light) {

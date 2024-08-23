@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../store/store';
 import { useDeleteProductMutation, useGetProductsQuery, usePostProductMutation, useUpdateProductMutation } from '../../api/modules/productsApi';
 import Pagination from '../../components/Pagination';
 import { TOnAddProduct } from '../../types/objectTypes/TOnAddProduct';
-import { itemsPerPage } from '../../values/intValues';
+import { itemsPerPage, pollingInterval } from '../../values/intValues';
 import { authError, errorMessage, producsValues, responseMessages, titles } from '../../values/stringValues';
 import { showPopUpCaller } from '../../store/slices/popUp/thunks/showPopUpThunk';
 
@@ -39,7 +39,10 @@ const AdminPanel = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalItemsQuantity, setTotalItemsQuantity] = useState<number>(1);
 
-    const { data } = useGetProductsQuery({ page: currentPage, limit: itemsPerPage, category:category });
+    const { data } = useGetProductsQuery({ page: currentPage, limit: itemsPerPage, category:category },{
+      pollingInterval: pollingInterval,
+      skipPollingIfUnfocused: true  
+    });
     const [postProduct] = usePostProductMutation();
 
     useEffect(() => {
