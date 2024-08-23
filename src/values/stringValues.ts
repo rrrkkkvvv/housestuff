@@ -67,5 +67,8 @@ export const responseMessages = {
         successDelete : "Product was deleted",
         successUpdate: "Product was updated",
     
+    },
+    login:{
+        succesLogin:"Login successful"
     }
 }

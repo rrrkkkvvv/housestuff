@@ -4,9 +4,11 @@ import { TProductProps } from '../../../../types/compontentTypes/TProducts';
 import { selectCurrentTheme } from '../../../../store/slices/theme/themeSlice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { addOrder } from '../../../../store/slices/orders/thunks/addOrderThunk';
+import { usePrefetch } from '../../../../api/modules/productsApi';
 export default function Product({ onShowItem, item }: TProductProps) {
     
     const dispatch = useAppDispatch();
+    const prefetchProduct = usePrefetch('getProduct');
 
     const currentTheme = useAppSelector(selectCurrentTheme)
     
@@ -25,7 +27,7 @@ export default function Product({ onShowItem, item }: TProductProps) {
             />
 
             <h2 style={{ background: currentTheme.background, color: currentTheme.color }}>{product.title}</h2>
-            <p className='full-item-link' onClick={() => onShowItem(product)}>Open full description</p>
+            <p className='full-item-link' onMouseEnter={()=>prefetchProduct({id: item.id})} onClick={() => onShowItem(product)}>Open full description</p>
 
             <p style={{ background: currentTheme.background, color: currentTheme.color }}>{product.description}</p>
             <b >{product.price}$</b>

@@ -3,11 +3,13 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { TAdminProductProps } from '../../../../types/compontentTypes/TProducts';
 import { selectCurrentTheme } from '../../../../store/slices/theme/themeSlice';
 import { useAppSelector } from '../../../../store/store';
+import { usePrefetch } from '../../../../api/modules/productsApi';
  
 export default function AdminProduct({ onShowItem, item, onDelete }: TAdminProductProps) {
 
     
     const currentTheme = useAppSelector(selectCurrentTheme)
+    const prefetchProduct = usePrefetch('getProduct');
     
     let product = item;
 
@@ -24,7 +26,7 @@ export default function AdminProduct({ onShowItem, item, onDelete }: TAdminProdu
             />
 
             <h2 style={{ background: currentTheme.background, color: currentTheme.color }}>{product.title}</h2>
-            <p className='full-item-link' onClick={() => onShowItem(product)}>Edit product</p>
+            <p className='full-item-link' onMouseEnter={()=>prefetchProduct({id: item.id}, )} onClick={() => onShowItem(product)}>Edit product</p>
 
             <p style={{ background: currentTheme.background, color: currentTheme.color }}>{product.description}</p>
             <b >{product.price}$</b>

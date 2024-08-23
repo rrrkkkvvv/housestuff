@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../store/store';
 import { useDeleteCategoryMutation, 
     useGetCategoriesQuery, 
     usePostCategoryMutation,
+    usePrefetch,
     useUpdateCategoryMutation } from '../../api/modules/categoriesApi';
 import CreateCategoryForm from './CreateCategoryForm';
 import { TOnAddCategory } from '../../types/objectTypes/TOnAddCategory';
@@ -20,6 +21,7 @@ export default function AdminCategories() {
     const dispatch = useAppDispatch();
     let [showCurrentCategory, setShowCurrentCategory] = useState(false);
     let [currentEditCategory, setCurrentEditCategory] = useState<TCategory>(Object);
+    const prefetchCategory = usePrefetch('getCategory');
 
     let [categories, setCategories] = useState<TCategory[]>([])
     const {data} = useGetCategoriesQuery();
@@ -97,11 +99,11 @@ export default function AdminCategories() {
         <>
             <h1 className='admin-panel-subtitle'>{titles.categories}</h1>
             <div className='admin-categories' style={{ borderColor:reversedCurrentTheme.background }}>
-                {categories.map(el => (
-                    <div className="category" style={{ background:colors.lightGrayColor, color: colors.blackColor}}  key={el.title}>
-                        <p className='category-title'>{el.visible_title}</p>
-                        <p className="category-link" onClick={()=>onDeleteCategory(el.id)}>Delete</p>
-                        <p className="category-link" onClick={()=>onShowCategory(el)}>Edit</p>
+                {categories.map(category => (
+                    <div className="category" style={{ background:colors.lightGrayColor, color: colors.blackColor}}  key={category.title}>
+                        <p className='category-title'>{category.visible_title}</p>
+                        <p className="category-link" onClick={()=>onDeleteCategory(category.id)}>Delete</p>
+                        <p className="category-link" onMouseEnter={()=>prefetchCategory({id:category.id})} onClick={()=>{onShowCategory(category)}}>Edit</p>
                         </div>
                 ))}
             </div>

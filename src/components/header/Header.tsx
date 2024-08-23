@@ -83,8 +83,8 @@ export default function Header({ onShowModal }: IHeaderProps) {
 
 
                     { isLoggedIn &&
-                           <li  onClick={() => { onShowModal("management"), setShowMenu(false) }}>
-                                <Link style={{ color: currentTheme.color }} to="/admin">Admin Panel</Link>
+                           <li  >
+                                <Link style={{ color: currentTheme.color }} onClick={() => {  document.body.classList.remove("lock") }} to="/admin">Admin Panel</Link>
                             </li>
 
                     }

@@ -6,17 +6,19 @@ import { TCategory } from '../../types/objectTypes/TCategory';
 import { login } from '../../store/slices/login/loginSlice';
 import { useAppDispatch } from '../../store/store';
 import { useGetCategoriesQuery, useGetCategoryQuery } from '../../api/modules/categoriesApi';
-import { errorMessage } from '../../values/stringValues';
+import { errorMessage, responseMessages } from '../../values/stringValues';
 import { addOrder } from '../../store/slices/orders/thunks/addOrderThunk';
 import { useGetProductQuery } from '../../api/modules/productsApi';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { TProduct } from '../../types/objectTypes/TProduct';
+import { useLoginCheckMutation } from '../../api/modules/adminApi';
 const Modal: React.FC<TModalProps> = (props) => {
 
     const dispatch = useAppDispatch();
 
     
     if (props.type === "full-item") {
+        
         const { data:getProductData } = useGetProductQuery(props.productId? { id: props.productId  }: skipToken);
         const [currentProduct, setCurrentProduct] = useState<TProduct>(Object);
         useEffect(()=>{
@@ -53,36 +55,29 @@ const Modal: React.FC<TModalProps> = (props) => {
         const [username, setUsername] = useState('');
         const [password, setPassword] = useState('');
         const [error, setError] = useState('');
+        const [loginCheck] = useLoginCheckMutation();
 
 
         const handleSubmit = async (event:FormEvent<HTMLFormElement>) => {
             event.preventDefault();
-            try {
-                fetch('http://localhost/projects/housestuffbackend/servicies/admin_service.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        method: "login",
-                        params: { username, password }
-                    }),
-                })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.message === "Login successful") {
+                try {
+    
+                    const result = await loginCheck( {username: username, password: password}).unwrap();
+                    if (result.message === responseMessages.login.succesLogin) {
                         dispatch(login());
                         props.onShowModal("close");
                     } else {
-                        setError(data.message);
+                     setError(result.message);
+                      console.error(result.message);
+            
                     }
-                })
+                  } catch (error) {
+                    console.error(error);
+                    setError(errorMessage);
+
+                }
           
-    
          
-            } catch (error) {
-                setError(errorMessage);
-            }
         };
         return (
             <div className={`modal  ${props.show && 'visible'}`} onClick={() => props.onShowModal("close")}>

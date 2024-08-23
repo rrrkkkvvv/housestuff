@@ -4,7 +4,7 @@ import { TCategoriesProps } from '../../types/compontentTypes/TCategories';
 import './Categories.css'
 import { selectReversedCurrentTheme } from '../../store/slices/theme/themeSlice';
 import { useAppSelector } from '../../store/store';
-import { useGetCategoriesQuery } from '../../api/modules/categoriesApi';
+import { useGetCategoriesQuery, usePrefetch } from '../../api/modules/categoriesApi';
 import { categoryHeight } from '../../values/intValues';
 import { colors } from '../../values/stringValues';
 
@@ -13,7 +13,8 @@ export default function Categories({ chooseCategory }: TCategoriesProps) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const reversedCurrentTheme = useAppSelector(selectReversedCurrentTheme)
-  
+    const prefetchCategory = usePrefetch('getCategory');
+
     let [categories, setCategories] = useState([
         {
             id: 0,
@@ -42,8 +43,12 @@ export default function Categories({ chooseCategory }: TCategoriesProps) {
     return (
         <div className='categories'   style={{ borderColor: reversedCurrentTheme.background,  maxHeight: isExpanded ? `${maxHeight}px` : `${categoryHeight}px` } }>
             <div className="category category-choose" style={{ background: reversedCurrentTheme.background, color: reversedCurrentTheme.color }} onClick={() => showCategories()}>Choose Category </div>
-            {categories.map(el => (
-                <div className="category" style={{ background: colors.lightGrayColor, color: colors.blackColor }} onClick={() => chooseCategory(el.title)} key={el.title}>{el.visible_title}</div>
+            {categories.map(category => (
+                <div className="category"
+                style={{ background: colors.lightGrayColor, color: colors.blackColor }}
+                onMouseEnter={()=> prefetchCategory({id:category.id})}
+                onClick={() => chooseCategory(category.title)}
+                key={category.title}>{category.visible_title}</div>
             ))}
         </div>
     )
