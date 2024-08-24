@@ -3,8 +3,9 @@ import { TDefaultResponse } from '../../types/responseTypes/TDefaultResponse';
 import { TProduct } from '../../types/objectTypes/TProduct';
 import baseApi from '../baseApi';
 import { providesList } from '../../utils/providingTagsWIds';
+import { apiURLs } from '../../values/stringValues';
 
-const fragmentBaseUrl = "/product_service.php"
+const fragmentBaseUrl = apiURLs.paths.productsAPI
 
 const productsApi = baseApi.injectEndpoints({
 

@@ -1,8 +1,9 @@
 import { IAdminUser } from '../../types/objectTypes/TAdminUser';
 import { TDefaultResponse } from '../../types/responseTypes/TDefaultResponse';
+import { apiURLs } from '../../values/stringValues';
 import baseApi from '../baseApi';
 
-const fragmentBaseUrl = "/admin_service.php"
+const fragmentBaseUrl = apiURLs.paths.adminAPI
 
 const adminApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

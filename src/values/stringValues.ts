@@ -72,3 +72,12 @@ export const responseMessages = {
         succesLogin:"Login successful"
     }
 }
+
+export const apiURLs = {
+    baseURL: 'http://localhost/projects/housestuffbackend/servicies',
+    paths: {
+        adminAPI:  "/admin_service.php",
+        categoriesAPI:   "/categories_service.php",
+        productsAPI:  "/product_service.php",
+    }
+}

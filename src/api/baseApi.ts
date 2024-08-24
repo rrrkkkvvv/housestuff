@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { apiURLs } from '../values/stringValues';
 
 const baseApi = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost/projects/housestuffbackend/servicies' }),
+  baseQuery: fetchBaseQuery({ baseUrl: apiURLs.baseURL }),
   endpoints: () => ({}),
   tagTypes:["Products", "Categories"],
   refetchOnFocus: true,

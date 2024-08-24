@@ -3,8 +3,9 @@ import { ICategoriesResponse } from '../../types/responseTypes/TCategoriesServic
 import { TCategory } from '../../types/objectTypes/TCategory';
 import baseApi from '../baseApi';
 import { providesList } from '../../utils/providingTagsWIds';
+import { apiURLs } from '../../values/stringValues';
 
-const fragmentBaseUrl = "/categories_service.php"
+const fragmentBaseUrl = apiURLs.paths.categoriesAPI
 
 const categoriesApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -65,7 +66,7 @@ export const {
   usePostCategoryMutation,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
-  usePrefetch
+  usePrefetch,
 } = categoriesApi;
 
 export default categoriesApi;
