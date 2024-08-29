@@ -3,11 +3,11 @@ import { AiOutlineClose } from "react-icons/ai"
 import { TModalProps } from '../../types/compontentTypes/TModal';
 import './Modal.css';
 import { TCategory } from '../../types/objectTypes/TCategory';
-import { login } from '../../store/slices/login/loginSlice';
+import { login } from '../../store/slices/login/';
 import { useAppDispatch } from '../../store/store';
 import { useGetCategoriesQuery, useGetCategoryQuery } from '../../api/modules/categoriesApi';
 import { errorMessage, responseMessages } from '../../values/stringValues';
-import { addOrder } from '../../store/slices/orders/thunks/addOrderThunk';
+import { addOrder } from '../../store/slices/orders/';
 import { useGetProductQuery } from '../../api/modules/productsApi';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { TProduct } from '../../types/objectTypes/TProduct';

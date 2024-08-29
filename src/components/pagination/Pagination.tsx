@@ -1,7 +1,7 @@
 import { IPaginationProps } from '../../types/compontentTypes/TPagination';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import './Pagination.css'
-import { selectReversedCurrentTheme } from '../../store/slices/theme/themeSlice';
+import { selectReversedCurrentTheme } from '../../store/slices/theme/';
 import { useAppSelector } from '../../store/store';
 export default function Pagination({ itemsPerPage, totalItems, paginateFn, currentPage, prevPage, nextPage }: IPaginationProps) {
 

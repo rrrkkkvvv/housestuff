@@ -9,12 +9,12 @@ import { Link } from 'react-router-dom';
 import './Header.css'
 import { IHeaderProps } from '../../types/compontentTypes/THeader';
 import { TProduct } from '../../types/objectTypes/TProduct';
-import { selectCurrentTheme, toggleTheme } from '../../store/slices/theme/themeSlice';
-import { selectOrders } from '../../store/slices/orders/ordersSlice';
-import { selectIsLoggedIn } from '../../store/slices/login/loginSlice';
+import { selectCurrentTheme, toggleTheme } from '../../store/slices/theme/';
+import { selectOrders } from '../../store/slices/orders/';
+import { selectIsLoggedIn } from '../../store/slices/login/';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { popTexts } from '../../values/stringValues';
-import selectOrdersPriceSum from '../../store/slices/orders/selectors/selectOrdersPriceSum';
+import {selectOrdersPriceSum} from '../../store/slices/orders/';
 import { showPopUpCaller } from '../../store/slices/popUp/thunks/showPopUpThunk';
 
 

@@ -1,7 +1,7 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { TAdminProductProps } from '../../../../types/compontentTypes/TProducts';
-import { selectCurrentTheme } from '../../../../store/slices/theme/themeSlice';
+import { selectCurrentTheme } from '../../../../store/slices/theme/';
 import { useAppSelector } from '../../../../store/store';
 import { usePrefetch } from '../../../../api/modules/productsApi';
  

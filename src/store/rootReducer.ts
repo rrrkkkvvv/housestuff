@@ -1,8 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import ordersReducer from "./slices/orders/ordersSlice";
-import popUpReducer from "./slices/popUp/popUpSlice";
-import loginReducer from "./slices/login/loginSlice";
-import themeReducer from "./slices/theme/themeSlice";
+import ordersReducer from "./slices/orders/";
+import popUpReducer from "./slices/popUp/";
+import loginReducer from "./slices/login/";
+import themeReducer from "./slices/theme/";
 import baseApi from "../api/baseApi";
 
     

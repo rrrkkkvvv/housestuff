@@ -5,8 +5,8 @@ import Products from '../Products';
 import Modal from '../../components/Modal/Modal';
 import AdminCategories from '../AdminCategories';
 import './AdminPanel.css'
-import { selectPopUp } from '../../store/slices/popUp/popUpSlice';
-import { selectCurrentTheme } from '../../store/slices/theme/themeSlice';
+import { selectPopUp } from '../../store/slices/popUp/';
+import { selectCurrentTheme } from '../../store/slices/theme/';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { useDeleteProductMutation, useGetProductsQuery, usePostProductMutation, useUpdateProductMutation } from '../../api/modules/productsApi';
 import Pagination from '../../components/Pagination';

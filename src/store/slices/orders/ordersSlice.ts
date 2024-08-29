@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { TProduct } from '../../../types/objectTypes/TProduct';
-import { addOrder } from './thunks/addOrderThunk';
+import { addOrder } from './';
 import loadOrdersFromLS from '../../../utils/localStorage/loadOrdersFromLS';
  
 export interface OrdersState {
@@ -21,7 +21,7 @@ const ordersSlice = createSlice({
     initialState,
     reducers: {
 
-        decrement :(state, action: PayloadAction<number>)=>{
+        removeOrder :(state, action: PayloadAction<number>)=>{
             state.orders =  state.orders.filter(el => el.id !== action.payload);
             localStorage.setItem('orders', JSON.stringify(state.orders));
         }
@@ -34,13 +34,12 @@ const ordersSlice = createSlice({
     },
     selectors:{
      selectOrders: (state)=>state.orders,
-
     }
 
 });
 
 
-export const {decrement} = ordersSlice.actions;
+export const {removeOrder} = ordersSlice.actions;
 export const {selectOrders} = ordersSlice.selectors;
 
 const ordersReducer = ordersSlice.reducer

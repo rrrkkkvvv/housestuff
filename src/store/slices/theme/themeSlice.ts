@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {  TColorTheme, themes } from '../../../types/storeTypes/TThemesState';
+import { TColorTheme, themes } from '../../../types/storeTypes/TThemesState';
 import loadThemeFromLS from '../../../utils/localStorage/loadThemeFromLS';
 import deepEqual from '../../../utils/objectsDeepEqual';
 
@@ -19,12 +19,12 @@ const themeSlice = createSlice({
     name: 'themes',
     initialState,
     reducers: {
-        toggleTheme: (state: IThemeSliceProps) => {
+        toggleTheme: (state) => {
              
             if (deepEqual(JSON.parse(JSON.stringify(state)).currentTheme, themes.light)) {
                 state.currentTheme = themes.dark;
                 state.reversedCurrentTheme = themes.light;
-             } else if (deepEqual(JSON.parse(JSON.stringify(state)).currentTheme, themes.dark)) {
+            } else if (deepEqual(JSON.parse(JSON.stringify(state)).currentTheme, themes.dark)) {
                 state.currentTheme = themes.light;
                 state.reversedCurrentTheme = themes.dark;
             } 

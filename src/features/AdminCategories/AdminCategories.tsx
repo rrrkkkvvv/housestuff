@@ -2,7 +2,7 @@ import {  useEffect, useState } from 'react'
 
 import './AdminCategories.css'
 import { TCategory } from '../../types/objectTypes/TCategory';
-import { selectReversedCurrentTheme } from '../../store/slices/theme/themeSlice';
+import { selectReversedCurrentTheme } from '../../store/slices/theme/';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { useDeleteCategoryMutation, 
     useGetCategoriesQuery, 

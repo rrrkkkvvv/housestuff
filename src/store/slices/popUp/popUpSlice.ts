@@ -1,4 +1,4 @@
-import { createSlice,  } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { IShowPopUpProps } from '../../../types/storeTypes/TPopUpStore';
 
@@ -31,7 +31,7 @@ const popUpSlice = createSlice({
     },
 
     selectors:{
-        selectPopUp:(state)=> state
+        selectPopUp:(state)=> state,
     }
 });
 

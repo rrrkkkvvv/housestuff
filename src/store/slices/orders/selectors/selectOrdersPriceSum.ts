@@ -1,11 +1,11 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { selectOrders } from "../ordersSlice";
+import { selectOrders } from "../";
 
-const selectOrdersPriceSum = createSelector(
+export const selectOrdersPriceSum = createSelector(
     [selectOrders],
     (orders)=> 
         orders.reduce((acc, product)=>{
             return acc + product.price;
         }, 0)
 );
-export default selectOrdersPriceSum
+  

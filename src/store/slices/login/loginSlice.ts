@@ -10,13 +10,11 @@ const initialState: ILoginSliceProps = {
     isLoggedIn: true,
 }
  
- 
 
 const loginSlice = createSlice({
     name: 'login',
     initialState,
     reducers: {
-
         login :(state)=>{
             state.isLoggedIn = true;
         }
