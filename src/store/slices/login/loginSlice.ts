@@ -7,7 +7,7 @@ interface ILoginSliceProps {
 }
 
 const initialState: ILoginSliceProps = {
-    isLoggedIn: true,
+    isLoggedIn: false,
 }
  
 

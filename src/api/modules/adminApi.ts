@@ -11,10 +11,10 @@ const adminApi = baseApi.injectEndpoints({
         query: (userData: IAdminUser) => ({
             url: fragmentBaseUrl,
             method: 'POST',
-            body: {
+            body:JSON.stringify({
                 method: "login",
-                params:userData
-            },
+                params: userData
+            }),
           }),
     
     }),
