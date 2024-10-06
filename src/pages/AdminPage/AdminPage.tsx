@@ -1,12 +1,12 @@
 import {  useEffect, useMemo, useState } from 'react';
 import { TProduct } from '../../types/objectTypes/TProduct';
 import CreateProductForm from '../../components/CreateProductForm';
-import Products from '../Products';
+import Products from '../../features/Products';
 import Modal from '../../components/Modal/Modal';
-import AdminCategories from '../AdminCategories';
-import './AdminPanel.css'
-import { selectPopUp } from '../../store/slices/popUp/';
-import { selectCurrentTheme } from '../../store/slices/theme/';
+import AdminCategories from '../../features/AdminCategories';
+import './AdminPage.css'
+import { selectPopUp } from '../../store/slices/popUp';
+import { selectCurrentTheme } from '../../store/slices/theme';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { useDeleteProductMutation, useGetProductsQuery, usePostProductMutation, useUpdateProductMutation } from '../../api/modules/productsApi';
 import Pagination from '../../components/Pagination';
@@ -17,7 +17,7 @@ import { showPopUpCaller } from '../../store/slices/popUp/thunks/showPopUpThunk'
 
 const category = "all";
 
-const AdminPanel = () => {
+const AdminPage = () => {
 
   const  isLoggedIn = useAppSelector((state)=> state.login.isLoggedIn);
 
@@ -193,4 +193,4 @@ const AdminPanel = () => {
   }
 };
 
-export default AdminPanel;
+export default AdminPage;

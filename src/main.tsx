@@ -6,9 +6,9 @@ import {
   createBrowserRouter,
   RouterProvider
 } from 'react-router-dom';
-import ErrorPage from './features/ErrorPage';
+import ErrorPage from './pages/ErrorPage/index.ts';
 import App from './App.tsx';
-import AdminPanel from './features/AdminPanel';
+import AdminPanel from './pages/AdminPage/index.ts';
 
 import { Provider } from 'react-redux'; 
 import { store } from './store/store.ts';
